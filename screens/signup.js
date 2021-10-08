@@ -41,7 +41,7 @@ const login =({navigation}) => {
      <View style={styles.LoginView}>
      <CardView
         style={styles.loginStyle}
-          cardElevation={5}
+          cardElevation={10}
           cardMaxElevation={10}
           cornerRadius={20}>
           <Text style={styles.heading}>
@@ -87,7 +87,7 @@ const login =({navigation}) => {
               </View>
           </View>
        
-          <TouchableOpacity style={styles.btnLogin}>
+          <TouchableOpacity style={styles.btnLogin} onPress={()=>navigation.navigate('MainTab')}>
           <Text style={styles.txtLogin}>
               Register
           </Text>
@@ -109,14 +109,15 @@ const styles = StyleSheet.create({
       flex:3,
       justifyContent:'center',
       alignItems:'center',
-      backgroundColor:'white'
+      backgroundColor:'#F5CE9A'
   },
   imagstyle:{
-    width: '50%', height: '90%',borderRadius:1000
+    width: '40%', height: '75%',borderRadius:1000
   }
   ,
   LoginView:{
-      flex:7
+      flex:7,
+      backgroundColor:'#F5CE9A'
   },heading:{
     color:'black',
     fontSize:20,

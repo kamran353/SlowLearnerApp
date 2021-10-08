@@ -17,15 +17,15 @@ const login = ({navigation}) => {
      <View style={styles.LoginView}>
      <CardView
         style={styles.loginStyle}
-          cardElevation={5}
+          cardElevation={10}
           cardMaxElevation={10}
-          cornerRadius={8}>
+          cornerRadius={20}>
           <Text style={styles.heading}>
               Login Into Account
           </Text>
           <TextInput placeholder='Username' style={styles.txtInput}/>
           <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true}/>
-          <TouchableOpacity style={styles.btnLogin}>
+          <TouchableOpacity style={styles.btnLogin} onPress={()=>navigation.navigate('MainTab')}>
           <Text style={styles.txtLogin}>
               Login
           </Text>
@@ -50,14 +50,21 @@ const styles = StyleSheet.create({
     flex: 1
   },
   ImageView:{
-      flex:4
+      flex:4,
+      backgroundColor:'#F5CE9A',
+      justifyContent:'center',
+      alignItems:'center'
   },
   imagstyle:{
-    width: '100%', height: '100%'
+    width: '40%', 
+    height: '55%',
+    borderRadius:1000
+     
   }
   ,
   LoginView:{
-      flex:6
+      flex:6,
+      backgroundColor:'#F5CE9A'
   },heading:{
     color:'black',
     fontSize:20,
