@@ -3,8 +3,15 @@ import { View, Text, Image, StyleSheet ,TextInput} from 'react-native';
 import CardView from 'react-native-cardview'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 const login = ({navigation}) => {
- 
-
+ const [username,setUsername]=useState('');
+ const [password,setPassword]=useState('');
+  function LoginAccount(){
+    if(username=='Admin' && password=='1234'){
+      navigation.navigate('Admin');
+    }else{
+      navigation.navigate('MainTab')
+    }
+  }
   return (
     <View style={styles.container}>
      
@@ -23,9 +30,9 @@ const login = ({navigation}) => {
           <Text style={styles.heading}>
               Login Into Account
           </Text>
-          <TextInput placeholder='Username' style={styles.txtInput}/>
-          <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true}/>
-          <TouchableOpacity style={styles.btnLogin} onPress={()=>navigation.navigate('MainTab')}>
+          <TextInput placeholder='Username' style={styles.txtInput} onChangeText={(val)=>setUsername(val)}/>
+          <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true} onChangeText={(val)=>setPassword(val)}/>
+          <TouchableOpacity style={styles.btnLogin} onPress={()=>LoginAccount()}>
           <Text style={styles.txtLogin}>
               Login
           </Text>
