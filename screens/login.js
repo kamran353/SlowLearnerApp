@@ -2,21 +2,45 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet ,TextInput} from 'react-native';
 import CardView from 'react-native-cardview'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Tts from 'react-native-tts';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const login = ({navigation}) => {
  const [username,setUsername]=useState('');
  const [password,setPassword]=useState('');
-  function LoginAccount(){
+ const [user,setUser]=useState(null);
+ function LoginAccount(){
+   //Tts.speak('Hello, world!');
     if(username=='Admin' && password=='1234'){
-      navigation.navigate('Admin');
+       navigation.navigate('Admin');
     }else{
-      navigation.navigate('MainTab')
+      axios.get(`${global.BaseUrl}LoginUser?Username=${username}&Userpassword=${password}`).then((response) => {
+     //  console.log(response.data.length)
+      if(response.data.length>0)
+        {
+          if(response.data[0].IsApproved==false){
+            setUser(response.data) 
+            AsyncStorage.setItem("User",user);
+           
+            navigation.navigate('MainTab')
+          }else{
+            alert("Your Account is Not Approved yet")
+          }
+          
+        }
+        else
+        {
+          alert("Account Not Exist")
+        }
+      });
+     
     }
   }
   return (
     <View style={styles.container}>
      
      <View style={styles.ImageView}>
-     <Image  source={require('../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='stretch'/>
+     <Image  source={require('../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain'/>
      </View>
 
 
@@ -63,9 +87,9 @@ const styles = StyleSheet.create({
       alignItems:'center'
   },
   imagstyle:{
-    width: '40%', 
+    width: '50%', 
     height: '55%',
-    borderRadius:1000
+    borderRadius:100
      
   }
   ,

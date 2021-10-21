@@ -31,7 +31,7 @@ const myPa = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={8}>
             <View style={styles.imageView}>
-            <Image  source={require('../images/signupimage.png')} style={styles.imagstyle} resizeMode='stretch'/>
+            <Image  source={require('../images/pa.png')} style={styles.imagstyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>

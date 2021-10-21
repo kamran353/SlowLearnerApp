@@ -4,6 +4,8 @@ import CardView from 'react-native-cardview'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import RadioGroup from 'react-native-radio-buttons-group';
 import DatePicker from 'react-native-datepicker';
+import axios from 'axios';
+
 const radioButtonsData = [
     {
       id: '1',
@@ -24,7 +26,18 @@ const radioButtonsData = [
 const login =({navigation}) => {
     const [date, setDate] = useState('09-10-2020');
     const [radioButtons, setRadioButtons] = useState(radioButtonsData);
-
+    const [UserName,SetUsername]=useState('');
+    const [UserPhone,SetUserphone]=useState('');
+    const [UserPassword,SetUserpassword]=useState('');
+    const [UserGender,SetUsergender]=useState('Male');
+    function RegisterDoctor(){
+      if(radioButtons[0].selected==false){
+          SetUsergender('Female');
+      }
+      const user = { UserName: UserName,UserPhone:UserPhone,UserGender:UserGender,UserPassword:UserPassword,UserDOB:date,UserRole:'Doctor',IsApproved:false,ReferenceUserId:0 };
+      axios.post(`${global.BaseUrl}RegisterUser`, user)
+          .then(response => console.log(response.data.UserId));
+    }
     const onPressRadioButton = radioButtonsArray => {
       console.log(radioButtonsArray);
       setRadioButtons(radioButtonsArray);
@@ -33,7 +46,7 @@ const login =({navigation}) => {
     <View style={styles.container}>
      
      <View style={styles.ImageView}>
-     <Image  source={require('../images/signupimage.png')} style={styles.imagstyle} resizeMode='stretch'/>
+     <Image  source={require('../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain'/>
      </View>
 
 
@@ -47,10 +60,10 @@ const login =({navigation}) => {
           <Text style={styles.heading}>
               Register Account
           </Text>
-          <TextInput placeholder='Username' style={styles.txtInput}/>
-          <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true}/>
+          <TextInput placeholder='Username' style={styles.txtInput} onChangeText={(val)=>SetUsername(val)}/>
+          <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true} onChangeText={(val)=>SetUserpassword(val)}/>
           
-          <TextInput placeholder='Mobile' style={styles.txtInput} keyboardType='phone-pad'/>
+          <TextInput placeholder='Mobile' style={styles.txtInput} keyboardType='phone-pad' onChangeText={(val)=>SetUserphone(val)}/>
           <View style={styles.txtInput}>
           <RadioGroup
             radioButtons={radioButtons}
@@ -59,10 +72,10 @@ const login =({navigation}) => {
           />
           </View>
           <View style={styles.txtDatePicker}>
-              <View style={{flex:1,justifyContent:'center',paddingLeft:5}}>
+              <View style={{flex:2,justifyContent:'center',paddingLeft:5}}>
                <Text>DOB</Text>
               </View>
-              <View style={{flex:9}}>
+              <View style={{flex:8}}>
               <DatePicker
           style={styles.datePickerStyle}
           date={date} // Initial date from state
@@ -87,7 +100,7 @@ const login =({navigation}) => {
               </View>
           </View>
        
-          <TouchableOpacity style={styles.btnLogin} onPress={()=>navigation.navigate('MainTab')}>
+          <TouchableOpacity style={styles.btnLogin} onPress={()=>RegisterDoctor()}>
           <Text style={styles.txtLogin}>
               Register
           </Text>
@@ -112,7 +125,7 @@ const styles = StyleSheet.create({
       backgroundColor:'#F5CE9A'
   },
   imagstyle:{
-    width: '40%', height: '75%',borderRadius:1000
+    width: '50%', height: '75%',borderRadius:100
   }
   ,
   LoginView:{
@@ -169,7 +182,7 @@ const styles = StyleSheet.create({
     fontWeight:"bold"
    
   }, datePickerStyle: {
-    width: 250,
+    width: '100%',
     height:20
   }
 });

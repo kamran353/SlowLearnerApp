@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet ,Text} from 'react-native';
 import CardView from 'react-native-cardview'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const profile = ({navigation}) => {
  
 
   return (
     <View style={styles.container}>
      <View style={styles.topView}>
-       <Image  source={require('../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='stretch'/>
+       <Image  source={require('../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain'/>
        <Text style={styles.nameTxt}>Ahmed Khan</Text>
        <Text style={styles.otherTxt}>03453438888</Text>
        <Text style={styles.otherTxt}>Male</Text>
@@ -26,11 +27,15 @@ const profile = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
             <View style={styles.imageView}>
-            <Image  source={require('../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='stretch'/>
+            <Image  source={require('../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
-                 <Text style={styles.actoinTxt}>Add New Patient </Text>
+            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPatient')}>
+               <Text style={styles.actoinTxt}>Add New Patient </Text>
+              </TouchableOpacity>
+                 
+               
 
             </View>
            
@@ -46,11 +51,14 @@ const profile = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
             <View style={styles.imageView}>
-            <Image  source={require('../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='stretch'/>
+            <Image  source={require('../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
-                 <Text style={styles.actoinTxt}>Add New PA </Text>
+            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPatient')}>
+              <Text style={styles.actoinTxt}>Add New PA</Text>
+              </TouchableOpacity>
+                 
 
             </View>
            
@@ -66,11 +74,14 @@ const profile = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
             <View style={styles.imageView}>
-            <Image  source={require('../images/edit-icon.png')} style={styles.actonImagStyle} resizeMode='center'/>
+            <Image  source={require('../images/edit-icon.png')} style={styles.actonImagStyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
-                 <Text style={styles.actoinTxt}>Update Profile </Text>
+              <TouchableOpacity>
+              <Text style={styles.actoinTxt}>Update Profile </Text>
+              </TouchableOpacity>
+                
 
             </View>
            

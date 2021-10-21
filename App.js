@@ -6,7 +6,7 @@ import mainTab from './tabNavigation/mainTab';
 import admin from './screens/admin';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+global.BaseUrl='http://192.168.2.174/SlowLearnerApi/api/SlowLearner/'
 const Stack = createStackNavigator();
 const App = () => {
   return (

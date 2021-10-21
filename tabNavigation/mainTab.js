@@ -21,8 +21,8 @@ const mainTab = () => {
           tabBarLabel: 'Patients',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
-              name="home"
-              color={'red'}
+              name="face"
+              color={'#FFB133'}
               size={size}
             />
           ),
@@ -35,8 +35,8 @@ const mainTab = () => {
           tabBarLabel: 'All PA',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
-              name="home"
-              color={'red'}
+              name="face-agent"
+              color={'#FFB133'}
               size={size}
             />
           ),
@@ -49,8 +49,8 @@ const mainTab = () => {
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
-              name="home"
-              color={color}
+              name="account-settings"
+              color={"#FFB133"}
               size={size}
             />
           ),

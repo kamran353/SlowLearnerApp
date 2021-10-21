@@ -33,7 +33,7 @@ const login =({navigation}) => {
     <View style={styles.container}>
      
      <View style={styles.ImageView}>
-     <Image  source={require('../images/signupimage.png')} style={styles.imagstyle} resizeMode='stretch'/>
+     <Image  source={require('../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='stretch'/>
      </View>
 
 
@@ -59,10 +59,10 @@ const login =({navigation}) => {
           />
           </View>
           <View style={styles.txtDatePicker}>
-              <View style={{flex:1,justifyContent:'center',paddingLeft:5}}>
+              <View style={{flex:2,justifyContent:'center',paddingLeft:5}}>
                <Text>DOB</Text>
               </View>
-              <View style={{flex:9}}>
+              <View style={{flex:8}}>
               <DatePicker
           style={styles.datePickerStyle}
           date={date} // Initial date from state
@@ -112,7 +112,9 @@ const styles = StyleSheet.create({
       backgroundColor:'#F5CE9A'
   },
   imagstyle:{
-    width: '40%', height: '75%',borderRadius:1000
+    width: '50%', 
+    height: '75%',
+    borderRadius:100
   }
   ,
   LoginView:{
@@ -171,6 +173,7 @@ const styles = StyleSheet.create({
    
   }, datePickerStyle: {
     width: 250,
+    width: '100%',
     height:20
   }
 });

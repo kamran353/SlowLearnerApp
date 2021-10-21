@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-native';
 import CardView from 'react-native-cardview'
-import { FloatingAction } from 'react-native-floating-action';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const home = ({navigation}) => {
    const [allpatients,setAllpatients]=useState([
      {id:1,name:'ikram',gender:'male',Phone:'03439309357'},
@@ -17,6 +16,12 @@ const home = ({navigation}) => {
      {id:10,name:'ahmed',gender:'male',Phone:'03439309357'}
 
    ]);
+   useEffect(async() => {
+   await AsyncStorage.getItem('User', (err, result) => {
+      console.log(result);
+    });
+  
+  },[]);
   return (
     <View style={styles.container}>
      
@@ -31,7 +36,7 @@ const home = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={8}>
             <View style={styles.imageView}>
-            <Image  source={require('../images/signupimage.png')} style={styles.imagstyle} resizeMode='stretch'/>
+            <Image  source={require('../images/patient.png')} style={styles.imagstyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
@@ -80,7 +85,8 @@ const styles = StyleSheet.create({
     width: '75%', 
     height: '90%',
     borderRadius:1000,
-    marginLeft:'10%'
+    marginLeft:'10%',
+   
   }
   ,
   listItem:{
