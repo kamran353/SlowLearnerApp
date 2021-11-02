@@ -5,16 +5,15 @@ import { FloatingAction } from 'react-native-floating-action';
 
 const myPa = ({navigation}) => {
    const [allpatients,setAllpatients]=useState([
-     {id:1,name:'ikram',gender:'male',Phone:'03439309357'},
-     {id:2,name:'irfan',gender:'male',Phone:'03439309357'},
-     {id:3,name:'jibran',gender:'male',Phone:'03439309357'},
-     {id:4,name:'ali',gender:'male',Phone:'03439309357'},
+    {id:1,name:'Iqra',gender:'Female',Phone:'03439309357'},
+     {id:2,name:'Alisha',gender:'Female',Phone:'03439309357'},
+     {id:3,name:'Kinza',gender:'Female',Phone:'03439309357'},
+     {id:4,name:'Sara',gender:'Female',Phone:'03439309357'},
      {id:5,name:'ahmed',gender:'male',Phone:'03439309357'},
      {id:6,name:'ikram',gender:'male',Phone:'03439309357'},
      {id:7,name:'irfan',gender:'male',Phone:'03439309357'},
-     {id:8,name:'jibran',gender:'male',Phone:'03439309357'},
+     {id:8,name:'Saira',gender:'Female',Phone:'03439309357'},
      {id:9,name:'ali',gender:'male',Phone:'03439309357'},
-     {id:10,name:'ahmed',gender:'male',Phone:'03439309357'}
 
    ]);
   return (
@@ -45,7 +44,7 @@ const myPa = ({navigation}) => {
       )}
      />
   <TouchableOpacity
-        onPress={()=>navigation.navigate('RegisterPatient')}
+        onPress={()=>navigation.navigate('RegisterPatient',{Type:'PA'})}
           activeOpacity={1}
           style={styles.touchableOpacityStyle}>
           <Image

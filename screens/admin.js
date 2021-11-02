@@ -12,6 +12,16 @@ const admin = ({navigation}) => {
         setAllpatients(response.data)
       });
     },[]);
+    function ApproveUnApproveDoctor(UserId,b){
+      axios.get(`${global.BaseUrl}ApproveUnApproveUser?UserId=${UserId}&&b=${b}`).then((response) => {
+         console.log(response.data);
+       if(b){
+         alert("Approved Successfully")
+       }else{
+         alert("Rejected Successfully")
+       }
+      });
+    }
   return (
     <View style={styles.container}>
      
@@ -35,10 +45,10 @@ const admin = ({navigation}) => {
                  <Text style={styles.otherTxt}>{item.UserGender}</Text>
             </View>
             <View style={styles.buttonView}>
-                <TouchableOpacity> 
+                <TouchableOpacity onPress={()=>ApproveUnApproveDoctor(item.UserId,true)}> 
                     <Text style={styles.acceptTxt}>Accept</Text>
                 </TouchableOpacity>
-                <TouchableOpacity> 
+                <TouchableOpacity onPress={()=>ApproveUnApproveDoctor(item.UserId,false)}> 
                     <Text style={styles.rejectTxt}>Reject</Text>
                 </TouchableOpacity>
        

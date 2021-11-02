@@ -4,24 +4,32 @@ import CardView from 'react-native-cardview'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const home = ({navigation}) => {
    const [allpatients,setAllpatients]=useState([
-     {id:1,name:'ikram',gender:'male',Phone:'03439309357'},
-     {id:2,name:'irfan',gender:'male',Phone:'03439309357'},
-     {id:3,name:'jibran',gender:'male',Phone:'03439309357'},
-     {id:4,name:'ali',gender:'male',Phone:'03439309357'},
+     {id:1,name:'Iqra',gender:'Female',Phone:'03439309357'},
+     {id:2,name:'Alisha',gender:'Female',Phone:'03439309357'},
+     {id:3,name:'Kinza',gender:'Female',Phone:'03439309357'},
+     {id:4,name:'Sara',gender:'Female',Phone:'03439309357'},
      {id:5,name:'ahmed',gender:'male',Phone:'03439309357'},
      {id:6,name:'ikram',gender:'male',Phone:'03439309357'},
      {id:7,name:'irfan',gender:'male',Phone:'03439309357'},
-     {id:8,name:'jibran',gender:'male',Phone:'03439309357'},
+     {id:8,name:'Saira',gender:'Female',Phone:'03439309357'},
      {id:9,name:'ali',gender:'male',Phone:'03439309357'},
-     {id:10,name:'ahmed',gender:'male',Phone:'03439309357'}
-
+     
    ]);
-   useEffect(async() => {
-   await AsyncStorage.getItem('User', (err, result) => {
-      console.log(result);
-    });
+   useEffect(() => {
   
+    AsyncStorage.getItem('User')
+    .then((value) => {
+      const user = JSON.parse(value);
+      console.log(user.user[0].UserId)
+      getMyPatients(user.user[0].UserId)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   },[]);
+  function getMyPatients(doctorId){
+
+  }
   return (
     <View style={styles.container}>
      
@@ -50,7 +58,7 @@ const home = ({navigation}) => {
       )}
      />
   <TouchableOpacity
-         onPress={()=>navigation.navigate('RegisterPatient')}
+         onPress={()=>navigation.navigate('RegisterPatient',{Type:'Patient'})}
           activeOpacity={1}
           style={styles.touchableOpacityStyle}>
           <Image

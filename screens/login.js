@@ -18,9 +18,9 @@ const login = ({navigation}) => {
      //  console.log(response.data.length)
       if(response.data.length>0)
         {
-          if(response.data[0].IsApproved==false){
+          if(response.data[0].IsApproved==true){
             setUser(response.data) 
-            AsyncStorage.setItem("User",user);
+            AsyncStorage.setItem("User",JSON.stringify({user}));
            
             navigation.navigate('MainTab')
           }else{
@@ -30,7 +30,8 @@ const login = ({navigation}) => {
         }
         else
         {
-          alert("Account Not Exist")
+          navigation.navigate('MainTab')
+          //alert("Account Not Exist")
         }
       });
      

@@ -21,10 +21,26 @@ const radioButtonsData = [
     },
   ];
   
-const login =({navigation}) => {
+const login =({navigation,route}) => {
     const [date, setDate] = useState('09-10-2020');
     const [radioButtons, setRadioButtons] = useState(radioButtonsData);
-
+    const [UserName,SetUsername]=useState('');
+    const [UserPhone,SetUserphone]=useState('');
+    const [UserPassword,SetUserpassword]=useState('');
+    const [UserGender,SetUsergender]=useState('Male');
+    function RegisterAccount(){
+      if(radioButtons[0].selected==false){
+          SetUsergender('Female');
+      }
+      const user = { 
+        UserName: UserName,
+        UserPhone:UserPhone,
+        UserGender:UserGender,
+        UserPassword:UserPassword,
+        UserDOB:date,UserRole:route.params.Type,IsApproved:true,ReferenceUserId:0 };
+      axios.post(`${global.BaseUrl}RegisterUser`, user)
+          .then(response => console.log(response.data.UserId));
+    }
     const onPressRadioButton = radioButtonsArray => {
       console.log(radioButtonsArray);
       setRadioButtons(radioButtonsArray);
@@ -45,12 +61,12 @@ const login =({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
           <Text style={styles.heading}>
-              Register Account
+              Register Account For {route.params.Type}
           </Text>
-          <TextInput placeholder='Username' style={styles.txtInput}/>
-          <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true}/>
+          <TextInput placeholder='Username' style={styles.txtInput} onChangeText={(val)=>SetUsername(val)}/>
+          <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true} onChangeText={(val)=>SetUserpassword(val)}/>
           
-          <TextInput placeholder='Mobile' style={styles.txtInput} keyboardType='phone-pad'/>
+          <TextInput placeholder='Mobile' style={styles.txtInput} keyboardType='phone-pad' onChangeText={(val)=>SetUserphone(val)}/>
           <View style={styles.txtInput}>
           <RadioGroup
             radioButtons={radioButtons}
@@ -87,7 +103,7 @@ const login =({navigation}) => {
               </View>
           </View>
        
-          <TouchableOpacity style={styles.btnLogin} onPress={()=>navigation.navigate('MainTab')}>
+          <TouchableOpacity style={styles.btnLogin} onPress={()=>RegisterAccount()}>
           <Text style={styles.txtLogin}>
               Register
           </Text>
