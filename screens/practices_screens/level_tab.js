@@ -1,64 +1,66 @@
 import React from 'react';
-import home from '../screens/home';
-import profile from '../screens/profile'
-import myPa from '../screens/myPa';
+import levelone from './level_one';
+import leveltwo from './level_two';
+import levelthree from './level_three';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
-const mainTab = () => {
+const LevelTab = () => {
   return (
   
     <Tab.Navigator
       initialRouteName="Home"
      >
       <Tab.Screen
-        name="Home"
-        component={home}
+        name="Lone"
+        component={levelone}
         options={{
             headerShown:false,
-          tabBarLabel: 'Patients',
-          tabBarIcon: ({ color, size ,focused}) => (
+          tabBarLabel: 'Level 1',
+          tabBarIcon: ({ color, size,focused }) => (
             <MaterialCommunityIcons
-              name="face"
+              name="file-word"
               color={focused?'blue':'#FFB133'}
               size={size}
             />
           ),
         }}  />
          <Tab.Screen
-        name="PA"
-        component={myPa}
+        name="Ltwo"
+        component={leveltwo}
         options={{
             headerShown:false,
-          tabBarLabel: 'All PA',
+          tabBarLabel: 'Level 2',
           tabBarIcon: ({ color, size,focused }) => (
             <MaterialCommunityIcons
-              name="face-agent"
+              name="file-word"
               color={focused?'blue':'#FFB133'}
               size={size}
             />
           ),
         }}  />
-      <Tab.Screen
-        name="Profile"
-        component={profile}
+
+     <Tab.Screen
+        name="Lthree"
+        component={levelthree}
         options={{
             headerShown:false,
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Level 3',
           tabBarIcon: ({ color, size,focused }) => (
             <MaterialCommunityIcons
-              name="account-settings"
+              name="file-word"
               color={focused?'blue':'#FFB133'}
               size={size}
             />
           ),
-        }} />
+        }}  />
+    
     </Tab.Navigator>
  
   );
 };
 
 
-export default mainTab;
+export default LevelTab;

@@ -5,15 +5,15 @@ import { FloatingAction } from 'react-native-floating-action';
 
 const myPa = ({navigation}) => {
    const [allpatients,setAllpatients]=useState([
-    {id:1,name:'Iqra',gender:'Female',Phone:'03439309357'},
-     {id:2,name:'Alisha',gender:'Female',Phone:'03439309357'},
-     {id:3,name:'Kinza',gender:'Female',Phone:'03439309357'},
-     {id:4,name:'Sara',gender:'Female',Phone:'03439309357'},
-     {id:5,name:'ahmed',gender:'male',Phone:'03439309357'},
-     {id:6,name:'ikram',gender:'male',Phone:'03439309357'},
-     {id:7,name:'irfan',gender:'male',Phone:'03439309357'},
-     {id:8,name:'Saira',gender:'Female',Phone:'03439309357'},
-     {id:9,name:'ali',gender:'male',Phone:'03439309357'},
+    {id:1,name:'Hassan',gender:'Male',Phone:'03439899999'},
+    {id:2,name:'Asia',gender:'Female',Phone:'03439899999'},
+    {id:3,name:'Anaya',gender:'Female',Phone:'03439899999'},
+    {id:4,name:'Nadia',gender:'Female',Phone:'03439899999'},
+    {id:5,name:'Shehzad',gender:'male',Phone:'03439899999'},
+    {id:6,name:'Junaid',gender:'male',Phone:'03439899999'},
+    {id:7,name:'Haseeb',gender:'male',Phone:'03439899999'},
+    {id:8,name:'Zainab',gender:'Female',Phone:'03439899999'},
+    {id:9,name:'Khuram',gender:'male',Phone:'03439899999'},
 
    ]);
   return (

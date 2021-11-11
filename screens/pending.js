@@ -3,24 +3,24 @@ import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-na
 import CardView from 'react-native-cardview'
 import axios from 'axios';
 
-const admin = ({navigation}) => {
+const Pending = ({navigation}) => {
    const [allpatients,setAllpatients]=useState([]);
 
      useEffect(() => {
-      GetApprovedDoctors()
+     GetAllRequests()
     },[]);
-    function GetApprovedDoctors(){
-      axios.get(`${global.BaseUrl}GetApprovedDoctors`).then((response) => {
-          console.log(response.data);
-          setAllpatients(response.data)
-        });
-    }
+    function GetAllRequests(){
+        axios.get(`${global.BaseUrl}GetUnApprovedDoctors`).then((response) => {
+            console.log(response.data);
+            setAllpatients(response.data)
+          });
+      }
     function ApproveUnApproveDoctor(UserId,b){
       axios.get(`${global.BaseUrl}ApproveUnApproveUser?UserId=${UserId}&&b=${b}`).then((response) => {
          console.log(response.data);
-       if(b==false){
-         alert("Rejected Successfully")
-         GetApprovedDoctors()
+       if(b){
+         alert("Approved Successfully")
+         GetAllRequests();
        }
       });
     }
@@ -47,10 +47,10 @@ const admin = ({navigation}) => {
                  <Text style={styles.otherTxt}>{item.UserGender}</Text>
             </View>
             <View style={styles.buttonView}>
-             
-                <TouchableOpacity onPress={()=>ApproveUnApproveDoctor(item.UserId,false)}> 
-                    <Text style={styles.rejectTxt}>Reject</Text>
+                <TouchableOpacity onPress={()=>ApproveUnApproveDoctor(item.UserId,true)}> 
+                    <Text style={styles.acceptTxt}>Accept</Text>
                 </TouchableOpacity>
+               
        
             </View>
            
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
  
 });
 
-export default admin;
+export default Pending;

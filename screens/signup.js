@@ -34,7 +34,12 @@ const login =({navigation}) => {
       if(radioButtons[0].selected==false){
           SetUsergender('Female');
       }
-      const user = { UserName: UserName,UserPhone:UserPhone,UserGender:UserGender,UserPassword:UserPassword,UserDOB:date,UserRole:'Doctor',IsApproved:false,ReferenceUserId:0 };
+      const user = { 
+        UserName: UserName,
+        UserPhone:UserPhone,
+        UserGender:UserGender,
+        UserPassword:UserPassword,
+        UserDOB:date,UserRole:'Doctor',IsApproved:false,ReferenceUserId:0 };
       axios.post(`${global.BaseUrl}RegisterUser`, user)
           .then(response => console.log(response.data.UserId));
     }

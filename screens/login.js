@@ -15,15 +15,19 @@ const login = ({navigation}) => {
        navigation.navigate('Admin');
     }else{
       axios.get(`${global.BaseUrl}LoginUser?Username=${username}&Userpassword=${password}`).then((response) => {
-     //  console.log(response.data.length)
-      if(response.data.length>0)
+      console.log(response.data)
+      if(response.data!=null)
         {
-          if(response.data[0].IsApproved==true){
+          if(response.data.IsApproved==true){
             setUser(response.data) 
             AsyncStorage.setItem("User",JSON.stringify({user}));
-           
+          if(response.data.UserRole=='Doctor'){
             navigation.navigate('MainTab')
-          }else{
+            }
+            else{
+              navigation.navigate('PatientWords')
+            }
+          }else {
             alert("Your Account is Not Approved yet")
           }
           

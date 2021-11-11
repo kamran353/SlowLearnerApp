@@ -1,64 +1,50 @@
 import React from 'react';
-import home from '../screens/home';
-import profile from '../screens/profile'
-import myPa from '../screens/myPa';
+import approved from '../screens/admin';
+import pending from '../screens/pending'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
-const mainTab = () => {
+const adminTab = () => {
   return (
   
     <Tab.Navigator
       initialRouteName="Home"
      >
       <Tab.Screen
-        name="Home"
-        component={home}
+        name="Approved"
+        component={approved}
         options={{
             headerShown:false,
-          tabBarLabel: 'Patients',
-          tabBarIcon: ({ color, size ,focused}) => (
+          tabBarLabel: 'Approved',
+          tabBarIcon: ({ color, size,focused }) => (
             <MaterialCommunityIcons
-              name="face"
+              name="face-profile"
               color={focused?'blue':'#FFB133'}
               size={size}
             />
           ),
         }}  />
          <Tab.Screen
-        name="PA"
-        component={myPa}
+        name="Requested"
+        component={pending}
         options={{
             headerShown:false,
-          tabBarLabel: 'All PA',
+          tabBarLabel: 'Pending',
           tabBarIcon: ({ color, size,focused }) => (
             <MaterialCommunityIcons
-              name="face-agent"
+              name="lan-pending"
               color={focused?'blue':'#FFB133'}
               size={size}
             />
           ),
         }}  />
-      <Tab.Screen
-        name="Profile"
-        component={profile}
-        options={{
-            headerShown:false,
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({ color, size,focused }) => (
-            <MaterialCommunityIcons
-              name="account-settings"
-              color={focused?'blue':'#FFB133'}
-              size={size}
-            />
-          ),
-        }} />
+    
     </Tab.Navigator>
  
   );
 };
 
 
-export default mainTab;
+export default adminTab;

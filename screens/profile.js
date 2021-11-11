@@ -31,7 +31,7 @@ const profile = ({navigation}) => {
     
             </View>
             <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPatient')}>
+            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPatient',{Type:'Patient'})}>
                <Text style={styles.actoinTxt}>Add New Patient </Text>
               </TouchableOpacity>
                  
@@ -55,7 +55,7 @@ const profile = ({navigation}) => {
     
             </View>
             <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPatient')}>
+            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPatient',{Type:'PA'})}>
               <Text style={styles.actoinTxt}>Add New PA</Text>
               </TouchableOpacity>
                  
@@ -65,7 +65,26 @@ const profile = ({navigation}) => {
         </CardView>
        
         </View>
-         
+        <View style={styles.actionStyle}>
+         <CardView
+          style={styles.listItem}
+          cardElevation={10}
+          cardMaxElevation={10}
+          cornerRadius={20}>
+            <View style={styles.imageView}>
+            <Image  source={require('../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
+    
+            </View>
+            <View style={styles.infoView}>
+            <TouchableOpacity  onPress={()=>navigation.navigate('Levels')}>
+              <Text style={styles.actoinTxt}>Practices</Text>
+              </TouchableOpacity>
+                 
+            </View>
+           
+        </CardView>
+       
+        </View>
 
         <View style={styles.actionStyle}>
          <CardView

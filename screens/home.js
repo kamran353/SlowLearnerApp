@@ -4,24 +4,24 @@ import CardView from 'react-native-cardview'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const home = ({navigation}) => {
    const [allpatients,setAllpatients]=useState([
-     {id:1,name:'Iqra',gender:'Female',Phone:'03439309357'},
-     {id:2,name:'Alisha',gender:'Female',Phone:'03439309357'},
-     {id:3,name:'Kinza',gender:'Female',Phone:'03439309357'},
-     {id:4,name:'Sara',gender:'Female',Phone:'03439309357'},
-     {id:5,name:'ahmed',gender:'male',Phone:'03439309357'},
-     {id:6,name:'ikram',gender:'male',Phone:'03439309357'},
-     {id:7,name:'irfan',gender:'male',Phone:'03439309357'},
-     {id:8,name:'Saira',gender:'Female',Phone:'03439309357'},
-     {id:9,name:'ali',gender:'male',Phone:'03439309357'},
+     {id:1,name:'Iqra',gender:'Female',Phone:'03439899999'},
+     {id:2,name:'Alisha',gender:'Female',Phone:'03439899999'},
+     {id:3,name:'Kinza',gender:'Female',Phone:'03439899999'},
+     {id:4,name:'Sara',gender:'Female',Phone:'03439899999'},
+     {id:5,name:'ahmed',gender:'male',Phone:'03439899999'},
+     {id:6,name:'ikram',gender:'male',Phone:'03439899999'},
+     {id:7,name:'irfan',gender:'male',Phone:'03439899999'},
+     {id:8,name:'Saira',gender:'Female',Phone:'03439899999'},
+     {id:9,name:'ali',gender:'male',Phone:'03439899999'},
      
    ]);
    useEffect(() => {
   
     AsyncStorage.getItem('User')
     .then((value) => {
-      const user = JSON.parse(value);
-      console.log(user.user[0].UserId)
-      getMyPatients(user.user[0].UserId)
+      const user = JSON.parse(value).user;
+      console.log(user)
+      getMyPatients(user.UserId)
     })
     .catch((error) => {
       console.log(error);
