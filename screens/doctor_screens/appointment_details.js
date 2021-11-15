@@ -71,8 +71,13 @@ const appointment_details = ({navigation}) => {
                   )}
                  />
                  <View
-                 style={{flex:1}}>
-                      <TextInput placeholder='Enter Remarks' style={styles.txtInput} />
+                 style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                      <TextInput placeholder='Enter Remarks' style={styles.txtInput}/>
+                      <TouchableOpacity style={styles.btnLogin}>
+                        <Text style={styles.txtLogin}>
+                            Save Changes
+                        </Text>
+                      </TouchableOpacity>
                  </View>
         </CardView>
        
@@ -150,13 +155,33 @@ const styles = StyleSheet.create({
    },
    txtInput:{
     paddingLeft:8,
-    height:70,
+    height:90,
     width:'86%',
     marginHorizontal:'6%',
     borderRadius:20,
     borderColor:'gray',
     borderWidth:1,
-    marginTop:'5%'
+    marginTop:'5%',
+   
+  },
+  btnLogin:{
+    height:40,
+    width:200,
+    borderRadius:20,
+    borderColor:'gray',
+    borderWidth:1,
+    marginTop:'5%',
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:'#FFB133',
+   
+  },
+  txtLogin:{
+    
+    color:'white',
+    fontSize:15,
+    fontWeight:"bold"
+   
   },
 });
 
