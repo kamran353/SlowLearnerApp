@@ -1,7 +1,7 @@
 import React from 'react';
-import home from '../screens/home';
-import profile from '../screens/profile'
-import myPa from '../screens/myPa';
+import home from '../screens/doctor_screens/patients';
+import profile from '../screens/doctor_screens/profile'
+import myPa from '../screens/doctor_screens/appointments';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -32,7 +32,7 @@ const mainTab = () => {
         component={myPa}
         options={{
             headerShown:false,
-          tabBarLabel: 'All PA',
+          tabBarLabel: 'Appointments',
           tabBarIcon: ({ color, size,focused }) => (
             <MaterialCommunityIcons
               name="face-agent"

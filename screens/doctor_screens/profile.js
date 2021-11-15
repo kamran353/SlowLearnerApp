@@ -8,7 +8,7 @@ const profile = ({navigation}) => {
   return (
     <View style={styles.container}>
      <View style={styles.topView}>
-       <Image  source={require('../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain'/>
+       <Image  source={require('../../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain'/>
        <Text style={styles.nameTxt}>Ahmed Khan</Text>
        <Text style={styles.otherTxt}>03453438888</Text>
        <Text style={styles.otherTxt}>Male</Text>
@@ -27,7 +27,7 @@ const profile = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
             <View style={styles.imageView}>
-            <Image  source={require('../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
+            <Image  source={require('../../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
@@ -51,7 +51,7 @@ const profile = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
             <View style={styles.imageView}>
-            <Image  source={require('../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
+            <Image  source={require('../../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
@@ -72,7 +72,7 @@ const profile = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
             <View style={styles.imageView}>
-            <Image  source={require('../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
+            <Image  source={require('../../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
@@ -86,27 +86,7 @@ const profile = ({navigation}) => {
        
         </View>
 
-        <View style={styles.actionStyle}>
-         <CardView
-          style={styles.listItem}
-          cardElevation={10}
-          cardMaxElevation={10}
-          cornerRadius={20}>
-            <View style={styles.imageView}>
-            <Image  source={require('../images/edit-icon.png')} style={styles.actonImagStyle} resizeMode='contain'/>
-    
-            </View>
-            <View style={styles.infoView}>
-              <TouchableOpacity>
-              <Text style={styles.actoinTxt}>Update Profile </Text>
-              </TouchableOpacity>
-                
-
-            </View>
-           
-        </CardView>
        
-        </View>
 
      </CardView>
      </View>

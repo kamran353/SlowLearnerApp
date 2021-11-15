@@ -37,6 +37,24 @@ const levelthree = ({navigation}) => {
                   }}
                 />
           
+        </CardView> 
+        <CardView
+        style={{marginTop:5}}
+          cardElevation={5}
+          cardMaxElevation={10}
+          cornerRadius={8}>
+           <DropDownPicker
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+                translation={{
+                    PLACEHOLDER: "Select Practice"
+                  }}
+                />
+          
         </CardView>
      <FlatList
 

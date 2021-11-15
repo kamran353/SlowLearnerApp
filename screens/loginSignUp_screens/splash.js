@@ -11,7 +11,7 @@ const splash = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.ImageView}>
-     <Image  source={require('../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain'/>
+     <Image  source={require('../../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain'/>
      </View>
     </View>
   );

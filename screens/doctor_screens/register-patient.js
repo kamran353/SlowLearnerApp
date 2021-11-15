@@ -4,8 +4,6 @@ import CardView from 'react-native-cardview'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import RadioGroup from 'react-native-radio-buttons-group';
 import DatePicker from 'react-native-datepicker';
-import axios from 'axios';
-
 const radioButtonsData = [
     {
       id: '1',
@@ -23,14 +21,14 @@ const radioButtonsData = [
     },
   ];
   
-const login =({navigation}) => {
+const login =({navigation,route}) => {
     const [date, setDate] = useState('09-10-2020');
     const [radioButtons, setRadioButtons] = useState(radioButtonsData);
     const [UserName,SetUsername]=useState('');
     const [UserPhone,SetUserphone]=useState('');
     const [UserPassword,SetUserpassword]=useState('');
     const [UserGender,SetUsergender]=useState('Male');
-    function RegisterDoctor(){
+    function RegisterAccount(){
       if(radioButtons[0].selected==false){
           SetUsergender('Female');
       }
@@ -39,7 +37,7 @@ const login =({navigation}) => {
         UserPhone:UserPhone,
         UserGender:UserGender,
         UserPassword:UserPassword,
-        UserDOB:date,UserRole:'Doctor',IsApproved:false,ReferenceUserId:0 };
+        UserDOB:date,UserRole:route.params.Type,IsApproved:true,ReferenceUserId:0 };
       axios.post(`${global.BaseUrl}RegisterUser`, user)
           .then(response => console.log(response.data.UserId));
     }
@@ -51,7 +49,7 @@ const login =({navigation}) => {
     <View style={styles.container}>
      
      <View style={styles.ImageView}>
-     <Image  source={require('../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain'/>
+     <Image  source={require('../../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='stretch'/>
      </View>
 
 
@@ -59,11 +57,11 @@ const login =({navigation}) => {
      <View style={styles.LoginView}>
      <CardView
         style={styles.loginStyle}
-          cardElevation={10}
+          cardElevation={5}
           cardMaxElevation={10}
           cornerRadius={20}>
           <Text style={styles.heading}>
-              Register Account
+              Register Account For {route.params.Type}
           </Text>
           <TextInput placeholder='Username' style={styles.txtInput} onChangeText={(val)=>SetUsername(val)}/>
           <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true} onChangeText={(val)=>SetUserpassword(val)}/>
@@ -105,7 +103,7 @@ const login =({navigation}) => {
               </View>
           </View>
        
-          <TouchableOpacity style={styles.btnLogin} onPress={()=>RegisterDoctor()}>
+          <TouchableOpacity style={styles.btnLogin} onPress={()=>RegisterAccount()}>
           <Text style={styles.txtLogin}>
               Register
           </Text>
@@ -130,7 +128,9 @@ const styles = StyleSheet.create({
       backgroundColor:'#F5CE9A'
   },
   imagstyle:{
-    width: '50%', height: '75%',borderRadius:100
+    width: '50%', 
+    height: '75%',
+    borderRadius:100
   }
   ,
   LoginView:{
@@ -147,7 +147,8 @@ const styles = StyleSheet.create({
     marginHorizontal:'1%',
     marginVertical:'1%',
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    backgroundColor:'white'
   },
   txtInput:{
     paddingLeft:8,
@@ -187,6 +188,7 @@ const styles = StyleSheet.create({
     fontWeight:"bold"
    
   }, datePickerStyle: {
+    width: 250,
     width: '100%',
     height:20
   }

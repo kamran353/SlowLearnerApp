@@ -1,6 +1,6 @@
 import React from 'react';
-import approved from '../screens/admin';
-import pending from '../screens/pending'
+import approved from '../screens/admin_screens/approved';
+import pending from '../screens/admin_screens/pending'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

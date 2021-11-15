@@ -1,7 +1,7 @@
 import React from 'react';
-import levelone from './level_one';
-import leveltwo from './level_two';
-import levelthree from './level_three';
+import levelone from '../screens/practices_screens/level_one';
+import leveltwo from '../screens/practices_screens/level_two';
+import levelthree from '../screens/practices_screens/level_three';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

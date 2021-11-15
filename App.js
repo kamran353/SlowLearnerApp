@@ -1,16 +1,17 @@
 import React from 'react';
-import login from './screens/login';
-import signup from './screens/signup'
-import Splash from './screens/splash';
-import registerPatienht from './screens/register-patient'
+import login from './screens/loginSignUp_screens/login';
+import signup from './screens/loginSignUp_screens/signup'
+import Splash from './screens/loginSignUp_screens/splash';
+import registerPatienht from './screens/doctor_screens/register-patient'
+import appointment_details from './screens/doctor_screens/appointment_details';
 import mainTab from './tabNavigation/mainTab';
 import admin from './tabNavigation/adminTab';
-import LevelTab from './screens/practices_screens/level_tab';
+import LevelTab from './tabNavigation/level_tab';
 import patient_words from './screens/patient_Screens/patient_words';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-global.BaseUrl='http://192.168.2.96/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages='http://192.168.2.96/SlowLearnerApi/'
+global.BaseUrl='http://192.168.2.100/SlowLearnerApi/api/SlowLearner/'
+global.BaseUrlForImages='http://192.168.2.100/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
       <Stack.Screen name="RegisterPatient" component={registerPatienht} options={{headerShown:false}}/>
       <Stack.Screen name="Levels" component={LevelTab} options={{headerShown:false}}/>
       <Stack.Screen name="PatientWords" component={patient_words} options={{headerShown:false}}/>
+      <Stack.Screen name="AppointmentDetails" component={appointment_details} options={{headerShown:false}}/>
     </Stack.Navigator>
     </NavigationContainer>
   );

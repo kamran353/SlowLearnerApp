@@ -44,7 +44,7 @@ const home = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={8}>
             <View style={styles.imageView}>
-            <Image  source={require('../images/patient.png')} style={styles.imagstyle} resizeMode='contain'/>
+            <Image  source={require('../../images/patient.png')} style={styles.imagstyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
@@ -62,7 +62,7 @@ const home = ({navigation}) => {
           activeOpacity={1}
           style={styles.touchableOpacityStyle}>
           <Image
-            source={require('../images/plus-icon.jpg')}
+            source={require('../../images/plus-icon.jpg')}
              style={styles.floatingButtonStyle}
           />
         </TouchableOpacity>
