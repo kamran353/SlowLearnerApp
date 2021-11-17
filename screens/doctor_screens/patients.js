@@ -16,11 +16,11 @@ const home = ({navigation}) => {
      
    ]);
    useEffect(() => {
-  
+     
     AsyncStorage.getItem('User')
     .then((value) => {
       const user = JSON.parse(value).user;
-      console.log(user)
+      console.log(value)
       getMyPatients(user.UserId)
     })
     .catch((error) => {
@@ -34,7 +34,6 @@ const home = ({navigation}) => {
     <View style={styles.container}>
      
      <FlatList
-
       style={{flex:1}}
       data={allpatients}
       renderItem={({item})=>(

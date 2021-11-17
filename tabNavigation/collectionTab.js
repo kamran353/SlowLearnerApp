@@ -1,65 +1,67 @@
 import React from 'react';
-import assistent from '../screens/doctor_screens/assistents';
-import profile from '../screens/doctor_screens/profile'
-import appointments from '../screens/doctor_screens/appointments';
+import letters from '../screens/collection_Screens/letters'
+import words from '../screens/collection_Screens/letters'
+import sentences from '../screens/collection_Screens/letters'
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
-const mainTab = () => {
+const CollectionTab = () => {
   return (
   
     <Tab.Navigator
       initialRouteName="Home"
      >
-     
-         <Tab.Screen
-        name="appointments"
-        component={appointments}
-        options={{
-            headerShown:false,
-          tabBarLabel: 'Appointments',
-          tabBarIcon: ({ color, size,focused }) => (
-            <MaterialCommunityIcons
-              name="face-agent"
-              color={focused?'blue':'#FFB133'}
-              size={size}
-            />
-          ),
-        }}  />
-         <Tab.Screen
-        name="Assistents"
-        component={assistent}
-        options={{
-            headerShown:false,
-          tabBarLabel: 'Assistents',
-          tabBarIcon: ({ color, size ,focused}) => (
-            <MaterialCommunityIcons
-              name="face"
-              color={focused?'blue':'#FFB133'}
-              size={size}
-            />
-          ),
-        }}  />
       <Tab.Screen
-        name="Profile"
-        component={profile}
+        name="Letters"
+        component={letters}
         options={{
             headerShown:false,
-          tabBarLabel: 'Setting',
+          tabBarLabel: 'Letters',
           tabBarIcon: ({ color, size,focused }) => (
             <MaterialCommunityIcons
-              name="account-settings"
+              name="file-word"
               color={focused?'blue':'#FFB133'}
               size={size}
             />
           ),
-        }} />
+        }}  />
+         <Tab.Screen
+        name="Words"
+        component={words}
+        options={{
+            headerShown:false,
+          tabBarLabel: 'Words',
+          tabBarIcon: ({ color, size,focused }) => (
+            <MaterialCommunityIcons
+              name="file-word"
+              color={focused?'blue':'#FFB133'}
+              size={size}
+            />
+          ),
+        }}  />
+
+     <Tab.Screen
+        name="Sentences"
+        component={sentences}
+        options={{
+            headerShown:false,
+          tabBarLabel: 'Sentences',
+          tabBarIcon: ({ color, size,focused }) => (
+            <MaterialCommunityIcons
+              name="file-word"
+              color={focused?'blue':'#FFB133'}
+              size={size}
+            />
+          ),
+        }}  />
+    
     </Tab.Navigator>
  
   );
 };
 
 
-export default mainTab;
+export default CollectionTab;

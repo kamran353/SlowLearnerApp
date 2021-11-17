@@ -9,24 +9,20 @@ const login = ({navigation}) => {
  const [username,setUsername]=useState('');
  const [password,setPassword]=useState('');
  const [user,setUser]=useState(null);
- function LoginAccount(){
-   //Tts.speak('Hello, world!');
+ 
+ const LoginAccount= async ()=>{  
     if(username=='Admin' && password=='1234'){
        navigation.navigate('Admin');
     }else{
       axios.get(`${global.BaseUrl}LoginUser?Username=${username}&Userpassword=${password}`).then((response) => {
-      console.log(response.data)
+     
       if(response.data!=null)
         {
-          if(response.data.IsApproved==true){
+          if(response.data.IsApproved==true)
+          {
             setUser(response.data) 
-            AsyncStorage.setItem("User",JSON.stringify({user}));
-          if(response.data.UserRole=='Doctor'){
-            navigation.navigate('MainTab')
-            }
-            else{
-              navigation.navigate('PatientWords')
-            }
+            SetUserAsyncStorage(response.data)
+                
           }else {
             alert("Your Account is Not Approved yet")
           }
@@ -34,12 +30,24 @@ const login = ({navigation}) => {
         }
         else
         {
-          navigation.navigate('MainTab')
-          //alert("Account Not Exist")
+           alert("Account Not Exist")
         }
       });
      
     }
+  }
+  const SetUserAsyncStorage= async(result)=>{
+   await  AsyncStorage.setItem("User",JSON.stringify({result}));
+
+   if(result.UserRole=='Doctor'){
+      navigation.navigate('MainTab')
+      }
+      else if(result.UserRole=='Patient'){
+        navigation.navigate('PatientWords')
+      }
+      else if(result.UserRole=='PA'){
+        alert("You Are Assistent Please Wait!!")
+      }
   }
   return (
     <View style={styles.container}>
@@ -61,7 +69,7 @@ const login = ({navigation}) => {
           </Text>
           <TextInput placeholder='Username' style={styles.txtInput} onChangeText={(val)=>setUsername(val)}/>
           <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true} onChangeText={(val)=>setPassword(val)}/>
-          <TouchableOpacity style={styles.btnLogin} onPress={()=>LoginAccount()}>
+          <TouchableOpacity style={styles.btnLogin} onPress={LoginAccount}>
           <Text style={styles.txtLogin}>
               Login
           </Text>

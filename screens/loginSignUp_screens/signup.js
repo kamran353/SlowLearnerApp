@@ -41,7 +41,15 @@ const login =({navigation}) => {
         UserPassword:UserPassword,
         UserDOB:date,UserRole:'Doctor',IsApproved:false,ReferenceUserId:0 };
       axios.post(`${global.BaseUrl}RegisterUser`, user)
-          .then(response => console.log(response.data.UserId));
+          .then(response =>CheckUserId(response.data.UserId));
+    }
+    function CheckUserId(UserId){
+        if(UserId>0){
+          alert("Account Created Successfully");
+        }
+        else{
+          alert("Something Went Wrong")
+        }
     }
     const onPressRadioButton = radioButtonsArray => {
       console.log(radioButtonsArray);

@@ -21,45 +21,8 @@ const leveltwo= ({navigation}) => {
   }
   return (
     <View style={styles.container}>
-      <CardView
-          cardElevation={5}
-          cardMaxElevation={10}
-          cornerRadius={8}>
-           <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                translation={{
-                    PLACEHOLDER: "Select Patient"
-                  }}
-                />
-          
-        </CardView>
-
-        <CardView
-        style={{marginTop:5}}
-          cardElevation={5}
-          cardMaxElevation={10}
-          cornerRadius={8}>
-           <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-              
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                translation={{
-                    PLACEHOLDER: "Select Practice"
-                  }}
-                />
-          
-        </CardView>
+     
      <FlatList
-
       style={{flex:1,marginTop:5}}
       data={levelOneWords}
       renderItem={({item})=>(
@@ -87,6 +50,16 @@ const leveltwo= ({navigation}) => {
         </CardView>
          )}
      />
+
+        <TouchableOpacity
+         onPress={()=>navigation.navigate('RegisterPatient',{Type:'Patient'})}
+          activeOpacity={1}
+          style={styles.touchableOpacityStyle}>
+          <Image
+            source={require('../../images/plus-icon.jpg')}
+             style={styles.floatingButtonStyle}
+          />
+        </TouchableOpacity>
     </View>
   );
 };
@@ -148,6 +121,22 @@ const styles = StyleSheet.create({
   rejectTxt:{
     color:'#FFB133',
     fontSize:15
+ },
+ touchableOpacityStyle: {
+   position: 'absolute',
+   width: 70,
+   height: 70,
+   alignItems: 'center',
+   justifyContent: 'center',
+   right: 20,
+   bottom: 20,
+ },
+ floatingButtonStyle: {
+   resizeMode: 'contain',
+   width: 60,
+   height: 60,
+   borderRadius:1000
+   //backgroundColor:'black'
  }
 });
 

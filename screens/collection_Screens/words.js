@@ -3,7 +3,7 @@ import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-na
 import CardView from 'react-native-cardview'
 import axios from 'axios';
 import DropDownPicker from 'react-native-dropdown-picker';
-const levelone = ({navigation}) => {
+const words = ({navigation}) => {
    const [levelOneWords,setLevelOneWords]=useState([]);
    const [open, setOpen] = useState(false);
    const [value, setValue] = useState(null);
@@ -140,4 +140,4 @@ const styles = StyleSheet.create({
  }
 });
 
-export default levelone;
+export default words;

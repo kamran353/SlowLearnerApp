@@ -1,26 +1,25 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-native';
 import CardView from 'react-native-cardview'
-import { FloatingAction } from 'react-native-floating-action';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const appointMents = ({navigation}) => {
+const assistent = ({navigation}) => {
    const [allpatients,setAllpatients]=useState([
-    {id:1,name:'Hassan',gender:'Male',Phone:'03439899999',date:'10-12-2021'},
-    {id:2,name:'Asia',gender:'Female',Phone:'03439899999',date:'10-12-2021'},
-    {id:3,name:'Anaya',gender:'Female',Phone:'03439899999',date:'10-12-2021'},
-    {id:4,name:'Nadia',gender:'Female',Phone:'03439899999',date:'10-12-2021'},
-    {id:5,name:'Shehzad',gender:'male',Phone:'03439899999',date:'10-12-2021'},
-    {id:6,name:'Junaid',gender:'male',Phone:'03439899999',date:'10-12-2021'},
-    {id:7,name:'Haseeb',gender:'male',Phone:'03439899999',date:'10-12-2021'},
-    {id:8,name:'Zainab',gender:'Female',Phone:'03439899999',date:'10-12-2021'},
-    {id:9,name:'Khuram',gender:'male',Phone:'03439899999',date:'10-12-2021'},
-
+     {id:1,name:'Iqra',gender:'Female',Phone:'03439899999'},
+     {id:2,name:'Alisha',gender:'Female',Phone:'03439899999'},
+     {id:3,name:'Kinza',gender:'Female',Phone:'03439899999'},
+     {id:4,name:'Sara',gender:'Female',Phone:'03439899999'},
+     {id:5,name:'ahmed',gender:'male',Phone:'03439899999'},
+     {id:6,name:'ikram',gender:'male',Phone:'03439899999'},
+     {id:7,name:'irfan',gender:'male',Phone:'03439899999'},
+     {id:8,name:'Saira',gender:'Female',Phone:'03439899999'},
+     {id:9,name:'ali',gender:'male',Phone:'03439899999'},
+     
    ]);
    useEffect(() => {
      
     AsyncStorage.getItem('User')
     .then((value) => {
-      const user = JSON.parse(value).result;
+      const user = JSON.parse(value).user;
       console.log(value)
       getMyPatients(user.UserId)
     })
@@ -35,38 +34,37 @@ const appointMents = ({navigation}) => {
     <View style={styles.container}>
      
      <FlatList
-
       style={{flex:1}}
       data={allpatients}
       renderItem={({item})=>(
         <CardView
-       
           style={styles.listItem}
           cardElevation={5}
           cardMaxElevation={10}
           cornerRadius={8}>
             <View style={styles.imageView}>
-            <Image  source={require('../../images/patient.png')} style={styles.imagstyle} resizeMode='contain'/>
+            <Image  source={require('../../images/pa.png')} style={styles.imagstyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
                  <Text style={styles.nameTxt}>{item.name}</Text>
                  <Text style={styles.otherTxt}>{item.Phone}</Text>
                  <Text style={styles.otherTxt}>{item.gender}</Text>
-                 <Text style={styles.otherTxt}>{item.date}</Text>
             </View>
-            <View style={styles.buttonView}>
-             
-                <TouchableOpacity  onPress={()=>navigation.navigate("AppointmentDetails")}> 
-                    <Text style={styles.viewBtnTxt}>View</Text>
-                </TouchableOpacity>
-       
-            </View>
+           
         </CardView>
        
       )}
      />
- 
+  <TouchableOpacity
+         onPress={()=>navigation.navigate('RegisterPatient',{Type:'Patient'})}
+          activeOpacity={1}
+          style={styles.touchableOpacityStyle}>
+          <Image
+            source={require('../../images/plus-icon.jpg')}
+             style={styles.floatingButtonStyle}
+          />
+        </TouchableOpacity>
     </View>
   );
 };
@@ -94,7 +92,8 @@ const styles = StyleSheet.create({
     width: '75%', 
     height: '90%',
     borderRadius:1000,
-    marginLeft:'10%'
+    marginLeft:'10%',
+   
   }
   ,
   listItem:{
@@ -115,21 +114,23 @@ const styles = StyleSheet.create({
     fontSize:15,
   
   },
- 
-  buttonView:{
-    flex:3,
-    justifyContent:'flex-end',
-    alignItems:'flex-end',
-    paddingRight:'2%',
-    flexDirection:'row',
-    paddingBottom:'2%',
-    paddingEnd:20
+  touchableOpacityStyle: {
+    position: 'absolute',
+    width: 70,
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 20,
+    bottom: 20,
   },
-  viewBtnTxt:{
-    color:'#FFB133',
-    fontSize:15
- }
+  floatingButtonStyle: {
+    resizeMode: 'contain',
+    width: 60,
+    height: 60,
+    borderRadius:1000
+    //backgroundColor:'black'
+  }
  
 });
 
-export default appointMents;
+export default assistent;
