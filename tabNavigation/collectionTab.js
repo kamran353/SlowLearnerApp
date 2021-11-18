@@ -12,7 +12,7 @@ const CollectionTab = () => {
   return (
   
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Letters"
      >
       <Tab.Screen
         name="Letters"

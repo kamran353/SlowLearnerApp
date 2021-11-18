@@ -15,7 +15,7 @@ const letters = ({navigation}) => {
       getLevelOneWords()
   },[]);
   function getLevelOneWords(){
-    axios.get(`${global.BaseUrl}GetLevelWords?WordLevel=1`).then((response) => {
+    axios.get(`${global.BaseUrl}GetLevelPractices?PracticeLevel=1`).then((response) => {
         setLevelOneWords(response.data)
       });
   }
@@ -33,18 +33,16 @@ const letters = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={8}>
             <View style={styles.imageView}>
-            <Image  source={{uri:`${global.BaseUrlForImages}${item.ImagePath}`}} style={styles.imagstyle} resizeMode='contain'/>
+             <Image  source={require('../../images/practice.jpg')} style={styles.imagstyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
-                 <Text style={styles.nameTxt}>{item.WordText}</Text>
-                 <Text style={styles.otherTxt}>{item.WordCategory}</Text>
-                 
+            <Text style={styles.nameTxt}>{item.PracticeTitle}</Text>
             </View>
             <View style={styles.buttonView}>
              
-                <TouchableOpacity onPress={()=>ApproveUnApproveDoctor(item.UserId,false)}> 
-                    <Text style={styles.rejectTxt}>Add</Text>
+                <TouchableOpacity> 
+                    <Text style={styles.rejectTxt}>View</Text>
                 </TouchableOpacity>
        
             </View>
@@ -52,7 +50,7 @@ const letters = ({navigation}) => {
          )}
      />
      <TouchableOpacity
-         onPress={()=>navigation.navigate('RegisterPatient',{Type:'Patient'})}
+         onPress={()=>navigation.navigate('NewCollection',{Type:'Letter'})}
           activeOpacity={1}
           style={styles.touchableOpacityStyle}>
           <Image
@@ -85,8 +83,8 @@ const styles = StyleSheet.create({
   ,
   imagstyle:{
     width: '75%', 
-    height: '90%',
-    borderRadius:1000,
+    height: '40%',
+    borderRadius:10,
     marginLeft:'10%',
    
   }
