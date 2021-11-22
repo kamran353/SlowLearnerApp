@@ -84,7 +84,8 @@ const newCollection =({navigation}) => {
        const handleChoosePhoto = () => {
         launchImageLibrary({ noData: true }, (response) => {
            console.log(response);
-          if (response) {
+
+          if (response.hasOwnProperty('assets')) {
             setPhoto(response);
             console.log(response)
           }

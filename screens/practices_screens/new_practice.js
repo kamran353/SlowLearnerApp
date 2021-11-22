@@ -7,6 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
 const newPractice =({navigation,route}) => {
     const[Title,setTitle]=useState(null)
+    const [IsLetterTabActive,SetLetterTabActive]=useState(true)
+    const [IsWordTabActive,SetWordTabActive]=useState(false)
+    const [IsSentenceTabActive,SetSentenceTabActive]=useState(false)
     const[User,SetUser]=useState(null)
     const[collectionIds,SetCollectionIds]=useState([])
     const [MyCollection,setMyCollection]=useState([]);
@@ -15,12 +18,19 @@ const newPractice =({navigation,route}) => {
       .then((value) => {
         var user = JSON.parse(value).result;
         SetUser(user)
-        GetMyCollection("Letter",user.UserId)
+        var Type="Letter";
+        if(IsWordTabActive){
+          Type="Word"
+        }
+        if(IsSentenceTabActive){
+          Type="Sentence"
+        }
+        GetMyCollection(Type,user.UserId)
       })
       .catch((error) => {
         console.log(error);
       });
-    },[]);
+    },[MyCollection,IsLetterTabActive]);
     function GetMyCollection(type,id){
       var DoctorId=id;
       if(id==0){
@@ -31,14 +41,39 @@ const newPractice =({navigation,route}) => {
         });
     }
     function AddOrRemoveCollection(collectionId){
+      var CollectionIndex;
+      for(var i=0;i<MyCollection.length;i++){
+       if(MyCollection[i].CollectionId==collectionId){
+        CollectionIndex=i;
+       }
+      }
       var index=collectionIds.indexOf(collectionId);
       if(index>-1){
         collectionIds.splice(index,1)
+        MyCollection[CollectionIndex].IsSelected=false;
       }else{
         collectionIds.push(collectionId)
+        MyCollection[CollectionIndex].IsSelected=true;
       }
-     
+      SetCollectionIds(collectionIds)
+      setMyCollection(MyCollection)
       console.log(collectionIds)
+    }
+    function SetSelectedTab(type){
+      if(type=="Letter"){
+        SetLetterTabActive(true)
+        SetWordTabActive(false);
+        SetSentenceTabActive(false);
+      }
+      else if(type=="Word"){
+        SetWordTabActive(true)
+        SetSentenceTabActive(false);
+        SetLetterTabActive(false)
+      }else{
+        SetSentenceTabActive(true);
+        SetLetterTabActive(false)
+        SetWordTabActive(false);
+      }
     }
   return (
  <View style={styles.container}>
@@ -56,19 +91,19 @@ const newPractice =({navigation,route}) => {
           <TextInput placeholder='Title' style={styles.txtInput} onChangeText={(val)=>setTitle(val)}/>
          
      <View style={styles.tabView}>
-          <TouchableOpacity style={styles.activeTab} onPress={()=>GetMyCollection('Letter',0)}>
+          <TouchableOpacity style={IsLetterTabActive?styles.activeTab:styles.btnTab} onPress={()=>SetSelectedTab('Letter')}>
           <Text style={styles.txtLogin}>
               Letters
           </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnTab} onPress={()=>GetMyCollection('Word',0)}>
+          <TouchableOpacity style={IsWordTabActive?styles.activeTab:styles.btnTab} onPress={()=>SetSelectedTab('Word')}>
           <Text style={styles.txtLogin}>
               Words
           </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnTab} onPress={()=>GetMyCollection('Sentence',0)}>
+          <TouchableOpacity style={IsSentenceTabActive?styles.activeTab:styles.btnTab} onPress={()=>SetSelectedTab('Sentence')}>
           <Text style={styles.txtLogin}>
               Sentences
           </Text>
