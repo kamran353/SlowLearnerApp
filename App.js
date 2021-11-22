@@ -7,13 +7,15 @@ import appointment_details from './screens/doctor_screens/appointment_details';
 import mainTab from './tabNavigation/mainTab';
 import admin from './tabNavigation/adminTab';
 import LevelTab from './tabNavigation/level_tab';
+import newPractice from './screens/practices_screens/new_practice';
+import practiceCollection from './screens/practices_screens/practice_collections';
 import CollectionTab from './tabNavigation/collectionTab';
 import newCollection from './screens/collection_Screens/new_collection';
 import patient_words from './screens/patient_Screens/patient_words';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-global.BaseUrl='http://192.168.2.100/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages='http://192.168.2.100/SlowLearnerApi/'
+global.BaseUrl='http://192.168.2.109/SlowLearnerApi/api/SlowLearner/'
+global.BaseUrlForImages='http://192.168.2.109/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -30,6 +32,8 @@ const App = () => {
       <Stack.Screen name="PatientWords" component={patient_words} options={{headerShown:false}}/>
       <Stack.Screen name="AppointmentDetails" component={appointment_details} options={{headerShown:false}}/>
       <Stack.Screen name="NewCollection" component={newCollection} options={{headerShown:false}}/>
+      <Stack.Screen name="NewPractice" component={newPractice} options={{headerShown:false}}/>
+      <Stack.Screen name="PracticeCollection" component={practiceCollection} options={{headerShown:false}}/>
     </Stack.Navigator>
     </NavigationContainer>
   );

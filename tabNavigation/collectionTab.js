@@ -1,7 +1,7 @@
 import React from 'react';
 import letters from '../screens/collection_Screens/letters'
-import words from '../screens/collection_Screens/letters'
-import sentences from '../screens/collection_Screens/letters'
+import words from '../screens/collection_Screens/words'
+import sentences from '../screens/collection_Screens/sentences'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

@@ -26,7 +26,8 @@ const radioButtonsData = [
 const login =({navigation}) => {
     const [date, setDate] = useState('09-10-2020');
     const [radioButtons, setRadioButtons] = useState(radioButtonsData);
-    const [UserName,SetUsername]=useState('');
+    const [FirstName,SetFirstName]=useState('');
+    const [LastName,SetLastName]=useState('');
     const [UserPhone,SetUserphone]=useState('');
     const [UserPassword,SetUserpassword]=useState('');
     const [UserGender,SetUsergender]=useState('Male');
@@ -35,7 +36,7 @@ const login =({navigation}) => {
           SetUsergender('Female');
       }
       const user = { 
-        UserName: UserName,
+        UserName: FirstName+" "+LastName,
         UserPhone:UserPhone,
         UserGender:UserGender,
         UserPassword:UserPassword,
@@ -57,13 +58,6 @@ const login =({navigation}) => {
     };
   return (
     <View style={styles.container}>
-     
-     <View style={styles.ImageView}>
-     <Image  source={require('../../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain'/>
-     </View>
-
-
-
      <View style={styles.LoginView}>
      <CardView
         style={styles.loginStyle}
@@ -73,17 +67,35 @@ const login =({navigation}) => {
           <Text style={styles.heading}>
               Register Account
           </Text>
-          <TextInput placeholder='Username' style={styles.txtInput} onChangeText={(val)=>SetUsername(val)}/>
-          <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true} onChangeText={(val)=>SetUserpassword(val)}/>
-          
-          <TextInput placeholder='Mobile' style={styles.txtInput} keyboardType='phone-pad' onChangeText={(val)=>SetUserphone(val)}/>
-          <View style={styles.txtInput}>
+          <View style={styles.InputView}>
+           <Text style={styles.InputViewLabel}>First Name</Text>
+           <TextInput placeholder='First Name' style={styles.txtInput} onChangeText={(val)=>SetFirstName(val)}/>
+          </View>
+          <View style={styles.InputView}>
+           <Text style={styles.InputViewLabel}>Last Name</Text>
+           <TextInput placeholder='Last Name' style={styles.txtInput} onChangeText={(val)=>SetLastName(val)}/>
+          </View>
+          <View style={styles.InputView}>
+           <Text style={styles.InputViewLabel}>Password</Text>
+           <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true} onChangeText={(val)=>SetUserpassword(val)}/>
+          </View>
+         
+          <View style={styles.InputView}>
+           <Text style={styles.InputViewLabel}>Phone Number</Text>
+           <TextInput placeholder='Phone Number' style={styles.txtInput} keyboardType='phone-pad' onChangeText={(val)=>SetUserphone(val)}/>
+          </View>
+
+          <View style={styles.InputView}>
+           <Text style={styles.InputViewLabel}>Gender</Text>
+           <View style={styles.txtInput}>
           <RadioGroup
             radioButtons={radioButtons}
             onPress={onPressRadioButton}
             layout="row"
           />
           </View>
+         </View>
+       
           <View style={styles.txtDatePicker}>
               <View style={{flex:2,justifyContent:'center',paddingLeft:5}}>
                <Text>DOB</Text>
@@ -131,18 +143,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  ImageView:{
-      flex:3,
-      justifyContent:'center',
-      alignItems:'center',
-      backgroundColor:'#F5CE9A'
-  },
-  imagstyle:{
-    width: '50%', height: '75%',borderRadius:100
-  }
-  ,
   LoginView:{
-      flex:7,
+      flex:1,
       backgroundColor:'#F5CE9A'
   },heading:{
     color:'black',
@@ -156,6 +158,10 @@ const styles = StyleSheet.create({
     marginVertical:'1%',
     alignItems:'center',
     justifyContent:'center'
+  },InputView:{
+    paddingLeft:5,
+    width:'106%',
+    marginTop:'2%'
   },
   txtInput:{
     paddingLeft:8,
@@ -165,8 +171,13 @@ const styles = StyleSheet.create({
     borderRadius:20,
     borderColor:'gray',
     borderWidth:1,
-    marginTop:'5%'
-  },txtDatePicker:{
+    marginTop:'2%'
+  },InputViewLabel:{
+    marginLeft:'13%',
+    color:'black',
+    fontWeight:'bold'
+  },
+  txtDatePicker:{
     flexDirection:'row',
     paddingLeft:8,
     height:40,

@@ -20,28 +20,7 @@ const profile = ({navigation}) => {
           cardElevation={8}
           cardMaxElevation={10}
           cornerRadius={20}>
-        <View style={styles.actionStyle}>
-         <CardView
-          style={styles.listItem}
-          cardElevation={10}
-          cardMaxElevation={10}
-          cornerRadius={20}>
-            <View style={styles.imageView}>
-            <Image  source={require('../../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
-    
-            </View>
-            <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPatient',{Type:'Patient'})}>
-               <Text style={styles.actoinTxt}>Add New Patient </Text>
-              </TouchableOpacity>
-                 
-               
-
-            </View>
-           
-        </CardView>
        
-        </View>
 
 
         <View style={styles.actionStyle}>

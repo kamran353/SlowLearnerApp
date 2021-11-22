@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { View, Text, Image, StyleSheet ,TextInput,Button} from 'react-native';
 import CardView from 'react-native-cardview'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { launchImageLibrary  } from 'react-native-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const radioButtonsData = [
     {
       id: '1',
@@ -29,10 +30,21 @@ const radioButtonsData = [
       },
   ];
   
-const newCollection =({navigation,route}) => {
+const newCollection =({navigation}) => {
     const [radioButtons, setRadioButtons] = useState(radioButtonsData);
     const [Description, setDescription] = useState('');
     const [photo, setPhoto] = useState(null);
+    const[User,SetUser]=useState(null)
+    useEffect(() => {
+      AsyncStorage.getItem('User')
+      .then((value) => {
+        const user = JSON.parse(value).result;
+        SetUser(user)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },[]);
     const onPressRadioButton =async(radioButtonsArray) => {
         console.log(radioButtonsArray);
         setRadioButtons(radioButtonsArray);
@@ -50,6 +62,7 @@ const newCollection =({navigation,route}) => {
       var  formData=new FormData();
         formData.append("CollectionText",Description);
         formData.append("CollectionType",type);
+        formData.append("DoctorId",User.UserId);
         formData.append("Photo",{name:photo.assets[0].fileName,type:photo.assets[0].type,uri:photo.assets[0].uri});
         axios({
             url:`${global.BaseUrl}AddNewCollection`,
@@ -70,7 +83,7 @@ const newCollection =({navigation,route}) => {
      }
        const handleChoosePhoto = () => {
         launchImageLibrary({ noData: true }, (response) => {
-          // console.log(response);
+           console.log(response);
           if (response) {
             setPhoto(response);
             console.log(response)

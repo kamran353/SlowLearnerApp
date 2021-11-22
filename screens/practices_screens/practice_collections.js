@@ -3,14 +3,12 @@ import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-na
 import CardView from 'react-native-cardview'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const sentences = ({navigation}) => {
-   const [MySentences,SetSentences]=useState([]);
-  
-  useEffect(() => {
+const practiceCollection = ({navigation,route}) => {
+   const [MyLetters,SetLetters]=useState([]);
+   useEffect(() => {
     AsyncStorage.getItem('User')
     .then((value) => {
       const user = JSON.parse(value).result;
-      console.log(value)
       getMyLetters(user.UserId)
     })
     .catch((error) => {
@@ -19,8 +17,8 @@ const sentences = ({navigation}) => {
      
   },[]);
   function getMyLetters(doctorId){
-    axios.get(`${global.BaseUrl}GetMyCollection?Type=Sentence&&DoctorId=${doctorId}`).then((response) => {
-      SetSentences(response.data)
+    axios.get(`${global.BaseUrl}GetMyCollection?Type=Letter&&DoctorId=${doctorId}`).then((response) => {
+      SetLetters(response.data)
       });
   }
   return (
@@ -29,32 +27,28 @@ const sentences = ({navigation}) => {
      <FlatList
 
       style={{flex:1,marginTop:5}}
-      data={MySentences}
+      data={MyLetters}
       renderItem={({item})=>(
         <CardView
           style={styles.listItem}
           cardElevation={5}
           cardMaxElevation={10}
           cornerRadius={8}>
-             <View style={styles.imageView}>
+            <View style={styles.imageView}>
              <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
             <Text style={styles.nameTxt}>{item.CollectionText}</Text>
             </View>
+            <View style={styles.buttonView}>
+             <TouchableOpacity> 
+                  <Text style={styles.rejectTxt}>Remove</Text>
+              </TouchableOpacity>
+          </View>
         </CardView>
          )}
      />
-     <TouchableOpacity
-         onPress={()=>navigation.navigate('NewCollection')}
-          activeOpacity={1}
-          style={styles.touchableOpacityStyle}>
-          <Image
-            source={require('../../images/plus-icon.jpg')}
-             style={styles.floatingButtonStyle}
-          />
-        </TouchableOpacity>
     </View>
   );
 };
@@ -81,7 +75,7 @@ const styles = StyleSheet.create({
   imagstyle:{
     width: '75%', 
     height: '60%',
-    borderRadius:100,
+    borderRadius:30,
     marginLeft:'10%',
    
   }
@@ -116,23 +110,7 @@ const styles = StyleSheet.create({
   rejectTxt:{
     color:'#FFB133',
     fontSize:15
- },
- touchableOpacityStyle: {
-   position: 'absolute',
-   width: 70,
-   height: 70,
-   alignItems: 'center',
-   justifyContent: 'center',
-   right: 20,
-   bottom: 20,
- },
- floatingButtonStyle: {
-   resizeMode: 'contain',
-   width: 60,
-   height: 60,
-   borderRadius:1000
-   //backgroundColor:'black'
  }
 });
 
-export default sentences;
+export default practiceCollection;

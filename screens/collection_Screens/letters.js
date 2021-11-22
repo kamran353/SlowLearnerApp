@@ -2,21 +2,24 @@ import React, { useState ,useEffect} from 'react';
 import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-native';
 import CardView from 'react-native-cardview'
 import axios from 'axios';
-import DropDownPicker from 'react-native-dropdown-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const letters = ({navigation}) => {
-   const [levelOneWords,setLevelOneWords]=useState([]);
-   const [open, setOpen] = useState(false);
-   const [value, setValue] = useState(null);
-   const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'}
-  ]);
+   const [MyLetters,SetLetters]=useState([]);
    useEffect(() => {
-      getLevelOneWords()
+    AsyncStorage.getItem('User')
+    .then((value) => {
+      const user = JSON.parse(value).result;
+      console.log(value)
+      getMyLetters(user.UserId)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+     
   },[]);
-  function getLevelOneWords(){
-    axios.get(`${global.BaseUrl}GetLevelPractices?PracticeLevel=1`).then((response) => {
-        setLevelOneWords(response.data)
+  function getMyLetters(doctorId){
+    axios.get(`${global.BaseUrl}GetMyCollection?Type=Letter&&DoctorId=${doctorId}`).then((response) => {
+      SetLetters(response.data)
       });
   }
   return (
@@ -25,7 +28,7 @@ const letters = ({navigation}) => {
      <FlatList
 
       style={{flex:1,marginTop:5}}
-      data={levelOneWords}
+      data={MyLetters}
       renderItem={({item})=>(
         <CardView
           style={styles.listItem}
@@ -33,24 +36,18 @@ const letters = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={8}>
             <View style={styles.imageView}>
-             <Image  source={require('../../images/practice.jpg')} style={styles.imagstyle} resizeMode='contain'/>
+             <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
-            <Text style={styles.nameTxt}>{item.PracticeTitle}</Text>
+            <Text style={styles.nameTxt}>{item.CollectionText}</Text>
             </View>
-            <View style={styles.buttonView}>
-             
-                <TouchableOpacity> 
-                    <Text style={styles.rejectTxt}>View</Text>
-                </TouchableOpacity>
-       
-            </View>
+            
         </CardView>
          )}
      />
      <TouchableOpacity
-         onPress={()=>navigation.navigate('NewCollection',{Type:'Letter'})}
+         onPress={()=>navigation.navigate('NewCollection')}
           activeOpacity={1}
           style={styles.touchableOpacityStyle}>
           <Image
@@ -83,8 +80,8 @@ const styles = StyleSheet.create({
   ,
   imagstyle:{
     width: '75%', 
-    height: '40%',
-    borderRadius:10,
+    height: '60%',
+    borderRadius:100,
     marginLeft:'10%',
    
   }
