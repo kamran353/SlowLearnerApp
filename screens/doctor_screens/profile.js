@@ -34,7 +34,7 @@ const profile = ({navigation}) => {
     
             </View>
             <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPatient',{Type:'PA'})}>
+            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPa',{Type:'PA'})}>
               <Text style={styles.actoinTxt}>Add New PA</Text>
               </TouchableOpacity>
                  

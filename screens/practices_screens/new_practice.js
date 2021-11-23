@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { View, Text, Image, StyleSheet ,TextInput,FlatList} from 'react-native';
+import { View, Text, Image, StyleSheet ,TextInput,FlatList, Alert} from 'react-native';
 import CardView from 'react-native-cardview'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
@@ -75,6 +75,24 @@ const newPractice =({navigation,route}) => {
         SetWordTabActive(false);
       }
     }
+    function SavePractice(){
+      const practice = { 
+        Title: Title,
+        LevelNo:route.params.Level,
+        CollectionIds:collectionIds.toString(),
+        DoctorId:User.UserId
+      };
+      axios.post(`${global.BaseUrl}AddNewPractice`, practice)
+          .then(response =>{
+            if(response.status==200){
+              alert("Save Successfully")
+              
+              SetCollectionIds([])
+              setMyCollection([])
+            }
+          }).catch(error=>console.log(error));
+    }
+    
   return (
  <View style={styles.container}>
      
@@ -141,7 +159,7 @@ const newPractice =({navigation,route}) => {
       )}
      />
 
-          <TouchableOpacity style={styles.btnLogin}>
+          <TouchableOpacity style={styles.btnLogin} onPress={()=>SavePractice()}>
           <Text style={styles.txtLogin}>
               Save Practice
           </Text>

@@ -2,7 +2,8 @@ import React from 'react';
 import login from './screens/loginSignUp_screens/login';
 import signup from './screens/loginSignUp_screens/signup'
 import Splash from './screens/loginSignUp_screens/splash';
-import registerPatienht from './screens/doctor_screens/register-patient'
+import registerPa from './screens/doctor_screens/register-pa'
+import registerPatient from './screens/pa_screens/register_patient';
 import appointment_details from './screens/doctor_screens/appointment_details';
 import mainTab from './tabNavigation/mainTab';
 import admin from './tabNavigation/adminTab';
@@ -12,21 +13,23 @@ import practiceCollection from './screens/practices_screens/practice_collections
 import CollectionTab from './tabNavigation/collectionTab';
 import newCollection from './screens/collection_Screens/new_collection';
 import patient_words from './screens/patient_Screens/patient_words';
+import patients from './screens/pa_screens/patients';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-global.BaseUrl='http://192.168.2.109/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages='http://192.168.2.109/SlowLearnerApi/'
+global.BaseUrl='http://192.168.2.103/SlowLearnerApi/api/SlowLearner/'
+global.BaseUrlForImages='http://192.168.2.103/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
     <Stack.Navigator>
-    <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}/>
+      <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}/>
       <Stack.Screen name="Login" component={login} options={{headerShown:false}}/>
       <Stack.Screen name="Admin" component={admin} options={{headerShown:false}}/>
       <Stack.Screen name="SignUp" component={signup} options={{headerShown:false}}/>  
       <Stack.Screen name="MainTab" component={mainTab} options={{headerShown:false}}/>
-      <Stack.Screen name="RegisterPatient" component={registerPatienht} options={{headerShown:false}}/>
+      <Stack.Screen name="RegisterPatient" component={registerPatient} options={{headerShown:false}}/>
+      <Stack.Screen name="RegisterPa" component={registerPa} options={{headerShown:false}}/>
       <Stack.Screen name="Levels" component={LevelTab} options={{headerShown:false}}/>
       <Stack.Screen name="Collections" component={CollectionTab} options={{headerShown:false}}/>
       <Stack.Screen name="PatientWords" component={patient_words} options={{headerShown:false}}/>
@@ -34,6 +37,7 @@ const App = () => {
       <Stack.Screen name="NewCollection" component={newCollection} options={{headerShown:false}}/>
       <Stack.Screen name="NewPractice" component={newPractice} options={{headerShown:false}}/>
       <Stack.Screen name="PracticeCollection" component={practiceCollection} options={{headerShown:false}}/>
+      <Stack.Screen name="PAPatients" component={patients} options={{headerShown:false}}/>
     </Stack.Navigator>
     </NavigationContainer>
   );

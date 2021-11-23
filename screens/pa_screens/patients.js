@@ -3,54 +3,54 @@ import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-na
 import CardView from 'react-native-cardview'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-const assistent = ({navigation}) => {
-   const [MyAssistent,SetMyAssistent]=useState([]);
-   useEffect(() => {
-     
-    AsyncStorage.getItem('User')
-    .then((value) => {
-      const user = JSON.parse(value).result;
-      console.log(value)
-      getMyAssistents(user.UserId)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  },[]);
-  function getMyAssistents(doctorId){
-    axios.get(`${global.BaseUrl}GetMyAssistents?DoctorId=${doctorId}`).then((response) => {
-      console.log(response.data);
-      SetMyAssistent(response.data)
-    }).catch(error=>console.log(error));
-  }
-  return (
-    <View style={styles.container}>
-     
-     <FlatList
-      style={{flex:1}}
-      data={MyAssistent}
-      renderItem={({item})=>(
-        <CardView
-          style={styles.listItem}
-          cardElevation={5}
-          cardMaxElevation={10}
-          cornerRadius={8}>
-            <View style={styles.imageView}>
-            <Image  source={require('../../images/pa.png')} style={styles.imagstyle} resizeMode='contain'/>
+const patients = ({navigation}) => {
+  const [MyPatients,SetMyPatients]=useState([]);
+  useEffect(() => {
     
-            </View>
-            <View style={styles.infoView}>
-                 <Text style={styles.nameTxt}>{item.UserName}</Text>
-                 <Text style={styles.otherTxt}>{item.UserPhone}</Text>
-                 <Text style={styles.otherTxt}>{item.UserGender}</Text>
-            </View>
-           
-        </CardView>
-       
-      )}
-     />
+   AsyncStorage.getItem('User')
+   .then((value) => {
+     const user = JSON.parse(value).result;
+     console.log(value)
+     getMyAssistents(user.UserId)
+   })
+   .catch((error) => {
+     console.log(error);
+   });
+ },[]);
+ function getMyAssistents(PaId){
+   axios.get(`${global.BaseUrl}GetPAPatients?PAId=${PaId}`).then((response) => {
+     console.log(response.data);
+     SetMyPatients(response.data)
+   }).catch(error=>console.log(error));
+ }
+ return (
+   <View style={styles.container}>
+    
+    <FlatList
+     style={{flex:1}}
+     data={MyPatients}
+     renderItem={({item})=>(
+       <CardView
+         style={styles.listItem}
+         cardElevation={5}
+         cardMaxElevation={10}
+         cornerRadius={8}>
+           <View style={styles.imageView}>
+           <Image  source={require('../../images/patient.png')} style={styles.imagstyle} resizeMode='contain'/>
+   
+           </View>
+           <View style={styles.infoView}>
+                <Text style={styles.nameTxt}>{item.UserName}</Text>
+                <Text style={styles.otherTxt}>{item.UserPhone}</Text>
+                <Text style={styles.otherTxt}>{item.UserGender}</Text>
+           </View>
+          
+       </CardView>
+      
+     )}
+    />
   <TouchableOpacity
-         onPress={()=>navigation.navigate('RegisterPa',{Type:'PA'})}
+         onPress={()=>navigation.navigate('RegisterPatient',{Type:'Patient'})}
           activeOpacity={1}
           style={styles.touchableOpacityStyle}>
           <Image
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
  
 });
 
-export default assistent;
+export default patients;

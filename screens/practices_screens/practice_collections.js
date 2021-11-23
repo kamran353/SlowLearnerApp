@@ -4,22 +4,23 @@ import CardView from 'react-native-cardview'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const practiceCollection = ({navigation,route}) => {
-   const [MyLetters,SetLetters]=useState([]);
+   const [PracticeCollection,SetPracticeCollection]=useState([]);
    useEffect(() => {
     AsyncStorage.getItem('User')
     .then((value) => {
       const user = JSON.parse(value).result;
-      getMyLetters(user.UserId)
+      GetPracticeCollection()
     })
     .catch((error) => {
       console.log(error);
     });
      
   },[]);
-  function getMyLetters(doctorId){
-    axios.get(`${global.BaseUrl}GetMyCollection?Type=Letter&&DoctorId=${doctorId}`).then((response) => {
-      SetLetters(response.data)
-      });
+  function GetPracticeCollection(){
+    axios.get(`${global.BaseUrl}GetPracticeCollection?PracticeId=${route.params.PracticeId}`).then((response) => {
+      SetPracticeCollection(response.data)
+      
+    }).catch(error=>console.log(error));
   }
   return (
     <View style={styles.container}>
@@ -27,7 +28,7 @@ const practiceCollection = ({navigation,route}) => {
      <FlatList
 
       style={{flex:1,marginTop:5}}
-      data={MyLetters}
+      data={PracticeCollection}
       renderItem={({item})=>(
         <CardView
           style={styles.listItem}

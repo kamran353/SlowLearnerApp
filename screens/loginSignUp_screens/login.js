@@ -46,7 +46,7 @@ const login = ({navigation}) => {
         navigation.navigate('PatientWords')
       }
       else if(result.UserRole=='PA'){
-        alert("You Are Assistent Please Wait!!")
+         navigation.navigate('PAPatients')
       }
   }
   return (
