@@ -13,11 +13,13 @@ import practiceCollection from './screens/practices_screens/practice_collections
 import CollectionTab from './tabNavigation/collectionTab';
 import newCollection from './screens/collection_Screens/new_collection';
 import patient_words from './screens/patient_Screens/patient_words';
+import currentPractices from './screens/patient_Screens/current_practices';
+import patientvisit from './screens/patient_Screens/Patient_visit';
 import patients from './screens/pa_screens/patients';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-global.BaseUrl='http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages='http://192.168.100.37/SlowLearnerApi/'
+global.BaseUrl='http://192.168.43.89/SlowLearnerApi/api/SlowLearner/'
+global.BaseUrlForImages='http://192.168.43.89/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -35,6 +37,8 @@ const App = () => {
       <Stack.Screen name="PatientWords" component={patient_words} options={{headerShown:false}}/>
       <Stack.Screen name="AppointmentDetails" component={appointment_details} options={{headerShown:false}}/>
       <Stack.Screen name="NewCollection" component={newCollection} options={{headerShown:false}}/>
+      <Stack.Screen name="CurrentPractices" component={currentPractices} options={{headerShown:false}}/>
+      <Stack.Screen name="PatientVisit" component={patientvisit} options={{headerShown:false}}/>
       <Stack.Screen name="NewPractice" component={newPractice} options={{headerShown:false}}/>
       <Stack.Screen name="PracticeCollection" component={practiceCollection} options={{headerShown:false}}/>
       <Stack.Screen name="PAPatients" component={patients} options={{headerShown:false}}/>
