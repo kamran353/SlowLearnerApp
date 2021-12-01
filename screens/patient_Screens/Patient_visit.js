@@ -4,22 +4,23 @@ import CardView from 'react-native-cardview'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const patient_visit = ({navigation,route}) => {
-   const [levelOnePractices,setLevelOnePractices]=useState([]);
+   const [Appointments,SetAppoinments]=useState([]);
    useEffect(() => {
     AsyncStorage.getItem('User')
     .then((value) => {
       const user = JSON.parse(value).result;
       console.log(value)
-      getMyCurrentPractices(user.UserId)
+      getPatientappointments()
     })
     .catch((error) => {
       console.log(error);
     });
      
   },[]);
-  function getMyCurrentPractices(patientId){
-    axios.get(`${global.BaseUrl}MyCurrentPractices?Patient_Id=${patientId}&AppId=0`).then((response) => {
-      setLevelOnePractices(response.data)
+  function getPatientappointments(){
+    console.log(`${global.BaseUrl}GetPatientAppointments?PatientId=${route.params.PatientId}`)
+    axios.get(`${global.BaseUrl}GetPatientAppointments?PatientId=${route.params.PatientId}`).then((response) => {
+        SetAppoinments(response.data)
       });
   }
   return (
@@ -28,7 +29,7 @@ const patient_visit = ({navigation,route}) => {
      <FlatList
 
       style={{flex:1,marginTop:5}}
-      data={levelOnePractices}
+      data={Appointments}
       renderItem={({item})=>(
         <CardView
           style={styles.listItem}
@@ -40,28 +41,21 @@ const patient_visit = ({navigation,route}) => {
     
             </View>
             <View style={styles.infoView}>
-                 <Text style={styles.nameTxt}>{item.PracticeTitle}</Text>
-                 
+                 <Text style={styles.nameTxt}>{item.AppDate.split('T')[0]}</Text>
+                 <Text style={styles.nameTxt}>Level {item.LevelNo}</Text>
+                 <Text style={styles.remarksTxt}>Remarks: {item.Remarks}</Text>
             </View>
             <View style={styles.buttonView}>
              
-                <TouchableOpacity onPress={()=>navigation.navigate('PracticeCollection',{PracticeId:item.PracticeId})}> 
-                    <Text style={styles.rejectTxt}>View</Text>
+                <TouchableOpacity onPress={()=>navigation.navigate('CurrentPractices',{AppId:item.AppId})}> 
+                    <Text style={styles.rejectTxt}>Details</Text>
                 </TouchableOpacity>
        
             </View>
         </CardView>
          )}
      />
-     <TouchableOpacity
-         onPress={()=>navigation.navigate('NewPractice',{Level:'1'})}
-          activeOpacity={1}
-          style={styles.touchableOpacityStyle}>
-          <Image
-            source={require('../../images/plus-icon.jpg')}
-             style={styles.floatingButtonStyle}
-          />
-        </TouchableOpacity>
+     
     </View>
   );
 };
@@ -102,7 +96,7 @@ const styles = StyleSheet.create({
   },
   nameTxt:{
     color:'black',
-    fontSize:20,
+    fontSize:15,
     fontWeight:'bold',
    
   },
@@ -111,6 +105,10 @@ const styles = StyleSheet.create({
     fontSize:15,
   
   },
+  remarksTxt:{
+    color:'gray'
+  }
+  ,
   buttonView:{
     flex:3,
     justifyContent:'flex-end',

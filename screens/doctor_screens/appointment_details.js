@@ -52,7 +52,7 @@ const appointment_details = ({navigation}) => {
                  
               </View>
                <View style={styles.buttonHistoryView}>
-               <TouchableOpacity style={styles.btnHistory}> 
+               <TouchableOpacity style={styles.btnHistory} onPress={()=>navigation.navigate("PatientVisit",{PatientId:3005})}> 
                     <Text style={styles.btnHistoryTxt}>History</Text>
                 </TouchableOpacity>
                </View>

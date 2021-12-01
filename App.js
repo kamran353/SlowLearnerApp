@@ -18,8 +18,8 @@ import patientvisit from './screens/patient_Screens/Patient_visit';
 import patients from './screens/pa_screens/patients';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-global.BaseUrl='http://192.168.43.89/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages='http://192.168.43.89/SlowLearnerApi/'
+global.BaseUrl='http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
+global.BaseUrlForImages='http://192.168.100.37/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (

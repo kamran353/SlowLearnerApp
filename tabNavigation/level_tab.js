@@ -26,6 +26,7 @@ const LevelTab = () => {
               size={size}
             />
           ),
+          unmountOnBlur:true
         }}  />
          <Tab.Screen
         name="Ltwo"
@@ -40,6 +41,7 @@ const LevelTab = () => {
               size={size}
             />
           ),
+          unmountOnBlur:true
         }}  />
 
      <Tab.Screen
@@ -55,6 +57,7 @@ const LevelTab = () => {
               size={size}
             />
           ),
+          unmountOnBlur:true
         }}  />
     
     </Tab.Navigator>

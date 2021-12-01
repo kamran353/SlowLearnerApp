@@ -27,6 +27,7 @@ const CollectionTab = () => {
               size={size}
             />
           ),
+          unmountOnBlur:true
         }}  />
          <Tab.Screen
         name="Words"
@@ -41,6 +42,7 @@ const CollectionTab = () => {
               size={size}
             />
           ),
+          unmountOnBlur:true
         }}  />
 
      <Tab.Screen
@@ -56,6 +58,7 @@ const CollectionTab = () => {
               size={size}
             />
           ),
+          unmountOnBlur:true
         }}  />
     
     </Tab.Navigator>

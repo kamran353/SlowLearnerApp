@@ -24,7 +24,7 @@ const patient_words = ({ navigation }) => {
     }
     return (
         <View style={styles.container}>
-            <View
+            {/* <View
                 style={{ flex: 1 }}
                 cardMaxElevation={10}
                 cornerRadius={8}>
@@ -41,7 +41,7 @@ const patient_words = ({ navigation }) => {
                         }}
                     />
                 </View>
-            </View>
+            </View> */}
            <CardView
             style={styles.listItem}
             cornerRadius={10}>
@@ -75,6 +75,7 @@ const patient_words = ({ navigation }) => {
                  <TouchableOpacity style={styles.optionButton}>
                      <Text style={styles.nameTxt}>{'<<<'}</Text>
                  </TouchableOpacity>
+                 <Text>3/4</Text>
                  <TouchableOpacity style={styles.optionButton}>
                      <Text style={styles.nameTxt}>{'>>>'}</Text>
                  </TouchableOpacity>

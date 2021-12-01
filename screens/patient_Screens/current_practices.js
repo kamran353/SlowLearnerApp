@@ -5,11 +5,13 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const currentPractices = ({navigation,route}) => {
    const [levelOnePractices,setLevelOnePractices]=useState([]);
+   const [User,SetUser]=useState(null);
    useEffect(() => {
     AsyncStorage.getItem('User')
     .then((value) => {
       const user = JSON.parse(value).result;
       console.log(value)
+      SetUser(user)
       getMyCurrentPractices(user.UserId)
     })
     .catch((error) => {
@@ -22,46 +24,63 @@ const currentPractices = ({navigation,route}) => {
       setLevelOnePractices(response.data)
       });
   }
+  function ShowNextAppointDate(){
+    alert("Your Next Appointment Date is \n 12-10-2021")
+  }
   return (
     <View style={styles.container}>
-     
+     <View style={{flex:1,flexDirection:'row',justifyContent:'space-around',paddingLeft:10}}>
+       <View style={{flex:1}}>
+       <TouchableOpacity style={styles.btnLogin} onPress={()=>ShowNextAppointDate()}>
+                <Text style={{color:'white'}}>
+                    Next Visit
+                </Text>
+      </TouchableOpacity>
+       </View>
+       <View style={{flex:1}}>
+       <TouchableOpacity style={styles.btnLogin} onPress={()=>navigation.navigate("PatientVisit",{PatientId:User.UserId})}>
+                <Text style={{color:'white'}}>
+                    Previous Visits
+                </Text>
+       </TouchableOpacity>
+      </View>      
+     </View>
+     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+             <Text style={styles.nameTxt}>Current Appointment Practices</Text>
+     </View>
+     <View style={{flex:8}}>
      <FlatList
 
-      style={{flex:1,marginTop:5}}
-      data={levelOnePractices}
-      renderItem={({item})=>(
-        <CardView
-          style={styles.listItem}
-          cardElevation={5}
-          cardMaxElevation={10}
-          cornerRadius={8}>
-            <View style={styles.imageView}>
-            <Image   source={require('../../images/practice.jpg')} style={styles.imagstyle} resizeMode='contain'/>
-    
-            </View>
-            <View style={styles.infoView}>
-                 <Text style={styles.nameTxt}>{item.PracticeTitle}</Text>
-                 
-            </View>
-            <View style={styles.buttonView}>
-             
-                <TouchableOpacity onPress={()=>navigation.navigate('PracticeCollection',{PracticeId:item.PracticeId})}> 
-                    <Text style={styles.rejectTxt}>View</Text>
-                </TouchableOpacity>
+    style={{flex:1,marginTop:5}}
+    data={levelOnePractices}
+    renderItem={({item})=>(
+      <CardView
+        style={styles.listItem}
+        cardElevation={5}
+        cardMaxElevation={10}
+        cornerRadius={8}>
+      <View style={styles.imageView}>
+      <Image   source={require('../../images/practice.jpg')} style={styles.imagstyle} resizeMode='contain'/>
+
+      </View>
+      <View style={styles.infoView}>
+           <Text style={styles.nameTxt}>{item.PracticeTitle}</Text>
+           
+      </View>
+      <View style={styles.buttonView}>
        
-            </View>
-        </CardView>
-         )}
-     />
-     <TouchableOpacity
-         onPress={()=>navigation.navigate('PatientVisit')}
-          activeOpacity={1}
-          style={styles.touchableOpacityStyle}>
-          <Image
-            source={require('../../images/plus-icon.jpg')}
-             style={styles.floatingButtonStyle}
-          />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate('PatientWords',{PracticeId:item.PracticeId})}> 
+              <Text style={styles.rejectTxt}>View</Text>
+          </TouchableOpacity>
+ 
+      </View>
+      </CardView>
+      )}
+      />
+
+     </View>
+     
+    
     </View>
   );
 };
@@ -139,6 +158,18 @@ const styles = StyleSheet.create({
    height: 60,
    borderRadius:1000
    //backgroundColor:'black'
+ },
+ btnLogin:{
+   height:40,
+   width:150,
+   borderRadius:20,
+   borderColor:'gray',
+   borderWidth:1,
+   marginTop:'10%',
+   justifyContent:'center',
+   alignItems:'center',
+   backgroundColor:'#FFB133'
+
  }
 });
 

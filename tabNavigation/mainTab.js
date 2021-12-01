@@ -27,6 +27,7 @@ const mainTab = () => {
               size={size}
             />
           ),
+          unmountOnBlur:true
         }}  />
          <Tab.Screen
         name="Assistents"
@@ -41,6 +42,7 @@ const mainTab = () => {
               size={size}
             />
           ),
+          unmountOnBlur:true
         }}  />
       <Tab.Screen
         name="Profile"
@@ -55,6 +57,7 @@ const mainTab = () => {
               size={size}
             />
           ),
+          unmountOnBlur:true
         }} />
     </Tab.Navigator>
  

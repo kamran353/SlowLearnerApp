@@ -25,7 +25,9 @@ const adminTab = () => {
               size={size}
             />
           ),
-        }}  />
+          unmountOnBlur:true
+        }}  
+        />
          <Tab.Screen
         name="Requested"
         component={pending}
@@ -39,6 +41,7 @@ const adminTab = () => {
               size={size}
             />
           ),
+          unmountOnBlur:true
         }}  />
     
     </Tab.Navigator>
