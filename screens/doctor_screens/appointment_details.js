@@ -5,10 +5,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
-const appointment_details = ({navigation}) => {
+const appointment_details = ({navigation,route}) => {
   const [levelPractices,setLevelPractices]=useState([]);
   const[Remarks,setRemarks]=useState(null)
   const[PracticeIds,SetPracticeIds]=useState([])
+  const[AddOrRemove,SetAddOrRemove]=useState(true)
   useEffect(() => {
    AsyncStorage.getItem('User')
    .then((value) => {
@@ -20,11 +21,11 @@ const appointment_details = ({navigation}) => {
      console.log(error);
    });
     
- },[]);
+ },[PracticeIds,AddOrRemove]);
  function getMyLevelPractices(doctorId){
-   axios.get(`${global.BaseUrl}GetMyLevelPractices?PracticeLevel=1&&DoctorId=${doctorId}`).then((response) => {
+   axios.get(`${global.BaseUrl}GetMyLevelPractices?PracticeLevel=${route.params.LevelNo}&&DoctorId=${doctorId}`).then((response) => {
     setLevelPractices(response.data)
-     });
+     }).catch(error=>console.log(error+" notttttt found "+route.params.AppId))
  }
  function AddOrRemovePractice(practiceId){
   var index=PracticeIds.indexOf(practiceId);
@@ -33,8 +34,24 @@ const appointment_details = ({navigation}) => {
   }else{
     PracticeIds.push(practiceId)
   }
- 
+  SetPracticeIds(PracticeIds)
+  SetAddOrRemove(!AddOrRemove)
   console.log(PracticeIds)
+}
+function SaveAppointment(){
+  const app = { 
+    Remarks: Remarks,
+    PracticeIds:PracticeIds.toString(),
+    AppId:route.params.AppId
+  };
+  axios.post(`${global.BaseUrl}SetAppointmentPractices`, app)
+      .then(response =>{
+        if(response.status==200){
+          alert("Save Successfully")
+          SetPracticeIds([])
+          SetAddOrRemove(true)
+        }
+      }).catch(error=>console.log(error));
 }
   return (
     <View style={styles.container}>
@@ -90,7 +107,7 @@ const appointment_details = ({navigation}) => {
 
           <TextInput placeholder='Enter Remarks' style={styles.txtInput} onChangeText={(val)=>setRemarks(val)}/>
          
-          <TouchableOpacity style={styles.btnLogin}>
+          <TouchableOpacity style={styles.btnLogin} onPress={()=>SaveAppointment()}>
           <Text style={styles.txtLogin}>
               Save Changes
           </Text>

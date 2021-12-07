@@ -43,7 +43,7 @@ const login = ({navigation}) => {
       navigation.navigate('MainTab')
       }
       else if(result.UserRole=='Patient'){
-        navigation.navigate('CurrentPractices',{AppId:0})
+        navigation.navigate('PatientTab')
       }
       else if(result.UserRole=='PA'){
          navigation.navigate('PAPatients')

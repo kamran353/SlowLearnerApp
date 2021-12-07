@@ -5,7 +5,7 @@ import axios from 'axios';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const patient_words = ({ navigation }) => {
+const patient_words = ({ navigation,route }) => {
     const [levelOneWords, setLevelOneWords] = useState([]);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
@@ -20,40 +20,20 @@ const patient_words = ({ navigation }) => {
     function getLevelOneWords() {
         axios.get(`${global.BaseUrl}GetLevelWords?WordLevel=1`).then((response) => {
             setLevelOneWords(response.data)
-        });
+        }).catch(error=>console.log(error));
     }
     return (
         <View style={styles.container}>
-            {/* <View
-                style={{ flex: 1 }}
-                cardMaxElevation={10}
-                cornerRadius={8}>
-                <View style={{zIndex:1001}}>
-                    <DropDownPicker
-                        open={open}
-                        value={value}
-                        items={items}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItems}
-                        translation={{
-                            PLACEHOLDER: "Select Level"
-                        }}
-                    />
-                </View>
-            </View> */}
+           
            <CardView
             style={styles.listItem}
             cornerRadius={10}>
            <View style={styles.imageView}>
-           <TouchableOpacity style={styles.preButton}>
-                     <Text style={styles.nameTxt}>{'<<<'}</Text>
-                 </TouchableOpacity>
-             <Image source={require('../../images/laptop.png')} style={styles.imagstyle} resizeMode='contain' />              
+                 <Image  source={{uri:`${global.BaseUrlForImages}${route.params.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/> 
            </View>
            <View style={styles.optionButtonView}>
                  <TouchableOpacity style={styles.optionButton}>
-                     <Text style={styles.nameTxt}>Laptop</Text>
+                     <Text style={styles.nameTxt}>{route.params.CollectionText}</Text>
                  </TouchableOpacity>
                  <TouchableOpacity style={styles.optionButton}>
                      <Text style={styles.nameTxt}>Mobile</Text>
@@ -96,8 +76,8 @@ const styles = StyleSheet.create({
         paddingTop: '2%'
     },
     imagstyle: {
-        width: '80%',
-        height: '100%',
+        width: '60%',
+        height: '90%',
         borderRadius: 20,
         marginTop:5,
         
@@ -110,7 +90,7 @@ const styles = StyleSheet.create({
     },
     nameTxt: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: 'bold',
 
     },

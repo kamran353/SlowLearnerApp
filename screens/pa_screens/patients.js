@@ -32,6 +32,7 @@ const radioButtonsData = [
 const patients = ({navigation}) => {
   const [MyPatients,SetMyPatients]=useState([]);
   const[IsShown,SetShown]=useState(false)
+  const[CurrentDoctorId,SetDoctorId]=useState(0)
   const[PatientId,SetPatientId]=useState(0)
   const [radioButtons, setRadioButtons] = useState(radioButtonsData);
   const [date, setDate] = useState('01-01-2021');
@@ -41,6 +42,7 @@ const patients = ({navigation}) => {
    .then((value) => {
      const user = JSON.parse(value).result;
      console.log(value)
+     SetDoctorId(user.ReferenceUserId)
      getMyAssistents(user.UserId)
    })
    .catch((error) => {
@@ -57,8 +59,24 @@ const patients = ({navigation}) => {
     SetPatientId(userId)
     SetShown(true)
  }
-  function SetAppointment(){
-    SetShown(false)
+  const SetAppointment=async()=>{
+    var Level=await GetRadioButtonValue();
+    const Appointment = { 
+      AppDate: date,
+      DoctorId:CurrentDoctorId,
+      PatientId:PatientId,
+      Remarks:'',
+      IsActive:false,IsComplete:false,LevelNo:Level };
+    axios.post(`${global.BaseUrl}SetNewAppointment`, Appointment)
+        .then(response =>{
+          if(response.status==200){
+            alert("Appointment set Successfully")
+            SetShown(false)
+          }
+         
+        })
+        .catch(error=>alert("Network Error"));
+    
   }
   const onPressRadioButton =async(radioButtonsArray) => {
     console.log(radioButtonsArray);
@@ -157,7 +175,7 @@ const patients = ({navigation}) => {
             layout="row"
           />
           </View>
-          <TouchableOpacity style={styles.btnLogin} onPress={()=>SetAppointment()}>
+          <TouchableOpacity style={styles.btnLogin} onPress={SetAppointment}>
                 <Text style={{color:'white'}}>
                     Set Appointment
                 </Text>

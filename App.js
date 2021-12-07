@@ -13,9 +13,11 @@ import practiceCollection from './screens/practices_screens/practice_collections
 import CollectionTab from './tabNavigation/collectionTab';
 import newCollection from './screens/collection_Screens/new_collection';
 import patient_words from './screens/patient_Screens/patient_words';
+import patientTab from './tabNavigation/patientTab'
 import currentPractices from './screens/patient_Screens/current_practices';
 import patientvisit from './screens/patient_Screens/Patient_visit';
 import patients from './screens/pa_screens/patients';
+import collection_details from './screens/patient_Screens/collection_details';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 global.BaseUrl='http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
@@ -42,6 +44,8 @@ const App = () => {
       <Stack.Screen name="NewPractice" component={newPractice} options={{headerShown:false}}/>
       <Stack.Screen name="PracticeCollection" component={practiceCollection} options={{headerShown:false}}/>
       <Stack.Screen name="PAPatients" component={patients} options={{headerShown:false}}/>
+      <Stack.Screen name="PatientTab" component={patientTab} options={{headerShown:false}}/>
+      <Stack.Screen name="CollectionDetails" component={collection_details} options={{headerShown:false}}/>
     </Stack.Navigator>
     </NavigationContainer>
   );

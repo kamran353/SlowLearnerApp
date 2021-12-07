@@ -1,23 +1,11 @@
 import React, { useState,useEffect } from 'react';
 import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-native';
 import CardView from 'react-native-cardview'
-import { FloatingAction } from 'react-native-floating-action';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 const appointMents = ({navigation}) => {
-   const [allpatients,setAllpatients]=useState([
-    {id:1,name:'Hassan',gender:'Male',Phone:'03439899999',date:'10-12-2021'},
-    {id:2,name:'Asia',gender:'Female',Phone:'03439899999',date:'10-12-2021'},
-    {id:3,name:'Anaya',gender:'Female',Phone:'03439899999',date:'10-12-2021'},
-    {id:4,name:'Nadia',gender:'Female',Phone:'03439899999',date:'10-12-2021'},
-    {id:5,name:'Shehzad',gender:'male',Phone:'03439899999',date:'10-12-2021'},
-    {id:6,name:'Junaid',gender:'male',Phone:'03439899999',date:'10-12-2021'},
-    {id:7,name:'Haseeb',gender:'male',Phone:'03439899999',date:'10-12-2021'},
-    {id:8,name:'Zainab',gender:'Female',Phone:'03439899999',date:'10-12-2021'},
-    {id:9,name:'Khuram',gender:'male',Phone:'03439899999',date:'10-12-2021'},
-
-   ]);
+   const [appointments,SetAppointments]=useState([]);
    useEffect(() => {
-     
     AsyncStorage.getItem('User')
     .then((value) => {
       const user = JSON.parse(value).result;
@@ -29,18 +17,22 @@ const appointMents = ({navigation}) => {
     });
   },[]);
   function getMyPatients(doctorId){
-
+    axios.get(`${global.BaseUrl}GetTodayPatientAppointments?DoctorId=${doctorId}`).then((response) => {
+      console.log(response.data);
+      if(response.data.length>0){
+        SetAppointments(response.data)
+      }
+      
+    }).catch(error=>console.log(error));
   }
   return (
     <View style={styles.container}>
      
      <FlatList
-
       style={{flex:1}}
-      data={allpatients}
+      data={appointments}
       renderItem={({item})=>(
         <CardView
-       
           style={styles.listItem}
           cardElevation={5}
           cardMaxElevation={10}
@@ -50,14 +42,13 @@ const appointMents = ({navigation}) => {
     
             </View>
             <View style={styles.infoView}>
-                 <Text style={styles.nameTxt}>{item.name}</Text>
-                 <Text style={styles.otherTxt}>{item.Phone}</Text>
-                 <Text style={styles.otherTxt}>{item.gender}</Text>
-                 <Text style={styles.otherTxt}>{item.date}</Text>
+                 <Text style={styles.nameTxt}>{item.UserName}</Text>
+                 <Text style={styles.otherTxt}>{item.UserPhone}</Text>
+                 <Text style={styles.otherTxt}>{item.UserGender}</Text>
             </View>
             <View style={styles.buttonView}>
              
-                <TouchableOpacity  onPress={()=>navigation.navigate("AppointmentDetails")}> 
+                <TouchableOpacity  onPress={()=>navigation.navigate("AppointmentDetails",{AppId:item.AppId,LevelNo:item.LevelNo})}> 
                     <Text style={styles.viewBtnTxt}>View</Text>
                 </TouchableOpacity>
        
