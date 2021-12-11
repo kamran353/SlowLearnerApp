@@ -49,7 +49,7 @@ const registerPatient = ({ navigation, route }) => {
       SetUsergender('Female');
     }
     const user = {
-      UserName: FirstName + " " + LastName,
+      UserName: FirstName + " " + LastName, 
       UserPhone: UserPhone,
       UserGender: UserGender,
       UserPassword: UserPassword,

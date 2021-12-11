@@ -10,8 +10,7 @@ const adminTab = () => {
   return (
   
     <Tab.Navigator
-      initialRouteName="Home"
-     >
+      initialRouteName="Home">
       <Tab.Screen
         name="Approved"
         component={approved}
@@ -28,7 +27,7 @@ const adminTab = () => {
           unmountOnBlur:true
         }}  
         />
-         <Tab.Screen
+       <Tab.Screen
         name="Requested"
         component={pending}
         options={{
