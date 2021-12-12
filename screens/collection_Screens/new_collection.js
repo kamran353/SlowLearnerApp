@@ -6,6 +6,7 @@ import axios from 'axios';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { launchImageLibrary  } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DocumentPicker  from 'react-native-document-picker';
 const radioButtonsData = [
     {
       id: '1',
@@ -34,6 +35,8 @@ const newCollection =({navigation}) => {
     const [radioButtons, setRadioButtons] = useState(radioButtonsData);
     const [Description, setDescription] = useState('');
     const [photo, setPhoto] = useState(null);
+    const [audio, setAudio] = useState(null);
+    const[audioName,setAudioName]=useState('No Audio Selected')
     const[User,SetUser]=useState(null)
     useEffect(() => {
       AsyncStorage.getItem('User')
@@ -64,6 +67,7 @@ const newCollection =({navigation}) => {
         formData.append("CollectionType",type);
         formData.append("DoctorId",User.UserId);
         formData.append("Photo",{name:photo.assets[0].fileName,type:photo.assets[0].type,uri:photo.assets[0].uri});
+        formData.append("Audio",{name:audio.name,type:audio.type,uri:audio.uri});
         axios({
             url:`${global.BaseUrl}AddNewCollection`,
             method:'POST',
@@ -91,6 +95,31 @@ const newCollection =({navigation}) => {
           }
         });
       };
+      const selectAudioHandle = async () => {
+        //Opening Document Picker for selection of one file
+        try {
+          const res = await DocumentPicker.pick({
+            type: [DocumentPicker.types.audio],
+          });
+          console.log('res : ' + JSON.stringify(res));
+          console.log('URI : ' + res[0].uri);
+          console.log('Type : ' + res[0].type);
+          console.log('File Name : ' + res[0].name);
+          console.log('File Size : ' + res[0].size);
+          //Setting the state to show single file attributes
+          setAudio(res[0]);
+          setAudioName(res[0].name)
+        } catch (err) {
+          //Handling any exception (If any)
+          if (DocumentPicker.isCancel(err)) {
+            alert('Canceled');
+          } else {
+            //For Unknown Error
+            alert('Unknown Error: ' + JSON.stringify(err));
+           
+          }
+        }
+      };
   return (
     <View style={styles.container}>
      
@@ -101,7 +130,7 @@ const newCollection =({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
           <Text style={styles.heading}>
-              Add New Collection
+               New Collection
           </Text>
           <View style={styles.txtInput}>
           <RadioGroup
@@ -111,7 +140,18 @@ const newCollection =({navigation}) => {
           />
           </View>
           <TextInput placeholder='Description' style={styles.txtInput} onChangeText={(val)=>setDescription(val)}/>
-         
+          <View style={{...styles.txtInput,flexDirection:'row'}}>
+            <View style={{flex:6,justifyContent:'center'}}>
+                   <Text>{audioName}</Text>
+            </View>
+            <View style={{flex:4}}>
+            <TouchableOpacity style={{...styles.btnLogin,width:118,marginTop:0}} onPress={selectAudioHandle}>
+            <Text style={styles.txtLogin}>
+                Choose Audio
+            </Text>
+          </TouchableOpacity>
+           </View>
+          </View>
           <View style={styles.ImageView}>
                     {photo!=null? (
                   
@@ -131,6 +171,7 @@ const newCollection =({navigation}) => {
           </View>
          
         
+         
           <TouchableOpacity style={styles.btnLogin} onPress={SaveCollection}>
           <Text style={styles.txtLogin}>
               Save Collection

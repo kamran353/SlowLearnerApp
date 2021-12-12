@@ -3,6 +3,7 @@ import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-na
 import CardView from 'react-native-cardview'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SoundPlayer from 'react-native-sound-player';
 const words = ({navigation}) => {
   const [MyWords,SetWords]=useState([]);
   useEffect(() => {
@@ -22,6 +23,15 @@ const words = ({navigation}) => {
       SetWords(response.data)
       });
   }
+ function playAudio(url) {
+    try {
+      //SoundPlayer.playUrl(`${global.BaseUrlForImages}url`)
+    } catch (e) {
+      alert('Cannot play the file')
+      console.log('cannot play the song file', e)
+    }
+  }
+
   return (
     <View style={styles.container}>
      
@@ -42,6 +52,13 @@ const words = ({navigation}) => {
             <View style={styles.infoView}>
             <Text style={styles.nameTxt}>{item.CollectionText}</Text>
             </View>
+            <View style={styles.audioView}>
+              <TouchableOpacity style={styles.btnLogin} onPress={()=>playAudio(item.CollectionAudio)}>
+              <Text style={styles.txtLogin}>
+                  Play
+              </Text>
+            </TouchableOpacity>
+           </View>
         </CardView>
          )}
      />
@@ -72,9 +89,14 @@ const styles = StyleSheet.create({
     
   },
   infoView:{
-    flex:7,
+    flex:5,
     justifyContent:'center',
     alignItems:'flex-start'
+  },
+  audioView:{
+    flex:5,
+    justifyContent:'center',
+    alignItems:'center'
   }
   ,
   imagstyle:{
@@ -131,7 +153,22 @@ const styles = StyleSheet.create({
    height: 60,
    borderRadius:1000
    //backgroundColor:'black'
- }
+ },btnLogin:{
+  height:40,
+  width:100,
+  borderRadius:20,
+  borderColor:'gray',
+  borderWidth:1,
+  marginTop:'5%',
+  justifyContent:'center',
+  alignItems:'center',
+  backgroundColor:'#FFB133'
+},
+txtLogin:{
+  color:'white',
+  fontSize:15,
+  fontWeight:"bold"
+}
 });
 
 export default words;
