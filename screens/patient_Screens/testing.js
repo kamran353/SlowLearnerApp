@@ -4,22 +4,22 @@ import CardView from 'react-native-cardview'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const testing = ({navigation}) => {
-  const [MyWords,SetWords]=useState([]);
+  const [collections,setCollection]=useState([]);
   useEffect(() => {
     AsyncStorage.getItem('User')
     .then((value) => {
       const user = JSON.parse(value).result;
       console.log(value)
-      getMyLetters(user.UserId)
+      getMyTestCollections(user.UserId)
     })
     .catch((error) => {
       console.log(error);
     });
      
   },[]);
-  function getMyLetters(doctorId){
-    axios.get(`${global.BaseUrl}GetCollections`).then((response) => {
-      SetWords(response.data)
+  function getMyTestCollections(patientId){
+    axios.get(`${global.BaseUrl}GetTestCollections?PatientId=${patientId}`).then((response) => {
+      setCollection(response.data)
       });
   }
   return (
@@ -28,15 +28,15 @@ const testing = ({navigation}) => {
      <FlatList
       numColumns={2}
       style={{flex:1,marginTop:5}}
-      data={MyWords}
-      renderItem={({item})=>(
+      data={collections}
+      renderItem={({item,index})=>(
         <CardView
           style={styles.listItem}
           cardElevation={5}
           cardMaxElevation={10}
           cornerRadius={8}>
              <View style={styles.imageView}>
-               <TouchableOpacity onPress={()=>navigation.navigate("PatientWords",{CollectionText:item.CollectionText,CollectionImage:item.CollectionImage})} style={styles.imagstyle}>
+               <TouchableOpacity onPress={()=>navigation.navigate("PatientWords",{collection:collections,position:index})} style={styles.imagstyle}>
                <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/>
     
                </TouchableOpacity>

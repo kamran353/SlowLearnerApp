@@ -1,26 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet,Text } from 'react-native';
 import CardView from 'react-native-cardview'
-import axios from 'axios';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
 const patient_words = ({ navigation,route }) => {
-    const [levelOneWords, setLevelOneWords] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-        { label: 'Level 1', value: '1' },
-        { label: 'Level 2', value: '2' },
-        { label: 'Level 3', value: '3' }
-    ]);
+    const [index,setIndex]=useState(0);
+    const[wrong,setWrong]=useState('')
+    const[correct,setCorrect]=useState('')
     useEffect(() => {
-        getLevelOneWords()
+        setMcq()
     }, []);
-    function getLevelOneWords() {
-        axios.get(`${global.BaseUrl}GetLevelWords?WordLevel=1`).then((response) => {
-            setLevelOneWords(response.data)
-        }).catch(error=>console.log(error));
+    function setMcq(){
+        setIndex(route.params.position);
+    }
+    function setPosition(position){
+        if(position>=0 && position<route.params.collection.length){
+          setIndex(position);
+        }
+        setCorrect('')
+        setWrong('')
+    }
+    function CheckAnswer(txt,option){
+      if(route.params.collection[index].CollectiontText==txt){
+        setCorrect(option)
+        setWrong('')
+      }else {
+          setWrong(option)
+          if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionA){
+              setCorrect("A")
+          }
+          else if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionB){
+            setCorrect("B")
+          }
+          else if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionC){
+            setCorrect("C")
+          }
+          else if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionD){
+            setCorrect("D")
+          }
+      }
     }
     return (
         <View style={styles.container}>
@@ -29,40 +46,40 @@ const patient_words = ({ navigation,route }) => {
             style={styles.listItem}
             cornerRadius={10}>
            <View style={styles.imageView}>
-                 <Image  source={{uri:`${global.BaseUrlForImages}${route.params.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/> 
+                 <Image  source={{uri:`${global.BaseUrlForImages}${route.params.collection[index].CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/> 
            </View>
            <View style={styles.optionButtonView}>
-                 <TouchableOpacity style={styles.optionButton}>
-                     <Text style={styles.nameTxt}>{route.params.CollectionText}</Text>
+                 <TouchableOpacity style={correct=="A"?{...styles.optionGreen}:wrong=="A"?{...styles.optionRed}:{...styles.optionButton}}  onPress={()=>CheckAnswer(route.params.collection[index].OptionA,"A")}>
+                     <Text style={styles.nameTxt}>{route.params.collection[index].OptionA}</Text>
                  </TouchableOpacity>
-                 <TouchableOpacity style={styles.optionButton}>
-                     <Text style={styles.nameTxt}>Mobile</Text>
+                 <TouchableOpacity style={correct=="B"?{...styles.optionGreen}:wrong=="B"?{...styles.optionRed}:{...styles.optionButton}} onPress={()=>CheckAnswer(route.params.collection[index].OptionB,"B")}>
+                     <Text style={styles.nameTxt}>{route.params.collection[index].OptionB}</Text>
                  </TouchableOpacity>
                
            </View> 
            
            <View style={styles.optionButtonView}>
-                 <TouchableOpacity style={styles.optionButton}>
-                     <Text style={styles.nameTxt}>Tablet</Text>
+                 <TouchableOpacity style={correct=="C"?{...styles.optionGreen}:wrong=="C"?{...styles.optionRed}:{...styles.optionButton}} onPress={()=>CheckAnswer(route.params.collection[index].OptionC,"C")}>
+                     <Text style={styles.nameTxt}>{route.params.collection[index].OptionC}</Text>
                  </TouchableOpacity>
-                 <TouchableOpacity style={styles.optionButton}>
-                     <Text style={styles.nameTxt}>Keyboard</Text>
+                 <TouchableOpacity style={correct=="D"?{...styles.optionGreen}:wrong=="D"?{...styles.optionRed}:{...styles.optionButton}} onPress={()=>CheckAnswer(route.params.collection[index].OptionD,"D")}>
+                     <Text style={styles.nameTxt}>{route.params.collection[index].OptionD}</Text>
                  </TouchableOpacity>
                
            </View>
 
            <View style={styles.previousNextView}>
-                 <TouchableOpacity style={styles.optionButton}>
+                 <TouchableOpacity style={styles.optionButton} onPress={()=>setPosition(index-1)}>
                      <Text style={styles.nameTxt}>{'<<<'}</Text>
                  </TouchableOpacity>
-                 <Text>3/4</Text>
-                 <TouchableOpacity style={styles.optionButton}>
+                 <Text>{index+1}/{route.params.collection.length}</Text>
+                 <TouchableOpacity style={styles.optionButton} onPress={()=>setPosition(index+1)}>
                      <Text style={styles.nameTxt}>{'>>>'}</Text>
                  </TouchableOpacity>
                
            </View>
            </CardView>
-               
+                
             
         </View>
     );
@@ -124,6 +141,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection:'row',
         marginHorizontal:20
+    }
+    ,optionRed:{
+        backgroundColor:'red',
+        width:100,
+        height:40,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:10
+    }
+    ,optionGreen:{
+        backgroundColor:'green',
+        width:100,
+        height:40,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:10
     }
 });
 
