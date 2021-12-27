@@ -20,7 +20,7 @@ const levelone = ({navigation}) => {
   function getMyLevelPractices(doctorId){
     axios.get(`${global.BaseUrl}GetMyLevelPractices?PracticeLevel=1&&DoctorId=${doctorId}`).then((response) => {
       setLevelOnePractices(response.data)
-      });
+      }).catch(err=>console.log(err));
   }
   return (
     <View style={styles.container}>

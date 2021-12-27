@@ -8,21 +8,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const login = ({navigation}) => {
  const [username,setUsername]=useState('');
  const [password,setPassword]=useState('');
- const [user,setUser]=useState(null);
- 
  const LoginAccount= async ()=>{  
     if(username=='Admin' && password=='1234'){
        navigation.navigate('Admin');
     }else{
       axios.get(`${global.BaseUrl}LoginUser?Username=${username}&Userpassword=${password}`).then((response) => {
-     
+     console.log(response.data)
       if(response.data!=null)
         {
           if(response.data.IsApproved==true)
           {
-            setUser(response.data) 
-            SetUserAsyncStorage(response.data)
-                
+            SetUserAsyncStorage(response.data) 
           }else {
             alert("Your Account is Not Approved yet")
           }

@@ -24,6 +24,7 @@ const profile = ({navigation}) => {
 
 
         <View style={styles.actionStyle}>
+
          <CardView
           style={styles.listItem}
           cardElevation={10}
@@ -37,13 +38,12 @@ const profile = ({navigation}) => {
             <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPa',{Type:'PA'})}>
               <Text style={styles.actoinTxt}>Add New PA</Text>
               </TouchableOpacity>
-                 
-
             </View>
            
         </CardView>
-       
-        </View>
+      </View>
+
+
         <View style={styles.actionStyle}>
          <CardView
           style={styles.listItem}

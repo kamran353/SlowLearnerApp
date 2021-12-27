@@ -55,7 +55,7 @@ const leveltwo= ({navigation}) => {
      />
 
         <TouchableOpacity
-         onPress={()=>navigation.navigate('NewPractice',{Level:'1'})}
+         onPress={()=>navigation.navigate('NewPractice',{Level:'2'})}
           activeOpacity={1}
           style={styles.touchableOpacityStyle}>
           <Image

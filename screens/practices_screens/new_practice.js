@@ -7,12 +7,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
 const newPractice =({navigation,route}) => {
     const[Title,setTitle]=useState(null)
+
     const [IsLetterTabActive,SetLetterTabActive]=useState(true)
     const [IsWordTabActive,SetWordTabActive]=useState(false)
     const [IsSentenceTabActive,SetSentenceTabActive]=useState(false)
+    
     const[User,SetUser]=useState(null)
+
     const[collectionIds,SetCollectionIds]=useState([])
+
     const [MyCollection,setMyCollection]=useState([]);
+
     useEffect(() => {
       AsyncStorage.getItem('User')
       .then((value) => {
@@ -31,6 +36,8 @@ const newPractice =({navigation,route}) => {
         console.log(error);
       });
     },[MyCollection,IsLetterTabActive]);
+
+
     function GetMyCollection(type,id){
       var DoctorId=id;
       if(id==0){
@@ -40,6 +47,9 @@ const newPractice =({navigation,route}) => {
         setMyCollection(response.data)
         });
     }
+
+
+
     function AddOrRemoveCollection(collectionId){
       var CollectionIndex;
       for(var i=0;i<MyCollection.length;i++){
@@ -59,6 +69,8 @@ const newPractice =({navigation,route}) => {
       setMyCollection(MyCollection)
       console.log(collectionIds)
     }
+
+
     function SetSelectedTab(type){
       if(type=="Letter"){
         SetLetterTabActive(true)
@@ -75,13 +87,19 @@ const newPractice =({navigation,route}) => {
         SetWordTabActive(false);
       }
     }
+
+
+
     function SavePractice(){
+
       const practice = { 
         Title: Title,
         LevelNo:route.params.Level,
         CollectionIds:collectionIds.toString(),
         DoctorId:User.UserId
       };
+
+
       axios.post(`${global.BaseUrl}AddNewPractice`, practice)
           .then(response =>{
             if(response.status==200){

@@ -10,21 +10,23 @@ const appointment_details = ({navigation,route}) => {
   const[Remarks,setRemarks]=useState(null)
   const[PracticeIds,SetPracticeIds]=useState([])
   const[AddOrRemove,SetAddOrRemove]=useState(true)
+  const[LastAppointment,SetLastAppointment]=useState(null)
   useEffect(() => {
    AsyncStorage.getItem('User')
    .then((value) => {
      const user = JSON.parse(value).result;
      console.log(value)
-     getMyLevelPractices(user.UserId)
+     getMyLevelPracticesAndLastAppointmentOfPatient(user.UserId)
    })
    .catch((error) => {
      console.log(error);
    });
     
  },[PracticeIds,AddOrRemove]);
- function getMyLevelPractices(doctorId){
-   axios.get(`${global.BaseUrl}GetMyLevelPractices?PracticeLevel=${route.params.LevelNo}&&DoctorId=${doctorId}`).then((response) => {
-    setLevelPractices(response.data)
+ function getMyLevelPracticesAndLastAppointmentOfPatient(doctorId){
+   axios.get(`${global.BaseUrl}GetMyLevelPracticesAndLastAppointmentOfPatient?PracticeLevel=${route.params.LevelNo}&&DoctorId=${doctorId}&PatientId=${route.params.PatientId}`).then((response) => {
+       setLevelPractices(response.data.Practices)
+       SetLastAppointment(response.data.LastAppointment)
      }).catch(error=>console.log(error+" notttttt found "+route.params.AppId))
  }
  function AddOrRemovePractice(practiceId){
@@ -62,12 +64,14 @@ function SaveAppointment(){
           cardMaxElevation={10}
           cornerRadius={20}>
             <View style={styles.LastAppointment}>
-              <View style={styles.DetailView}>
-                  <Text style={styles.DetailTxt}>Date: 10-05-2021</Text>
-                 <Text style={styles.DetailTxt}>Level: Level No-1</Text>
-                 <Text style={styles.DetailTxt}>Remarks:Last Appointment Remarks here</Text>
-                 
-              </View>
+              { LastAppointment!=null?
+                <View style={styles.DetailView}>
+                  <Text style={styles.DetailTxt}>Date: {LastAppointment.AppDate.toString().split('T')[0]}</Text>
+                 <Text style={styles.DetailTxt}>Level: Level No {LastAppointment.LevelNo}</Text>
+                 <Text style={styles.DetailTxt}>Remarks:{LastAppointment.Remarks}</Text>
+                 </View>
+                 :null
+              }
                <View style={styles.buttonHistoryView}>
                <TouchableOpacity style={styles.btnHistory} onPress={()=>navigation.navigate("PatientVisit",{PatientId:3005})}> 
                     <Text style={styles.btnHistoryTxt}>History</Text>

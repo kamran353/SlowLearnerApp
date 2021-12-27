@@ -2,6 +2,7 @@ import React from 'react';
 import login from './screens/loginSignUp_screens/login';
 import signup from './screens/loginSignUp_screens/signup'
 import Splash from './screens/loginSignUp_screens/splash';
+
 import registerPa from './screens/doctor_screens/register-pa'
 import registerPatient from './screens/pa_screens/register_patient';
 import appointment_details from './screens/doctor_screens/appointment_details';
@@ -20,6 +21,8 @@ import patients from './screens/pa_screens/patients';
 import collection_details from './screens/patient_Screens/collection_details';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+
 global.BaseUrl='http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
 global.BaseUrlForImages='http://192.168.100.37/SlowLearnerApi/'
 const Stack = createStackNavigator();

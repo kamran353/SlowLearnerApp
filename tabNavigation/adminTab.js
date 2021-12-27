@@ -1,16 +1,16 @@
 import React from 'react';
-import approved from '../screens/admin_screens/approved';
+import approved from '../screens/admin_screens/approved'
 import pending from '../screens/admin_screens/pending'
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const Tab = createBottomTabNavigator();
 const adminTab = () => {
   return (
   
     <Tab.Navigator
-      initialRouteName="Home">
+      initialRouteName="Approved">
+
       <Tab.Screen
         name="Approved"
         component={approved}
@@ -27,8 +27,9 @@ const adminTab = () => {
           unmountOnBlur:true
         }}  
         />
+
        <Tab.Screen
-        name="Requested"
+        name="Pending"
         component={pending}
         options={{
             headerShown:false,

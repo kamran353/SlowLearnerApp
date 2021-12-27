@@ -16,6 +16,8 @@ const assistent = ({navigation}) => {
     .catch((error) => {
       console.log(error);
     });
+
+    
   },[]);
   function getMyAssistents(doctorId){
     axios.get(`${global.BaseUrl}GetMyAssistents?DoctorId=${doctorId}`).then((response) => {

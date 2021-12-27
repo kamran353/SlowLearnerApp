@@ -102,21 +102,21 @@ const login =({navigation}) => {
               </View>
               <View style={{flex:8}}>
               <DatePicker
-          style={styles.datePickerStyle}
-          date={date} // Initial date from state
-          mode="date" // The enum of date, datetime and time
-          placeholder="select date"
-          format="DD-MM-YYYY"
-          minDate="01-01-1976"
-          maxDate="01-01-2019"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            
-            dateInput: {
-              marginLeft: 36,
-            },
-          }}
+              style={styles.datePickerStyle}
+              date={date} // Initial date from state
+              mode="date" // The enum of date, datetime and time
+              placeholder="select date"
+              format="DD-MM-YYYY"
+              minDate="01-01-1976"
+              maxDate="01-01-2019"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                
+                dateInput: {
+                  marginLeft: 36,
+                },
+              }}
           onDateChange={(date) => {
             setDate(date);
           }}

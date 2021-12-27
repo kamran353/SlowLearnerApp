@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TextInput } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {  useEffect } from 'react';
+import { View, Image, StyleSheet } from 'react-native';
 const splash = ({ navigation }) => {
   useEffect(() => {
     setTimeout(function () {
       navigation.replace('Login')
-    }, 5000);
+    }, 3000);
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={{flex:1}}>
       <View style={styles.ImageView}>
         <Image source={require('../../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain' />
       </View>

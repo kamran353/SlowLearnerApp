@@ -25,6 +25,7 @@ const radioButtonsData = [
 
 const registerPA = ({ navigation, route }) => {
   const [User, SetUser] = useState(null)
+
   const [date, setDate] = useState('09-10-2020');
   const [radioButtons, setRadioButtons] = useState(radioButtonsData);
   const [FirstName, SetFirstName] = useState('');
@@ -53,7 +54,7 @@ const registerPA = ({ navigation, route }) => {
       UserPhone: UserPhone,
       UserGender: UserGender,
       UserPassword: UserPassword,
-      UserDOB: date, UserRole: route.params.Type, IsApproved: true, ReferenceUserId: User.UserId
+      UserDOB: date, UserRole: "PA", IsApproved: true, ReferenceUserId: User.UserId
     };
     axios.post(`${global.BaseUrl}RegisterUser`, user)
       .then(response => {

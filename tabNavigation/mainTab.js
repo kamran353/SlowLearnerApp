@@ -2,7 +2,6 @@ import React from 'react';
 import assistent from '../screens/doctor_screens/assistents';
 import profile from '../screens/doctor_screens/profile'
 import appointments from '../screens/doctor_screens/appointments';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -29,6 +28,7 @@ const mainTab = () => {
           ),
           unmountOnBlur:true
         }}  />
+
          <Tab.Screen
         name="Assistents"
         component={assistent}
@@ -44,6 +44,7 @@ const mainTab = () => {
           ),
           unmountOnBlur:true
         }}  />
+        
       <Tab.Screen
         name="Profile"
         component={profile}

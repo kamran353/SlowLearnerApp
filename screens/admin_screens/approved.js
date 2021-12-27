@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const admin = ({navigation}) => {
    const [allpatients,setAllpatients]=useState([]);
-
+   
      useEffect(() => {
       GetApprovedDoctors()
     },[]);
@@ -37,15 +37,18 @@ const admin = ({navigation}) => {
           cardElevation={5}
           cardMaxElevation={10}
           cornerRadius={8}>
+
             <View style={styles.imageView}>
             <Image  source={require('../../images/doctor.jpg')} style={styles.imagstyle} resizeMode='contain'/>
     
             </View>
+
             <View style={styles.infoView}>
                  <Text style={styles.nameTxt}>{item.UserName}</Text>
                  <Text style={styles.otherTxt}>{item.UserPhone}</Text>
                  <Text style={styles.otherTxt}>{item.UserGender}</Text>
             </View>
+            
             <View style={styles.buttonView}>
              
                 <TouchableOpacity onPress={()=>ApproveUnApproveDoctor(item.UserId,false)}> 

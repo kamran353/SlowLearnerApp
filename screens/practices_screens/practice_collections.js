@@ -2,19 +2,10 @@ import React, { useState ,useEffect} from 'react';
 import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-native';
 import CardView from 'react-native-cardview'
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 const practiceCollection = ({navigation,route}) => {
    const [PracticeCollection,SetPracticeCollection]=useState([]);
    useEffect(() => {
-    AsyncStorage.getItem('User')
-    .then((value) => {
-      const user = JSON.parse(value).result;
-      GetPracticeCollection()
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-     
+    GetPracticeCollection()
   },[]);
   function GetPracticeCollection(){
     axios.get(`${global.BaseUrl}GetPracticeCollection?PracticeId=${route.params.PracticeId}`).then((response) => {

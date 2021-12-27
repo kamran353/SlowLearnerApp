@@ -53,7 +53,7 @@ const registerPatient = ({ navigation, route }) => {
       UserPhone: UserPhone,
       UserGender: UserGender,
       UserPassword: UserPassword,
-      UserDOB: date, UserRole: route.params.Type, IsApproved: true, ReferenceUserId: User.UserId
+      UserDOB: date, UserRole: "Patient", IsApproved: true, ReferenceUserId: User.UserId
     };
     axios.post(`${global.BaseUrl}RegisterUser`, user)
       .then(response => {

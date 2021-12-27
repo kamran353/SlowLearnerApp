@@ -48,7 +48,7 @@ const appointMents = ({navigation}) => {
             </View>
             <View style={styles.buttonView}>
              
-                <TouchableOpacity  onPress={()=>navigation.navigate("AppointmentDetails",{AppId:item.AppId,LevelNo:item.LevelNo})}> 
+                <TouchableOpacity  onPress={()=>navigation.navigate("AppointmentDetails",{AppId:item.AppId,LevelNo:item.LevelNo,PatientId:item.UserId})}> 
                     <Text style={styles.viewBtnTxt}>View</Text>
                 </TouchableOpacity>
        
