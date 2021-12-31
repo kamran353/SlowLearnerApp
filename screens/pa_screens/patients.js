@@ -43,13 +43,13 @@ const patients = ({navigation}) => {
      const user = JSON.parse(value).result;
      console.log(value)
      SetDoctorId(user.ReferenceUserId)
-     getMyAssistents(user.UserId)
+     getPApatients(user.UserId)
    })
    .catch((error) => {
      console.log(error);
    });
  },[]);
- function getMyAssistents(PaId){
+ function getPApatients(PaId){
    axios.get(`${global.BaseUrl}GetPAPatients?PAId=${PaId}`).then((response) => {
      console.log(response.data);
      SetMyPatients(response.data)

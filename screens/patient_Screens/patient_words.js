@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet,Text } from 'react-native';
 import CardView from 'react-native-cardview'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import axios from 'axios';
 const patient_words = ({ navigation,route }) => {
     const [index,setIndex]=useState(0);
     const[wrong,setWrong]=useState('')
@@ -10,34 +11,72 @@ const patient_words = ({ navigation,route }) => {
         setMcq()
     }, []);
     function setMcq(){
-        setIndex(route.params.position);
+        setPosition(route.params.position);
     }
     function setPosition(position){
         if(position>=0 && position<route.params.collection.length){
           setIndex(position);
+          if(route.params.collection[index].IsAttempted==false)
+          {
+              setCorrect('')
+              setWrong('')
+          }
+          else
+          {
+            var option=""; 
+            if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionA){
+                option="A";
+            }
+            else if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionB){
+                option="B";
+            } else if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionC){
+                option="C";
+            } else if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionD){
+                option="D";
+            }
+            if(route.params.collection[index].IsRight==true){
+                setWrong('')
+                setCorrect(option)
+            }else{
+                setWrong(option)
+                setCorrect('')
+            }
+          }
         }
-        setCorrect('')
-        setWrong('')
+      
     }
     function CheckAnswer(txt,option){
-      if(route.params.collection[index].CollectiontText==txt){
-        setCorrect(option)
-        setWrong('')
-      }else {
-          setWrong(option)
-          if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionA){
-              setCorrect("A")
+    if(route.params.collection[index].IsAttempted==false)
+     {
+        if(route.params.collection[index].CollectiontText==txt){
+            setCorrect(option)
+            setWrong('')
+            saveAnswerInDatabase(true,route.params.collection[index].AnsId,txt)
+          }else {
+              setWrong(option)
+              if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionA){
+                  setCorrect("A")
+              }
+              else if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionB){
+                setCorrect("B")
+              }
+              else if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionC){
+                setCorrect("C")
+              }
+              else if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionD){
+                setCorrect("D")
+              }
+            saveAnswerInDatabase(false,route.params.collection[index].AnsId,txt)
           }
-          else if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionB){
-            setCorrect("B")
-          }
-          else if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionC){
-            setCorrect("C")
-          }
-          else if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionD){
-            setCorrect("D")
-          }
+          route.params.collection[index].IsAttempted=true;
+
       }
+      
+    }
+    function saveAnswerInDatabase(isRight,ansId,txt){
+        axios.get(`${global.BaseUrl}SaveAppointmentPracticeCollectionAns?AnsId=${ansId}&IsRight=${isRight}&PatientSelectedText=${txt}`).then((response) => {
+            console.log(response.data)
+          }).catch(error=>console.log(error));
     }
     return (
         <View style={styles.container}>

@@ -77,14 +77,33 @@ const profile = ({navigation}) => {
             </View>
             <View style={styles.infoView}>
             <TouchableOpacity  onPress={()=>navigation.navigate('Collections')}>
-              <Text style={styles.actoinTxt}>Collection</Text>
+              <Text style={styles.actoinTxt}>Collections</Text>
               </TouchableOpacity>
                  
             </View>
            
-        </CardView>
-       
-        </View>
+          </CardView>
+       </View>
+
+       <View style={styles.actionStyle}>
+         <CardView
+          style={styles.listItem}
+          cardElevation={10}
+          cardMaxElevation={10}
+          cornerRadius={20}>
+            <View style={styles.imageView}>
+            <Image  source={require('../../images/patient.png')} style={styles.actonImagStyle} resizeMode='contain'/>
+    
+            </View>
+            <View style={styles.infoView}>
+            <TouchableOpacity  onPress={()=>navigation.navigate('DocPatients')}>
+              <Text style={styles.actoinTxt}>Patients</Text>
+              </TouchableOpacity>
+                 
+            </View>
+           
+          </CardView>
+       </View>
 
      </CardView>
      </View>

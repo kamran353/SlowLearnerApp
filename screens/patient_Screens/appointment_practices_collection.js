@@ -2,15 +2,16 @@ import React, { useState ,useEffect} from 'react';
 import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-native';
 import CardView from 'react-native-cardview'
 import axios from 'axios';
-const patient_visit = ({navigation,route}) => {
-   const [Appointments,SetAppoinments]=useState([]);
+const practiceCollection = ({navigation,route}) => {
+   const [PracticeCollection,SetPracticeCollection]=useState([]);
    useEffect(() => {
-      getPatientappointments() 
+    GetPracticeCollection()
   },[]);
-  function getPatientappointments(){
-    axios.get(`${global.BaseUrl}GetPatientAppointments?PatientId=${route.params.PatientId}`).then((response) => {
-        SetAppoinments(response.data)
-      });
+  function GetPracticeCollection(){
+    axios.get(`${global.BaseUrl}GetAppointmentPracticeCollection?AppPracticeId=${route.params.AppPracticeId}`).then((response) => {
+      SetPracticeCollection(response.data)
+      
+    }).catch(error=>console.log(error));
   }
   return (
     <View style={styles.container}>
@@ -18,7 +19,7 @@ const patient_visit = ({navigation,route}) => {
      <FlatList
 
       style={{flex:1,marginTop:5}}
-      data={Appointments}
+      data={PracticeCollection}
       renderItem={({item})=>(
         <CardView
           style={styles.listItem}
@@ -26,25 +27,20 @@ const patient_visit = ({navigation,route}) => {
           cardMaxElevation={10}
           cornerRadius={8}>
             <View style={styles.imageView}>
-            <Image   source={require('../../images/practice.jpg')} style={styles.imagstyle} resizeMode='contain'/>
+             <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/>
     
             </View>
             <View style={styles.infoView}>
-                 <Text style={styles.nameTxt}>{item.AppDate.split('T')[0]}</Text>
-                 <Text style={styles.nameTxt}>Level {item.LevelNo}</Text>
-                 <Text style={styles.remarksTxt}>Remarks: {item.Remarks}</Text>
+            <Text style={styles.nameTxt}>{item.CollectionText}</Text>
             </View>
             <View style={styles.buttonView}>
-             
-                <TouchableOpacity onPress={()=>navigation.navigate('CurrentPractices',{AppId:item.AppId})}> 
-                    <Text style={styles.rejectTxt}>Details</Text>
-                </TouchableOpacity>
-       
-            </View>
+             <TouchableOpacity> 
+                  <Text style={styles.rejectTxt}>{!item.IsAttempted?'Not Attempted':item.IsRight?'Correct':'Wrong'}</Text>
+              </TouchableOpacity>
+          </View>
         </CardView>
          )}
      />
-     
     </View>
   );
 };
@@ -63,7 +59,7 @@ const styles = StyleSheet.create({
     
   },
   infoView:{
-    flex:7,
+    flex:6,
     justifyContent:'center',
     alignItems:'flex-start'
   }
@@ -71,7 +67,7 @@ const styles = StyleSheet.create({
   imagstyle:{
     width: '75%', 
     height: '60%',
-    borderRadius:10,
+    borderRadius:30,
     marginLeft:'10%',
    
   }
@@ -85,7 +81,7 @@ const styles = StyleSheet.create({
   },
   nameTxt:{
     color:'black',
-    fontSize:15,
+    fontSize:20,
     fontWeight:'bold',
    
   },
@@ -94,39 +90,19 @@ const styles = StyleSheet.create({
     fontSize:15,
   
   },
-  remarksTxt:{
-    color:'gray'
-  }
-  ,
   buttonView:{
-    flex:3,
-    justifyContent:'flex-end',
-    alignItems:'flex-end',
+    flex:4,
+    justifyContent:'center',
+    alignItems:'center',
     paddingRight:'2%',
     flexDirection:'row',
     paddingBottom:'2%',
-    paddingEnd:20
+    paddingEnd:2
   },
   rejectTxt:{
     color:'#FFB133',
     fontSize:15
- },
- touchableOpacityStyle: {
-   position: 'absolute',
-   width: 70,
-   height: 70,
-   alignItems: 'center',
-   justifyContent: 'center',
-   right: 20,
-   bottom: 20,
- },
- floatingButtonStyle: {
-   resizeMode: 'contain',
-   width: 60,
-   height: 60,
-   borderRadius:1000
-   //backgroundColor:'black'
  }
 });
 
-export default patient_visit;
+export default practiceCollection;

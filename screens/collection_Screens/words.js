@@ -3,7 +3,7 @@ import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-na
 import CardView from 'react-native-cardview'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SoundPlayer from 'react-native-sound-player';
+import SoundPlayer from 'react-native-sound';
 const words = ({navigation}) => {
   const [MyWords,SetWords]=useState([]);
   useEffect(() => {
@@ -24,12 +24,18 @@ const words = ({navigation}) => {
       });
   }
  function playAudio(url) {
-    try {
-      //SoundPlayer.playUrl(`${global.BaseUrlForImages}url`)
-    } catch (e) {
-      alert('Cannot play the file')
-      console.log('cannot play the song file', e)
-    }
+   console.log(`${global.BaseUrlForImages}${url}`)
+      var sound1 = new SoundPlayer(`${global.BaseUrlForImages}${url}`, '',
+    (error, SoundPlayer) => {
+      if (error) {
+        alert('error' + error.message);
+        return;
+      }
+      if(sound1) sound1.stop();
+      sound1.play(() => {
+        sound1.release();
+      });
+    });
   }
 
   return (
