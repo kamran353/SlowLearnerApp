@@ -3,6 +3,7 @@ import { View, Image, StyleSheet,Text } from 'react-native';
 import CardView from 'react-native-cardview'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
+import SoundPlayer from 'react-native-sound-player';
 const patient_words = ({ navigation,route }) => {
     const [index,setIndex]=useState(0);
     const[wrong,setWrong]=useState('')
@@ -78,6 +79,20 @@ const patient_words = ({ navigation,route }) => {
             console.log(response.data)
           }).catch(error=>console.log(error));
     }
+    function playAudio(url) {
+        console.log(`${global.BaseUrlForImages}${url}`)
+        var sound1 = new SoundPlayer(`${global.BaseUrlForImages}${url}`, '',
+          (error, SoundPlayer) => {
+            if (error) {
+              alert('error' + error.message);
+              return;
+            }
+            if (sound1) sound1.stop();
+            sound1.play(() => {
+              sound1.release();
+            });
+          });
+      }
     return (
         <View style={styles.container}>
            
@@ -86,6 +101,12 @@ const patient_words = ({ navigation,route }) => {
             cornerRadius={10}>
            <View style={styles.imageView}>
                  <Image  source={{uri:`${global.BaseUrlForImages}${route.params.collection[index].CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/> 
+                 <TouchableOpacity style={{...styles.optionButton,width:50}} onPress={()=>playAudio(route.params.CollectionAudio)}>
+                 <Image
+                        source={require('../../images/speaker.png')}
+                        style={{width:'100%',height:'100%',}}
+                    />
+                 </TouchableOpacity>
            </View>
            <View style={styles.optionButtonView}>
                  <TouchableOpacity style={correct=="A"?{...styles.optionGreen}:wrong=="A"?{...styles.optionRed}:{...styles.optionButton}}  onPress={()=>CheckAnswer(route.params.collection[index].OptionA,"A")}>
@@ -109,11 +130,11 @@ const patient_words = ({ navigation,route }) => {
 
            <View style={styles.previousNextView}>
                  <TouchableOpacity style={styles.optionButton} onPress={()=>setPosition(index-1)}>
-                     <Text style={styles.nameTxt}>{'<<<'}</Text>
+                     <Text style={styles.nameTxt}>{'<<'}</Text>
                  </TouchableOpacity>
                  <Text>{index+1}/{route.params.collection.length}</Text>
                  <TouchableOpacity style={styles.optionButton} onPress={()=>setPosition(index+1)}>
-                     <Text style={styles.nameTxt}>{'>>>'}</Text>
+                     <Text style={styles.nameTxt}>{'>>'}</Text>
                  </TouchableOpacity>
                
            </View>
@@ -133,7 +154,7 @@ const styles = StyleSheet.create({
     },
     imagstyle: {
         width: '60%',
-        height: '90%',
+        height: '60%',
         borderRadius: 20,
         marginTop:5,
         

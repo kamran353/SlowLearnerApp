@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet, Text } from 'react-native';
 import CardView from 'react-native-cardview'
-import axios from 'axios';
-import DropDownPicker from 'react-native-dropdown-picker';
+import SoundPlayer from 'react-native-sound';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-// import letters from '../collection_Screens/letters';
+
 
 const collection_details = ({ navigation, route }) => {
     const [collectionLetter, setCollectLetters] = useState(['hel']);
@@ -17,7 +16,20 @@ const collection_details = ({ navigation, route }) => {
         setCollectLetters(Letters)
         console.log(Letters)
     }, []);
-
+    function playAudio(url) {
+        console.log(`${global.BaseUrlForImages}${url}`)
+        var sound1 = new SoundPlayer(`${global.BaseUrlForImages}${url}`, '',
+          (error, SoundPlayer) => {
+            if (error) {
+              alert('error' + error.message);
+              return;
+            }
+            if (sound1) sound1.stop();
+            sound1.play(() => {
+              sound1.release();
+            });
+          });
+      }
     return (
         <View style={styles.container}>
 
@@ -26,6 +38,12 @@ const collection_details = ({ navigation, route }) => {
                 cornerRadius={10}>
                 <View style={styles.imageView}>
                     <Image source={{ uri: `${global.BaseUrlForImages}${route.params.CollectionImage}` }} style={styles.imagstyle} resizeMode='contain' />
+                    <TouchableOpacity style={{...styles.optionButton,width:50}} onPress={()=>playAudio(route.params.CollectionAudio)}>
+                    <Image
+                        source={require('../../images/speaker.png')}
+                        style={{width:'100%',height:'100%',}}
+                    />
+                    </TouchableOpacity>
                 </View>
                 <View style={{ ...styles.optionButtonView }}>
                     {collectionLetter.map((element) => {
@@ -39,11 +57,11 @@ const collection_details = ({ navigation, route }) => {
                 </View>
                 <View style={styles.previousNextView}>
                     <TouchableOpacity style={styles.optionButton}>
-                        <Text style={styles.nameTxt}>{'<<<'}</Text>
+                        <Text style={styles.nameTxt}>{'<<'}</Text>
                     </TouchableOpacity>
                     <Text>3/4</Text>
                     <TouchableOpacity style={styles.optionButton}>
-                        <Text style={styles.nameTxt}>{'>>>'}</Text>
+                        <Text style={styles.nameTxt}>{'>>'}</Text>
                     </TouchableOpacity>
 
                 </View>
