@@ -25,15 +25,15 @@ import registerPatient from './screens/pa_screens/register_patient';
 import patient_words from './screens/patient_Screens/patient_words';
 import collection_details from './screens/patient_Screens/collection_details';
 import currentPractices from './screens/patient_Screens/appointment_practices';
-import patientvisit from './screens/patient_Screens/Patient_visit';
+import patient_visit from './screens/patient_Screens/Patient_visit';
 import appointmentPracticeCollection from './screens/patient_Screens/appointment_practices_collection';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
-global.BaseUrl='http://192.168.131.95/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages='http://192.168.131.95/SlowLearnerApi/'
+global.BaseUrl='http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
+global.BaseUrlForImages='http://192.168.100.37/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -62,7 +62,7 @@ const App = () => {
       
       <Stack.Screen name="PatientWords" component={patient_words} options={{headerShown:false}}/>
       <Stack.Screen name="CurrentPractices" component={currentPractices} options={{headerShown:false}}/>
-      <Stack.Screen name="PatientVisit" component={patientvisit} options={{headerShown:false}}/>
+      <Stack.Screen name="PatientVisit" component={patient_visit} options={{headerShown:false}}/>
       <Stack.Screen name="CollectionDetails" component={collection_details} options={{headerShown:false}}/>
       <Stack.Screen name="AppPracticeCollection" component={appointmentPracticeCollection} options={{headerShown:false}}/>
     </Stack.Navigator>
