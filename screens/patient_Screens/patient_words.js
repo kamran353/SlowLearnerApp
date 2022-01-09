@@ -17,43 +17,46 @@ const patient_words = ({ navigation,route }) => {
     function setPosition(position){
         if(position>=0 && position<route.params.collection.length){
           setIndex(position);
-          if(route.params.collection[index].IsAttempted==false)
-          {
-              setCorrect('')
-              setWrong('')
-          }
-          else
-          {
-            var option=""; 
-            if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionA){
-                option="A";
-            }
-            else if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionB){
-                option="B";
-            } else if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionC){
-                option="C";
-            } else if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionD){
-                option="D";
-            }
-            if(route.params.collection[index].IsRight==true){
-                setWrong('')
-                setCorrect(option)
-            }else{
-                setWrong(option)
-                setCorrect('')
-            }
-          }
+          setCorrect('')
+           setWrong('')
+        //   if(route.params.collection[index].IsAttempted==false)
+        //   {
+        //       setCorrect('')
+        //       setWrong('')
+        //   }
+        //   else
+        //   {
+        //     var option=""; 
+        //     if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionA){
+        //         option="A";
+        //     }
+        //     else if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionB){
+        //         option="B";
+        //     } else if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionC){
+        //         option="C";
+        //     } else if(route.params.collection[index].PatientSelectedText==route.params.collection[index].OptionD){
+        //         option="D";
+        //     }
+        //     if(route.params.collection[index].IsRight==true){
+        //         setWrong('')
+        //         setCorrect(option)
+        //     }else{
+        //         setWrong(option)
+        //         setCorrect('')
+        //     }
+        //   }
         }
       
     }
     function CheckAnswer(txt,option){
-    if(route.params.collection[index].IsAttempted==false)
+    //if(route.params.collection[index].IsAttempted==false)
      {
         if(route.params.collection[index].CollectiontText==txt){
             setCorrect(option)
             setWrong('')
             saveAnswerInDatabase(true,route.params.collection[index].AnsId,txt)
-          }else {
+          }
+          else {
               setWrong(option)
               if(route.params.collection[index].CollectiontText==route.params.collection[index].OptionA){
                   setCorrect("A")
@@ -70,7 +73,6 @@ const patient_words = ({ navigation,route }) => {
             saveAnswerInDatabase(false,route.params.collection[index].AnsId,txt)
           }
           route.params.collection[index].IsAttempted=true;
-
       }
       
     }

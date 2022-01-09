@@ -36,7 +36,7 @@ const training = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={8}>
              <View style={styles.imageView}>
-             <TouchableOpacity onPress={()=>navigation.navigate("CollectionDetails",{CollectionText:item.CollectionText,CollectionImage:item.CollectionImage})} style={styles.imagstyle}>
+             <TouchableOpacity onPress={()=>navigation.navigate("CollectionDetails",{Collection:item})} style={styles.imagstyle}>
                <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/>
                </TouchableOpacity>
             </View>

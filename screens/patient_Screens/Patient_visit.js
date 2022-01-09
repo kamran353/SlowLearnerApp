@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   rejectTxt:{
     color:'#FFB133',
-    fontSize:15
+    fontSize:19
  },
  touchableOpacityStyle: {
    position: 'absolute',

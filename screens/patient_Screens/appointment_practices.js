@@ -17,7 +17,7 @@ const currentPractices = ({navigation,route}) => {
     <View style={styles.container}>
     
      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-             <Text style={styles.nameTxt}> Appointment Practices</Text>
+             <Text style={styles.nameTxt}> Appointment Exercises</Text>
      </View>
      <View style={{flex:9}}>
        {Practices.length>0?
@@ -35,12 +35,17 @@ const currentPractices = ({navigation,route}) => {
 
           </View>
           <View style={styles.infoView}>
-              <Text style={styles.nameTxt}>{item.PracticeTitle}</Text>
-              
+              <Text style={{...styles.nameTxt,marginTop:1}}>{item.PracticeTitle}</Text>
+              <Text style={{fontSize:15,marginTop:1}}>Total Mcq's: {item.Total}</Text>
+              <View style={styles.countView}>
+              <Text style={{...styles.countTxt,color:'#FFB133'}}>Unattempted:{item.UnAttempted}</Text>
+              <Text style={{...styles.countTxt,color:'green'}}>Correct:{item.TotalRight}</Text>
+              <Text style={{...styles.countTxt,color:'red'}}>Wrong:{item.TotalWrong}</Text>
+              </View>
           </View>
           <View style={styles.buttonView}>
-          
-              <TouchableOpacity onPress={()=>navigation.navigate('AppPracticeCollection',{AppPracticeId:item.AppPracticeId})}> 
+         
+             <TouchableOpacity onPress={()=>navigation.navigate('AppPracticeCollection',{AppPracticeId:item.AppPracticeId})}> 
                   <Text style={styles.rejectTxt}>View</Text>
               </TouchableOpacity>
     
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
     
   },
   infoView:{
-    flex:7,
+    flex:6,
     justifyContent:'center',
     alignItems:'flex-start'
   }
@@ -104,17 +109,28 @@ const styles = StyleSheet.create({
   
   },
   buttonView:{
-    flex:3,
+    flex:4,
     justifyContent:'flex-end',
     alignItems:'flex-end',
-    paddingRight:'2%',
-    flexDirection:'row',
-    paddingBottom:'2%',
-    paddingEnd:20
+    paddingRight:'4%',  
+    marginBottom:'3%'
   },
+  countView:{
+    justifyContent:'center',
+    alignItems:'center',
+    paddingRight:'2%',  
+    flexDirection:'row',
+    marginLeft:35,
+    marginTop:10
+  },
+  countTxt:{
+    fontSize:12,
+    marginLeft:5,
+  }
+  ,
   rejectTxt:{
     color:'#FFB133',
-    fontSize:15
+    fontSize:19
  },
  touchableOpacityStyle: {
    position: 'absolute',

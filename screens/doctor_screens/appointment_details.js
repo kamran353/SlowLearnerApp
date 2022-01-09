@@ -73,7 +73,7 @@ function SaveAppointment(){
                  :null
               }
                <View style={styles.buttonHistoryView}>
-               <TouchableOpacity style={styles.btnHistory} onPress={()=>navigation.navigate("PatientVisit",{PatientId:3005})}> 
+               <TouchableOpacity style={styles.btnHistory} onPress={()=>navigation.navigate("PatientVisit",{PatientId:route.params.PatientId})}> 
                     <Text style={styles.btnHistoryTxt}>History</Text>
                 </TouchableOpacity>
                </View>
