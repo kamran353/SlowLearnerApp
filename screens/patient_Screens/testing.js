@@ -24,7 +24,7 @@ const testing = ({navigation}) => {
   }
   return (
     <View style={styles.container}>
-     
+     {collections.length>0?
      <FlatList
       numColumns={2}
       style={{flex:1,marginTop:5}}
@@ -38,17 +38,14 @@ const testing = ({navigation}) => {
              <View style={styles.imageView}>
                <TouchableOpacity onPress={()=>navigation.navigate("PatientWords",{collection:collections,position:index})} style={styles.imagstyle}>
                <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/>
-    
-               </TouchableOpacity>
-            
-            </View>
-            {/* <View style={styles.infoView}>
-            <Text style={styles.nameTxt}>{item.CollectionText}</Text>
-            </View> */}
+                </TouchableOpacity>
+             </View>
         </CardView>
          )}
      />
-    
+     :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+     <Text style={styles.nameTxt}>No Record</Text>
+     </View>}
     </View>
   );
 };

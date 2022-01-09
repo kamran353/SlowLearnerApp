@@ -10,7 +10,12 @@ const leveltwo = ({ navigation }) => {
       .then((value) => {
         const user = JSON.parse(value).result;
         console.log(value)
-        getMyLetters(user.UserId)
+        if(user.UserRole=="PA"){
+          getMyLevelPractices(user.ReferenceUserId)
+        }
+       else {
+        getMyLevelPractices(user.UserId)
+       }
         
       })
       .catch((error) => {
@@ -18,14 +23,14 @@ const leveltwo = ({ navigation }) => {
       });
 
   }, []);
-  function getMyLetters(doctorId) {
+  function getMyLevelPractices(doctorId) {
     axios.get(`${global.BaseUrl}GetMyLevelPractices?PracticeLevel=2&&DoctorId=${doctorId}`).then((response) => {
       setLevelTwoPractices(response.data)
     });
   }
   return (
     <View style={styles.container}>
-
+     {levelTwoPractices.length>0?
       <FlatList
         style={{ flex: 1, marginTop: 5 }}
         data={levelTwoPractices}
@@ -52,9 +57,11 @@ const leveltwo = ({ navigation }) => {
 
             </View>
           </CardView>
-        )}
-      />
-
+            )}
+          />
+          :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+          <Text style={styles.nameTxt}>No Record</Text>
+          </View>}
       <TouchableOpacity
         onPress={() => navigation.navigate('NewPractice', { Level: '2' })}
         activeOpacity={1}

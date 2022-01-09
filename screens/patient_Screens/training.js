@@ -24,7 +24,7 @@ const training = ({navigation}) => {
   }
   return (
     <View style={styles.container}>
-     
+     {collection.length>0?
      <FlatList
       numColumns={2}
       style={{flex:1,marginTop:5}}
@@ -44,7 +44,9 @@ const training = ({navigation}) => {
         </CardView>
          )}
      />
-    
+    :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text style={styles.nameTxt}>No Record</Text>
+        </View>}
     </View>
   );
 };

@@ -1,35 +1,40 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, StyleSheet ,Text} from 'react-native';
 import CardView from 'react-native-cardview'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const profile = ({navigation}) => {
-  const[User,setUser]=useState({UserName:'',UserPhone:'',UserGender:""});
-  useEffect(()=>{
-      AsyncStorage.getItem('User')
-      .then((value) => {
-        const user = JSON.parse(value).result;
-        setUser(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },[])
-return (
-  <View style={styles.container}>
-   <View style={styles.topView}>
-     <Image  source={require('../../images/doctor.jpg')} style={styles.imagstyle} resizeMode='contain'/>
-     <Text style={styles.nameTxt}>{User.UserName}</Text>
-     <Text style={styles.otherTxt}>{User.UserPhone}</Text>
-     <Text style={styles.otherTxt}>{User.UserGender}</Text>
-   </View>
+const PaSetting = ({navigation}) => {
+    const[User,setUser]=useState({UserName:'',UserPhone:'',UserGender:""});
+    useEffect(()=>{
+        AsyncStorage.getItem('User')
+        .then((value) => {
+          const user = JSON.parse(value).result;
+          setUser(user);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },[])
+  return (
+    <View style={styles.container}>
+     <View style={styles.topView}>
+       <Image  source={require('../../images/pa.png')} style={styles.imagstyle} resizeMode='contain'/>
+       <Text style={styles.nameTxt}>{User.UserName}</Text>
+       <Text style={styles.otherTxt}>{User.UserPhone}</Text>
+       <Text style={styles.otherTxt}>{User.UserGender}</Text>
+     </View>
      <View style={styles.bottomView}>
+
      <CardView
           style={styles.updateStyle}
           cardElevation={8}
           cardMaxElevation={10}
           cornerRadius={20}>
+       
+
+
         <View style={styles.actionStyle}>
+
          <CardView
           style={styles.listItem}
           cardElevation={10}
@@ -40,8 +45,8 @@ return (
     
             </View>
             <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPa',{Type:'PA'})}>
-              <Text style={styles.actoinTxt}>Add New PA</Text>
+            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPatient',{Type:'Patient'})}>
+              <Text style={styles.actoinTxt}>Add New Patient</Text>
               </TouchableOpacity>
             </View>
            
@@ -89,26 +94,6 @@ return (
            
           </CardView>
        </View>
-
-       <View style={styles.actionStyle}>
-         <CardView
-          style={styles.listItem}
-          cardElevation={10}
-          cardMaxElevation={10}
-          cornerRadius={20}>
-            <View style={styles.imageView}>
-            <Image  source={require('../../images/patient.png')} style={styles.actonImagStyle} resizeMode='contain'/>
-    
-            </View>
-            <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('DocPatients')}>
-              <Text style={styles.actoinTxt}>Patients</Text>
-              </TouchableOpacity>
-                 
-            </View>
-           
-          </CardView>
-       </View>
        <View style={styles.actionStyle}>
          <CardView
           style={styles.listItem}
@@ -128,7 +113,6 @@ return (
            
           </CardView>
        </View>
-
      </CardView>
      </View>
 
@@ -217,4 +201,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default profile;
+export default PaSetting;

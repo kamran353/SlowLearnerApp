@@ -28,7 +28,7 @@ const login = ({navigation}) => {
         {
            alert("Account Not Exist")
         }
-      });
+      }).catch(err=>console.log(err));
      
     }
   }
@@ -42,7 +42,7 @@ const login = ({navigation}) => {
         navigation.navigate('PatientTab')
       }
       else if(result.UserRole=='PA'){
-         navigation.navigate('PAPatients')
+         navigation.navigate('PATab')
       }
   }
   return (

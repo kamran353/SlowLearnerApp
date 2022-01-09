@@ -27,7 +27,8 @@ const appointMents = ({navigation}) => {
   }
   return (
     <View style={styles.container}>
-     
+     {
+     appointments.length>0?
      <FlatList
       style={{flex:1}}
       data={appointments}
@@ -57,7 +58,9 @@ const appointMents = ({navigation}) => {
        
       )}
      />
- 
+      :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text style={styles.nameTxt}>No Record</Text>
+       </View>}
     </View>
   );
 };

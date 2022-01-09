@@ -11,7 +11,12 @@ const letters = ({navigation}) => {
     .then((value) => {
       const user = JSON.parse(value).result;
       console.log(value)
+      if(user.UserRole=="PA"){
+        getMyLetters(user.ReferenceUserId)
+      }
+     else {
       getMyLetters(user.UserId)
+     }
     })
     .catch((error) => {
       console.log(error);
@@ -39,9 +44,8 @@ const letters = ({navigation}) => {
   }
   return (
     <View style={styles.container}>
-     
+     {MyLetters.length>0?
      <FlatList
-
       style={{flex:1,marginTop:5}}
       data={MyLetters}
       renderItem={({item})=>(
@@ -66,7 +70,9 @@ const letters = ({navigation}) => {
             </View>
         </CardView>
          )}
-     />
+        /> :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+            <Text style={styles.nameTxt}>No Record</Text>
+          </View>}
      <TouchableOpacity
          onPress={()=>navigation.navigate('NewCollection')}
           activeOpacity={1}
@@ -156,8 +162,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 60,
     height: 60,
-    borderRadius: 1000
-    //backgroundColor:'black'
+    borderRadius: 1000,
   }, btnLogin: {
     height: 40,
     width: 100,

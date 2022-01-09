@@ -10,7 +10,12 @@ const levelone = ({navigation}) => {
     .then((value) => {
       const user = JSON.parse(value).result;
       console.log(value)
+      if(user.UserRole=="PA"){
+        getMyLevelPractices(user.ReferenceUserId)
+      }
+     else {
       getMyLevelPractices(user.UserId)
+     }
     })
     .catch((error) => {
       console.log(error);
@@ -24,13 +29,12 @@ const levelone = ({navigation}) => {
   }
   return (
     <View style={styles.container}>
-     
+     {levelOnePractices.length>0?
      <FlatList
-
       style={{flex:1,marginTop:5}}
       data={levelOnePractices}
       renderItem={({item})=>(
-        <CardView
+         <CardView
           style={styles.listItem}
           cardElevation={5}
           cardMaxElevation={10}
@@ -50,9 +54,12 @@ const levelone = ({navigation}) => {
                 </TouchableOpacity>
        
             </View>
-        </CardView>
+          </CardView>
          )}
-     />
+        />
+        :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text style={styles.nameTxt}>No Record</Text>
+        </View>}
      <TouchableOpacity
          onPress={()=>navigation.navigate('NewPractice',{Level:'1'})}
           activeOpacity={1}

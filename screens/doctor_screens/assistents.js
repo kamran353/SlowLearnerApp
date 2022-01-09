@@ -6,7 +6,6 @@ import axios from 'axios';
 const assistent = ({navigation}) => {
    const [MyAssistent,SetMyAssistent]=useState([]);
    useEffect(() => {
-     
     AsyncStorage.getItem('User')
     .then((value) => {
       const user = JSON.parse(value).result;
@@ -16,8 +15,6 @@ const assistent = ({navigation}) => {
     .catch((error) => {
       console.log(error);
     });
-
-    
   },[]);
   function getMyAssistents(doctorId){
     axios.get(`${global.BaseUrl}GetMyAssistents?DoctorId=${doctorId}`).then((response) => {
@@ -27,7 +24,7 @@ const assistent = ({navigation}) => {
   }
   return (
     <View style={styles.container}>
-     
+     {MyAssistent.length>0?
      <FlatList
       style={{flex:1}}
       data={MyAssistent}
@@ -51,6 +48,9 @@ const assistent = ({navigation}) => {
        
       )}
      />
+     :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text style={styles.nameTxt}>No Record</Text>
+       </View>}
   <TouchableOpacity
          onPress={()=>navigation.navigate('RegisterPa',{Type:'PA'})}
           activeOpacity={1}

@@ -15,9 +15,8 @@ const practiceCollection = ({navigation,route}) => {
   }
   return (
     <View style={styles.container}>
-     
+     {PracticeCollection.length>0?
      <FlatList
-
       style={{flex:1,marginTop:5}}
       data={PracticeCollection}
       renderItem={({item})=>(
@@ -40,7 +39,9 @@ const practiceCollection = ({navigation,route}) => {
           </View>
         </CardView>
          )}
-     />
+     />:<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text style={styles.nameTxt}>No Record</Text>
+        </View>}
     </View>
   );
 };

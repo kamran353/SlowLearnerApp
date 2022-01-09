@@ -4,7 +4,7 @@ import CardView from 'react-native-cardview'
 import axios from 'axios';
 
 const admin = ({navigation}) => {
-   const [allpatients,setAllpatients]=useState([]);
+   const [doctors,setDoctors]=useState([]);
    
      useEffect(() => {
       GetApprovedDoctors()
@@ -12,8 +12,8 @@ const admin = ({navigation}) => {
     function GetApprovedDoctors(){
       axios.get(`${global.BaseUrl}GetApprovedDoctors`).then((response) => {
           console.log(response.data);
-          setAllpatients(response.data)
-        });
+          setDoctors(response.data)
+        }).catch(err=>console.log(err));
     }
     function ApproveUnApproveDoctor(UserId,b){
       axios.get(`${global.BaseUrl}ApproveUnApproveUser?UserId=${UserId}&&b=${b}`).then((response) => {
@@ -26,11 +26,10 @@ const admin = ({navigation}) => {
     }
   return (
     <View style={styles.container}>
-     
+     {doctors.length>0?
      <FlatList
-
       style={{flex:1}}
-      data={allpatients}
+      data={doctors}
       renderItem={({item})=>(
         <CardView
           style={styles.listItem}
@@ -60,7 +59,9 @@ const admin = ({navigation}) => {
         </CardView>
        
       )}
-     />
+     /> :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text style={styles.nameTxt}>No Record</Text>
+        </View>}
  
     </View>
   );

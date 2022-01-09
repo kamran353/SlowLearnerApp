@@ -20,34 +20,36 @@ const currentPractices = ({navigation,route}) => {
              <Text style={styles.nameTxt}> Appointment Practices</Text>
      </View>
      <View style={{flex:9}}>
+       {Practices.length>0?
      <FlatList
+        style={{flex:1,marginTop:5}}
+        data={Practices}
+        renderItem={({item})=>(
+          <CardView
+            style={styles.listItem}
+            cardElevation={5}
+            cardMaxElevation={10}
+            cornerRadius={8}>
+          <View style={styles.imageView}>
+          <Image   source={require('../../images/practice.jpg')} style={styles.imagstyle} resizeMode='contain'/>
 
-    style={{flex:1,marginTop:5}}
-    data={Practices}
-    renderItem={({item})=>(
-      <CardView
-        style={styles.listItem}
-        cardElevation={5}
-        cardMaxElevation={10}
-        cornerRadius={8}>
-      <View style={styles.imageView}>
-      <Image   source={require('../../images/practice.jpg')} style={styles.imagstyle} resizeMode='contain'/>
-
-      </View>
-      <View style={styles.infoView}>
-           <Text style={styles.nameTxt}>{item.PracticeTitle}</Text>
-           
-      </View>
-      <View style={styles.buttonView}>
-       
-          <TouchableOpacity onPress={()=>navigation.navigate('AppPracticeCollection',{AppPracticeId:item.AppPracticeId})}> 
-              <Text style={styles.rejectTxt}>View</Text>
-          </TouchableOpacity>
- 
-      </View>
-      </CardView>
-      )}
-      />
+          </View>
+          <View style={styles.infoView}>
+              <Text style={styles.nameTxt}>{item.PracticeTitle}</Text>
+              
+          </View>
+          <View style={styles.buttonView}>
+          
+              <TouchableOpacity onPress={()=>navigation.navigate('AppPracticeCollection',{AppPracticeId:item.AppPracticeId})}> 
+                  <Text style={styles.rejectTxt}>View</Text>
+              </TouchableOpacity>
+    
+          </View>
+          </CardView>
+          )}
+        />:<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text style={styles.nameTxt}>No Record</Text>
+        </View>}
 
      </View>
      

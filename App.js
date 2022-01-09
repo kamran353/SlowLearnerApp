@@ -19,7 +19,7 @@ import practiceCollection from './screens/practices_screens/practice_collections
 import newCollection from './screens/collection_Screens/new_collection';
 
 
-import patients from './screens/pa_screens/patients';
+import paTab from './tabNavigation/paTab';
 import registerPatient from './screens/pa_screens/register_patient';
 
 import patient_words from './screens/patient_Screens/patient_words';
@@ -58,7 +58,7 @@ const App = () => {
 
 
       <Stack.Screen name="RegisterPatient" component={registerPatient} options={{headerShown:false}}/>
-      <Stack.Screen name="PAPatients" component={patients} options={{headerShown:false}}/>
+      <Stack.Screen name="PATab" component={paTab} options={{headerShown:false}}/>
       
       <Stack.Screen name="PatientWords" component={patient_words} options={{headerShown:false}}/>
       <Stack.Screen name="CurrentPractices" component={currentPractices} options={{headerShown:false}}/>

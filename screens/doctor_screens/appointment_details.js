@@ -79,35 +79,37 @@ function SaveAppointment(){
                </View>
                 
             </View>
+            {levelPractices.length>0?
           <FlatList
             style={styles.FlatListStyle}
             data={levelPractices}
             renderItem={({item})=>(
-          <CardView
-          style={styles.listItem}
-          cardElevation={5}
-          cardMaxElevation={10}
-          cornerRadius={8}>
-            <View style={styles.imageView}>
-            <Image   source={require('../../images/practice.jpg')} style={styles.imagstyle} resizeMode='contain'/>
-    
-            </View>
-            <View style={styles.infoView}>
-                 <Text style={styles.nameTxt}>{item.PracticeTitle}</Text>
-            </View>
-            <View style={styles.buttonView}>
-            <CheckBox
-              disabled={false}
-              value={PracticeIds.indexOf(item.PracticeId)>-1?true:false}
-              onValueChange={(newValue) => AddOrRemovePractice(item.PracticeId)}
-            />
+            <CardView
+                style={styles.listItem}
+                cardElevation={5}
+                cardMaxElevation={10}
+                cornerRadius={8}>
+                  <View style={styles.imageView}>
+                  <Image   source={require('../../images/practice.jpg')} style={styles.imagstyle} resizeMode='contain'/>
           
-               
-            </View>
-            </CardView>
-          
-          )}
-        />
+                  </View>
+                  <View style={styles.infoView}>
+                      <Text style={styles.nameTxt}>{item.PracticeTitle}</Text>
+                  </View>
+                  <View style={styles.buttonView}>
+                  <CheckBox
+                    disabled={false}
+                    value={PracticeIds.indexOf(item.PracticeId)>-1?true:false}
+                    onValueChange={(newValue) => AddOrRemovePractice(item.PracticeId)}
+                  />
+                 </View>
+              </CardView>
+            
+                )}
+              />
+              :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+              <Text style={styles.nameTxt}>No Exercises</Text>
+              </View>}
 
           <TextInput placeholder='Enter Remarks' style={styles.txtInput} onChangeText={(val)=>setRemarks(val)}/>
          

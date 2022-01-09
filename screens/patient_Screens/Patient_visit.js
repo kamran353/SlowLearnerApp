@@ -14,9 +14,8 @@ const patient_visit = ({navigation,route}) => {
   }
   return (
     <View style={styles.container}>
-     
+     {Appointments.length>0?
      <FlatList
-
       style={{flex:1,marginTop:5}}
       data={Appointments}
       renderItem={({item})=>(
@@ -44,7 +43,9 @@ const patient_visit = ({navigation,route}) => {
         </CardView>
          )}
      />
-     
+     :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text style={styles.nameTxt}>No Record</Text>
+        </View>}
     </View>
   );
 };

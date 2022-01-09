@@ -11,7 +11,12 @@ const words = ({ navigation }) => {
       .then((value) => {
         const user = JSON.parse(value).result;
         console.log(value)
+        if(user.UserRole=="PA"){
+          getMyLetters(user.ReferenceUserId)
+        }
+       else {
         getMyLetters(user.UserId)
+       }
       })
       .catch((error) => {
         console.log(error);
@@ -40,9 +45,8 @@ const words = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-
+   {MyWords.length>0?
       <FlatList
-
         style={{ flex: 1, marginTop: 5 }}
         data={MyWords}
         renderItem={({ item }) => (
@@ -68,6 +72,9 @@ const words = ({ navigation }) => {
           </CardView>
         )}
       />
+       :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text style={styles.nameTxt}>No Record</Text>
+       </View>}
       <TouchableOpacity
         onPress={() => navigation.navigate('NewCollection')}
         activeOpacity={1}

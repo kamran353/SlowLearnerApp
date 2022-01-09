@@ -30,7 +30,14 @@ const newPractice =({navigation,route}) => {
         if(IsSentenceTabActive){
           Type="Sentence"
         }
-        GetMyCollection(Type,user.UserId)
+        
+        if(user.UserRole=="PA"){
+         
+          GetMyCollection(Type,user.ReferenceUserId)
+        }
+       else {
+          GetMyCollection(Type,user.UserId)
+       }
       })
       .catch((error) => {
         console.log(error);
@@ -96,7 +103,7 @@ const newPractice =({navigation,route}) => {
         Title: Title,
         LevelNo:route.params.Level,
         CollectionIds:collectionIds.toString(),
-        DoctorId:User.UserId
+        DoctorId:User.UserRole=="PA"?User.ReferenceUserId:User.UserId
       };
 
 
@@ -104,7 +111,6 @@ const newPractice =({navigation,route}) => {
           .then(response =>{
             if(response.status==200){
               alert("Save Successfully")
-              
               SetCollectionIds([])
               setMyCollection([])
             }
@@ -146,19 +152,19 @@ const newPractice =({navigation,route}) => {
           </TouchableOpacity>
           
         </View>
-        
+        {MyCollection.length>0?
           <FlatList
             style={styles.txtInput}
             data={MyCollection}
             renderItem={({item})=>(
-          <CardView
-          style={styles.listItem}
-          cardElevation={5}
-          cardMaxElevation={10}
-          cornerRadius={8}>
-            <View style={styles.imageView}>
-            <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/>
-    
+            <CardView
+            style={styles.listItem}
+            cardElevation={5}
+            cardMaxElevation={10}
+            cornerRadius={8}>
+              <View style={styles.imageView}>
+              <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/>
+      
             </View>
             <View style={styles.infoView}>
                  <Text style={styles.nameTxt}>{item.CollectionText}</Text>
@@ -168,14 +174,13 @@ const newPractice =({navigation,route}) => {
               disabled={false}
               value={collectionIds.indexOf(item.CollectionId)>-1?true:false}
               onValueChange={(newValue) => AddOrRemoveCollection(item.CollectionId)}
-            />
-          
-               
+            />    
             </View>
         </CardView>
-       
       )}
-     />
+     />:<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+        <Text style={styles.nameTxt}>No Record</Text>
+        </View>}
 
           <TouchableOpacity style={styles.btnLogin} onPress={()=>SavePractice()}>
           <Text style={styles.txtLogin}>

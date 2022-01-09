@@ -25,7 +25,7 @@ const patients = ({navigation}) => {
 
  return (
    <View style={styles.container}>
-    
+    {MyPatients.length>0?
     <FlatList
      style={{flex:1}}
      data={MyPatients}
@@ -55,7 +55,10 @@ const patients = ({navigation}) => {
       
      )}
     />
-  
+      :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+      <Text style={styles.nameTxt}>No Record</Text>
+    </View>}
+
     </View>
   );
 };

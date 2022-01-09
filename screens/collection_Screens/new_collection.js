@@ -65,7 +65,7 @@ const newCollection =({navigation}) => {
       var  formData=new FormData();
         formData.append("CollectionText",Description);
         formData.append("CollectionType",type);
-        formData.append("DoctorId",User.UserId);
+        formData.append("DoctorId",User.UserRole=="PA"?User.ReferenceUserId:User.UserId);
         formData.append("Photo",{name:photo.assets[0].fileName,type:photo.assets[0].type,uri:photo.assets[0].uri});
         formData.append("Audio",{name:audio.name,type:audio.type,uri:audio.uri});
         axios({

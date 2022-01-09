@@ -4,7 +4,7 @@ import CardView from 'react-native-cardview'
 import axios from 'axios';
 
 const Pending = ({navigation}) => {
-   const [allpatients,setAllpatients]=useState([]);
+   const [doctors,setDoctors]=useState([]);
 
      useEffect(() => {
      GetAllRequests()
@@ -12,8 +12,8 @@ const Pending = ({navigation}) => {
     function GetAllRequests(){
         axios.get(`${global.BaseUrl}GetUnApprovedDoctors`).then((response) => {
             console.log(response.data);
-            setAllpatients(response.data)
-          });
+            setDoctors(response.data)
+          }).catch(err=>console.log(err));
       }
     function ApproveUnApproveDoctor(UserId,b){
       axios.get(`${global.BaseUrl}ApproveUnApproveUser?UserId=${UserId}&&b=${b}`).then((response) => {
@@ -26,11 +26,10 @@ const Pending = ({navigation}) => {
     }
   return (
     <View style={styles.container}>
-     
+     {doctors.length>0?
      <FlatList
-
       style={{flex:1}}
-      data={allpatients}
+      data={doctors}
       renderItem={({item})=>(
         <CardView
           style={styles.listItem}
@@ -39,7 +38,6 @@ const Pending = ({navigation}) => {
           cornerRadius={8}>
             <View style={styles.imageView}>
             <Image  source={require('../../images/doctor.jpg')} style={styles.imagstyle} resizeMode='contain'/>
-    
             </View>
             <View style={styles.infoView}>
                  <Text style={styles.nameTxt}>{item.UserName}</Text>
@@ -50,15 +48,13 @@ const Pending = ({navigation}) => {
                 <TouchableOpacity onPress={()=>ApproveUnApproveDoctor(item.UserId,true)}> 
                     <Text style={styles.acceptTxt}>Accept</Text>
                 </TouchableOpacity>
-               
-       
             </View>
-           
         </CardView>
-       
       )}
      />
- 
+      :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+            <Text style={styles.nameTxt}>No Record</Text>
+          </View>}
     </View>
   );
 };
