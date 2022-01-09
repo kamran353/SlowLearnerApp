@@ -20,14 +20,13 @@ const practiceCollection = ({navigation,route}) => {
       style={{flex:1,marginTop:5}}
       data={PracticeCollection}
       renderItem={({item})=>(
-        <CardView
+       <CardView
           style={styles.listItem}
           cardElevation={5}
           cardMaxElevation={10}
           cornerRadius={8}>
-            <View style={styles.imageView}>
+          <View style={styles.imageView}>
              <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/>
-    
             </View>
             <View style={styles.infoView}>
             <Text style={styles.nameTxt}>{item.CollectionText}</Text>
@@ -38,7 +37,7 @@ const practiceCollection = ({navigation,route}) => {
               </TouchableOpacity>
           </View>
         </CardView>
-         )}
+       )}
      />:<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
         <Text style={styles.nameTxt}>No Record</Text>
         </View>}
