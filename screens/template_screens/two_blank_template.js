@@ -105,70 +105,83 @@ const newTemplate =({navigation}) => {
           cardElevation={5}
           cardMaxElevation={10}
           cornerRadius={20}>
-      <TextInput placeholder='Enter Sentence Here i.e This is a _' style={styles.txtInput} onChangeText={(val)=>setTitle(val)}/>
-        {MyCollection.length>0?
-          <FlatList
-            style={styles.txtInput}
-            data={MyCollection}
-            renderItem={({item})=>(
-            <CardView
-            style={styles.listItem}
-            cardElevation={5}
-            cardMaxElevation={10}
-            cornerRadius={8}>
-              <View style={styles.imageView}>
-              <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imageStyle} resizeMode='contain'/>
-      
-            </View>
-            <View style={styles.infoView}>
-                 <Text style={styles.nameTxt}>{item.CollectionText}</Text>
-            </View>
-            <View style={styles.buttonView}>
-            <CheckBox
-              disabled={false}
-              value={FirstCollectionIds.indexOf(item.CollectionId)>-1?true:false}
-              onValueChange={(newValue) => AddOrRemoveFirstCollection(item.CollectionId)}
-            />    
-            </View>
-        </CardView>
-      )}
-     />:<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
-        <Text style={styles.nameTxt}>No Record</Text>
-        </View>}
-        {MyCollection.length>0?
-          <FlatList
-            style={styles.txtInput}
-            data={MyCollection}
-            renderItem={({item})=>(
-            <CardView
-            style={styles.listItem}
-            cardElevation={5}
-            cardMaxElevation={10}
-            cornerRadius={8}>
-              <View style={styles.imageView}>
-              <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imageStyle} resizeMode='contain'/>
-      
-            </View>
-            <View style={styles.infoView}>
-                 <Text style={styles.nameTxt}>{item.CollectionText}</Text>
-            </View>
-            <View style={styles.buttonView}>
-            <CheckBox
-              disabled={false}
-              value={SecondCollectionIds.indexOf(item.CollectionId)>-1?true:false}
-              onValueChange={(newValue) => AddOrRemoveSecondCollection(item.CollectionId)}
-            />    
-            </View>
-        </CardView>
-      )}
-     />:<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
-        <Text style={styles.nameTxt}>No Record</Text>
-        </View>}
-          <TouchableOpacity style={styles.btnLogin} onPress={()=>SaveTemplate()}>
-          <Text style={styles.txtLogin}>
-              Save Template
-          </Text>
-          </TouchableOpacity>
+              <View style={{flex:1,width:'100%'}}>
+              <TextInput placeholder='Enter Sentence Here i.e This is a _' style={styles.txtInput} onChangeText={(val)=>setTitle(val)}/>
+             </View> 
+             <View style={{flex:8,width:'90%'}}>
+
+             <Text style={styles.txtLabel}>For 1st Blank</Text>
+               
+               {MyCollection.length>0?
+                 <FlatList
+                    style={{flex:4}}
+                        data={MyCollection}
+                        renderItem={({item})=>(
+                        <CardView
+                        style={styles.listItem}
+                        cardElevation={5}
+                        cardMaxElevation={10}
+                        cornerRadius={8}>
+                        <View style={styles.imageView}>
+                        <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imageStyle} resizeMode='contain'/>
+                
+                        </View>
+                        <View style={styles.infoView}>
+                            <Text style={styles.nameTxt}>{item.CollectionText}</Text>
+                        </View>
+                        <View style={styles.buttonView}>
+                        <CheckBox
+                        disabled={false}
+                        value={FirstCollectionIds.indexOf(item.CollectionId)>-1?true:false}
+                        onValueChange={(newValue) => AddOrRemoveFirstCollection(item.CollectionId)}
+                        />    
+                        </View>
+                    </CardView>
+                )}
+                />:<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+                    <Text style={styles.nameTxt}>No Record</Text>
+                    </View>}
+                    <Text style={styles.txtLabel}>For 2nd Blank</Text>
+                    {
+                    MyCollection.length>0?
+                    <FlatList
+                    style={{flex:4}}
+                        data={MyCollection}
+                        renderItem={({item})=>(
+                        <CardView
+                        style={styles.listItem}
+                        cardElevation={5}
+                        cardMaxElevation={10}
+                        cornerRadius={8}>
+                        <View style={styles.imageView}>
+                        <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imageStyle} resizeMode='contain'/>
+                
+                        </View>
+                        <View style={styles.infoView}>
+                            <Text style={styles.nameTxt}>{item.CollectionText}</Text>
+                        </View>
+                        <View style={styles.buttonView}>
+                        <CheckBox
+                        disabled={false}
+                        value={SecondCollectionIds.indexOf(item.CollectionId)>-1?true:false}
+                        onValueChange={(newValue) => AddOrRemoveSecondCollection(item.CollectionId)}
+                        />    
+                        </View>
+                    </CardView>
+                )}
+                />:<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+                    <Text style={styles.nameTxt}>No Record</Text>
+                    </View>}
+             </View>
+                
+            <View style={{flex:1,width:'100%',justifyContent:'center',alignItems:'center'}}>
+                <TouchableOpacity style={styles.btnLogin} onPress={()=>SaveTemplate()}>
+                    <Text style={styles.txtLogin}>
+                        Save Template
+                    </Text>
+                    </TouchableOpacity>
+             </View>
+         
      </CardView>
     
     </View>
@@ -194,21 +207,20 @@ const styles = StyleSheet.create({
   },
   txtInput:{
     paddingHorizontal:8,
-    height:'8%',
     width:'86%',
-    marginHorizontal:'12%',
+    marginHorizontal:'6%',
     borderRadius:20,
     borderColor:'gray',
     borderWidth:1,
     marginTop:'4%'
   },
   btnLogin:{
-    height:'23%',
+    height:'65%',
     width:200,
     borderRadius:20,
     borderColor:'gray',
     borderWidth:1,
-    marginTop:'7%',
+    marginTop:'3%',
     justifyContent:'center',
     alignItems:'center',
     backgroundColor:'#FFB133'
@@ -249,6 +261,12 @@ const styles = StyleSheet.create({
     paddingBottom:'2%',
     backgroundColor:'#FFB133'
   },
+  txtLabel:{
+      color:'black',
+      fontSize:15,
+      fontWeight:'bold',
+      marginTop:"3%",
+  }
 });
 
 export default newTemplate;
