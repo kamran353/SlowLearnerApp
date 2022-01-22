@@ -23,7 +23,7 @@ const radioButtonsData = [
   },
 ];
 
-const registerPA = ({ navigation, route }) => {
+const registerPA = ({navigation}) => {
   const [User, SetUser] = useState(null)
 
   const [date, setDate] = useState('09-10-2020');
@@ -76,7 +76,7 @@ const registerPA = ({ navigation, route }) => {
           cardMaxElevation={10}
           cornerRadius={20}>
           <Text style={styles.heading}>
-            Register Account For {route.params.Type}
+            Register Account For PA
           </Text>
           <View style={styles.InputView}>
             <Text style={styles.InputViewLabel}>First Name</Text>

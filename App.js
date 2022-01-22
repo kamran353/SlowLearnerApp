@@ -6,12 +6,14 @@ import Splash from './screens/loginSignUp_screens/splash';
 import registerPa from './screens/doctor_screens/register-pa'
 import doctor_patients from './screens/doctor_screens/doctor_patients'
 import appointment_details from './screens/doctor_screens/appointment_details';
+import newTemplate from './screens/template_screens/one_blank_template';
 
 import mainTab from './tabNavigation/mainTab';
 import adminTab from './tabNavigation/adminTab';
 import LevelTab from './tabNavigation/level_tab';
 import CollectionTab from './tabNavigation/collectionTab';
 import patientTab from './tabNavigation/patientTab'
+import templateTab from './tabNavigation/templateTab';
 
 import newPractice from './screens/practices_screens/new_practice';
 import practiceCollection from './screens/practices_screens/practice_collections';
@@ -48,6 +50,7 @@ const App = () => {
       <Stack.Screen name="MainTab" component={mainTab} options={{headerShown:false}}/>
       <Stack.Screen name="Collections" component={CollectionTab} options={{headerShown:false}}/>
       <Stack.Screen name="PatientTab" component={patientTab} options={{headerShown:false}}/>
+      <Stack.Screen name="TemplateTab" component={templateTab} options={{headerShown:false}}/>
 
       <Stack.Screen name="RegisterPa" component={registerPa} options={{headerShown:false}}/>
       <Stack.Screen name="AppointmentDetails" component={appointment_details} options={{headerShown:false}}/>
@@ -55,7 +58,7 @@ const App = () => {
       <Stack.Screen name="NewPractice" component={newPractice} options={{headerShown:false}}/>
       <Stack.Screen name="PracticeCollection" component={practiceCollection} options={{headerShown:false}}/>
       <Stack.Screen name="DocPatients" component={doctor_patients} options={{headerShown:false}}/>
-
+      
 
       <Stack.Screen name="RegisterPatient" component={registerPatient} options={{headerShown:false}}/>
       <Stack.Screen name="PATab" component={paTab} options={{headerShown:false}}/>

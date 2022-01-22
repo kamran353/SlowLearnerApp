@@ -1,9 +1,35 @@
 import React, { useState ,useEffect} from 'react';
-import { View, Image, StyleSheet ,Text} from 'react-native';
+import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-native';
 import CardView from 'react-native-cardview'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const profile = ({navigation}) => {
+const testing = ({navigation}) => {
+  const [actions,setActions]=useState([
+    {
+      actionName:"RegisterPa",
+      actionText:"New PA"
+    },
+    {
+      actionName:"Levels",
+      actionText:"Levels"
+    },
+    {
+      actionName:"Collections",
+      actionText:"Collections"
+    },
+    {
+      actionName:"TemplateTab",
+      actionText:"Templates"
+    },
+    {
+      actionName:"DocPatients",
+      actionText:"Patients"
+    },
+    {
+      actionName:"Login",
+      actionText:"Logout"
+    }
+  ]);
   const[User,setUser]=useState({UserName:'',UserPhone:'',UserGender:""});
   useEffect(()=>{
       AsyncStorage.getItem('User')
@@ -15,206 +41,118 @@ const profile = ({navigation}) => {
         console.log(error);
       });
   },[])
-return (
-  <View style={styles.container}>
-   <View style={styles.topView}>
-     <Image  source={require('../../images/doctor.jpg')} style={styles.imagstyle} resizeMode='contain'/>
+  return (
+    <View style={styles.container}>
+    <View style={styles.topView}>
+     <Image  source={require('../../images/doctor.jpg')} style={styles.imageStyle} resizeMode='contain'/>
      <Text style={styles.nameTxt}>{User.UserName}</Text>
      <Text style={styles.otherTxt}>{User.UserPhone}</Text>
      <Text style={styles.otherTxt}>{User.UserGender}</Text>
    </View>
-     <View style={styles.bottomView}>
-     <CardView
-          style={styles.updateStyle}
-          cardElevation={8}
-          cardMaxElevation={10}
-          cornerRadius={20}>
-        <View style={styles.actionStyle}>
-         <CardView
+   <View style={styles.bottomView}>
+     {actions.length>0?
+     <FlatList
+      numColumns={2}
+      style={{flex:1,marginTop:5}}
+      data={actions}
+      renderItem={({item,index})=>(
+        <CardView
           style={styles.listItem}
-          cardElevation={10}
+          cardElevation={5}
           cardMaxElevation={10}
-          cornerRadius={20}>
-            <View style={styles.imageView}>
-            <Image  source={require('../../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
-    
-            </View>
-            <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('RegisterPa',{Type:'PA'})}>
-              <Text style={styles.actoinTxt}>Add New PA</Text>
+          cornerRadius={8}>
+             <View style={styles.imageView}>
+               <TouchableOpacity style={styles.touchableOpacityStyle} onPress={()=>navigation.navigate(item.actionName)}>
+                <Text style={styles.actionText}>{item.actionText}</Text>
               </TouchableOpacity>
-            </View>
-           
+             </View>
         </CardView>
-      </View>
-
-
-        <View style={styles.actionStyle}>
-         <CardView
-          style={styles.listItem}
-          cardElevation={10}
-          cardMaxElevation={10}
-          cornerRadius={20}>
-            <View style={styles.imageView}>
-            <Image  source={require('../../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
-    
-            </View>
-            <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('Levels')}>
-              <Text style={styles.actoinTxt}>Levels</Text>
-              </TouchableOpacity>
-                 
-            </View>
-           
-        </CardView>
-       
-        </View>
-
-        <View style={styles.actionStyle}>
-         <CardView
-          style={styles.listItem}
-          cardElevation={10}
-          cardMaxElevation={10}
-          cornerRadius={20}>
-            <View style={styles.imageView}>
-            <Image  source={require('../../images/plus-icon.jpg')} style={styles.actonImagStyle} resizeMode='contain'/>
-    
-            </View>
-            <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('Collections')}>
-              <Text style={styles.actoinTxt}>Collections</Text>
-              </TouchableOpacity>
-                 
-            </View>
-           
-          </CardView>
-       </View>
-
-       <View style={styles.actionStyle}>
-         <CardView
-          style={styles.listItem}
-          cardElevation={10}
-          cardMaxElevation={10}
-          cornerRadius={20}>
-            <View style={styles.imageView}>
-            <Image  source={require('../../images/patient.png')} style={styles.actonImagStyle} resizeMode='contain'/>
-    
-            </View>
-            <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('DocPatients')}>
-              <Text style={styles.actoinTxt}>Patients</Text>
-              </TouchableOpacity>
-                 
-            </View>
-           
-          </CardView>
-       </View>
-       <View style={styles.actionStyle}>
-         <CardView
-          style={styles.listItem}
-          cardElevation={10}
-          cardMaxElevation={10}
-          cornerRadius={20}>
-            <View style={styles.imageView}>
-            <Image  source={require('../../images/patient.png')} style={styles.actonImagStyle} resizeMode='contain'/>
-    
-            </View>
-            <View style={styles.infoView}>
-            <TouchableOpacity  onPress={()=>navigation.navigate('Login')}>
-              <Text style={styles.actoinTxt}>Logout</Text>
-              </TouchableOpacity>
-                 
-            </View>
-           
-          </CardView>
-       </View>
-
-     </CardView>
-     </View>
-
-   
-
-    </View>
+         )}
+     />
+     :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+     <Text style={styles.nameTxt}>No Record</Text>
+     </View>}
+    </View> 
+  
+  </View>
   );
 };
 
 // React Native Styles
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  },
-  
-  imagstyle:{
-    width: '35%', height: '45%',
-    borderRadius:1000
-  },
-    
-  actonImagStyle:{
-    width: '45%', 
-    height: '56%',
-    borderRadius:1000,
-    marginLeft:'20%'
-  },
-  topView:{
-    height:'35%',
-    justifyContent:'center',
-    alignItems:'center',
+    flex: 1,
+    paddingHorizontal:'2%',
+    paddingTop:'2%',
     backgroundColor:'#F5CE9A'
-  },
-  bottomView:{
-    height:'65%',
-    backgroundColor:'#F5CE9A'
-  },
-  nameTxt:{
-    color:'black',
-    fontSize:20,
-    fontWeight:'bold',
-    marginTop:'2%'
-  }, 
-  actoinTxt:{
-    color:'black',
-    fontSize:20,
-    fontWeight:'bold',
-  
-  }, 
-  updateStyle:{
-    width:'98%',
-    height:'100%',
-    marginHorizontal:'1%',
-    marginVertical:'1%',
-    alignItems:'center',
-  
-  },
-  otherTxt:{
-    color:'white',
-    fontSize:15,
-  
-  },
-  actionStyle:{
-    height:'18%',
-    flexDirection:'row',
-    marginTop:'2%',
-    paddingHorizontal:'2%'
   },
   imageView:{
-    flex:2,
+    flex:1,
     justifyContent:'center',
     alignItems:'flex-start',
     
   },
   infoView:{
-    flex:8,
+    flex:7,
     justifyContent:'center',
     alignItems:'flex-start'
   }
   ,
+  imageStyle:{
+    width: '35%', height: '45%',
+    borderRadius:1000
+  }
+  ,
   listItem:{
-    flex:1,
+    flex:3,
     flexDirection:'row',
     marginTop:'1%',
-    height:70
-    
+    height:100,
+    justifyContent:'center',
+    marginHorizontal:5,
+    alignItems:'center'
   },
+  nameTxt:{
+    color:'black',
+    fontSize:20,
+    fontWeight:'bold',
+  },
+  otherTxt:{
+    color:'white',
+    fontSize:15,
+  },
+  buttonView:{
+    flex:3,
+    justifyContent:'flex-end',
+    alignItems:'flex-end',
+    paddingRight:'2%',
+    flexDirection:'row',
+    paddingBottom:'2%',
+    paddingEnd:20
+  },
+  rejectTxt:{
+    color:'#FFB133',
+    fontSize:15
+ },
+ touchableOpacityStyle: {
+   alignItems: 'center',
+   justifyContent: 'center',
+   width:'100%'
+ },
+ topView:{
+  height:'35%',
+  justifyContent:'center',
+  alignItems:'center',
+},
+bottomView:{
+  height:'65%',
+  backgroundColor:'#F5CE9A'
+},
+actionText:{
+  color:'black',
+  fontSize:20,
+  fontWeight:'bold',
+}
 });
 
-export default profile;
+export default testing;
