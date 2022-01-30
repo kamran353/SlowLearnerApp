@@ -105,16 +105,14 @@ const newTemplate = ({ navigation, route }) => {
         cardElevation={5}
         cardMaxElevation={10}
         cornerRadius={20}>
-        <View style={{ flex: 1, width: '100%' }}>
-          <TextInput placeholder='Enter Sentence Here i.e This is a _' style={styles.txtInput} onChangeText={(val) => setTitle(val)} />
-        </View>
-        <View style={{ flex: 8, width: '90%' }}>
+       
+        <View style={{ flex: 9, width: '90%' }}>
 
           <Text style={styles.txtLabel}>For 1st Blank</Text>
 
           {MyCollection.length > 0 ?
             <FlatList
-              style={{ flex: 4 }}
+              style={{ flex: 5 }}
               data={MyCollection}
               renderItem={({ item }) => (
                 <CardView
@@ -145,7 +143,7 @@ const newTemplate = ({ navigation, route }) => {
           {
             MyCollection.length > 0 ?
               <FlatList
-                style={{ flex: 4 }}
+                style={{ flex: 5 }}
                 data={MyCollection}
                 renderItem={({ item }) => (
                   <CardView

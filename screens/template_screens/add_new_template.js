@@ -41,13 +41,11 @@ const newTemplate = ({navigation}) => {
   }, []);
 
   function SaveTemplate() {
-    if(radioButtons[0].selected==false){
-        SetTemplateType('2');
-    }
+   
       const template = {
       TemplateText: TemplateText,
       DoctorId:User.UserRole=="PA"? User.ReferenceUserId: User.UserId,
-      TemplateType:TemplateType
+      TemplateType:radioButtons[0].selected==true?'1':'2'
     };
     axios.post(`${global.BaseUrl}AddNewTemplate`, template)
       .then(response => {
