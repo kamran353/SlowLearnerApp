@@ -3,19 +3,18 @@ import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-na
 import CardView from 'react-native-cardview'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SoundPlayer from 'react-native-sound';
-const letters = ({navigation}) => {
-   const [MyLetters,SetLetters]=useState([]);
+const allTemplates = ({navigation}) => {
+   const [MyTemplates,setTemplates]=useState([]);
    useEffect(() => {
     AsyncStorage.getItem('User')
     .then((value) => {
       const user = JSON.parse(value).result;
       console.log(value)
       if(user.UserRole=="PA"){
-        getMyLetters(user.ReferenceUserId)
+        getMyTemplates(user.ReferenceUserId)
       }
      else {
-      getMyLetters(user.UserId)
+        getMyTemplates(user.UserId)
      }
     })
     .catch((error) => {
@@ -23,48 +22,41 @@ const letters = ({navigation}) => {
     });
      
   },[]);
-  function getMyLetters(doctorId){
-    axios.get(`${global.BaseUrl}GetMyCollection?Type=Letter&&DoctorId=${doctorId}`).then((response) => {
-      SetLetters(response.data)
+  function getMyTemplates(doctorId){
+    axios.get(`${global.BaseUrl}GetDoctorTemplates?Type=Letter&&DoctorId=${doctorId}`).then((response) => {
+        setTemplates(response.data)
       });
   }
-  function playAudio(audioname) {
-    console.log(`${global.BaseUrlForImages}${audioname}`)
-    var sound1 = new SoundPlayer(`${global.BaseUrlForImages}${audioname}`, '',
-      (error, SoundPlayer) => {
-        if (error) {
-          alert('error' + error.message);
-          return;
-        }
-        if (sound1) sound1.stop();
-        sound1.play(() => {
-          sound1.release();
-        });
-      });
+  function UseTemplate(item){
+    console.log(item) 
+    if(item.TemplateType==1)
+    {
+        navigation.navigate('OneBlankTemplate',{Template:item});
+    }
+    else if(item.TemplateType==2)
+    {
+        navigation.navigate('TwoBlankTemplate',{Template:item});
+    }
   }
   return (
     <View style={styles.container}>
-     {MyLetters.length>0?
+     {MyTemplates.length>0?
      <FlatList
       style={{flex:1,marginTop:5}}
-      data={MyLetters}
+      data={MyTemplates}
       renderItem={({item})=>(
         <CardView
           style={styles.listItem}
           cardElevation={5}
           cardMaxElevation={10}
           cornerRadius={8}>
-            <View style={styles.imageView}>
-             <Image  source={{uri:`${global.BaseUrlForImages}${item.CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/>
-    
-            </View>
             <View style={styles.infoView}>
-            <Text style={styles.nameTxt}>{item.CollectionText}</Text>
+            <Text style={styles.nameTxt}>{item.TemplateText}</Text>
             </View>
             <View style={styles.audioView}>
-              <TouchableOpacity style={styles.btnLogin} onPress={() => playAudio(item.CollectionAudio)}>
+              <TouchableOpacity style={styles.btnLogin} onPress={() => UseTemplate(item)}>
                 <Text style={styles.txtLogin}>
-                  Play
+                    Use
                 </Text>
               </TouchableOpacity>
             </View>
@@ -73,8 +65,10 @@ const letters = ({navigation}) => {
         /> :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
             <Text style={styles.nameTxt}>No Record</Text>
           </View>}
+        {//plusbutton code
+        }
      <TouchableOpacity
-         onPress={()=>navigation.navigate('NewCollection')}
+         onPress={()=>navigation.navigate('AddNewTemplate')}
           activeOpacity={1}
           style={styles.touchableOpacityStyle}>
           <Image
@@ -182,4 +176,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default letters;
+export default allTemplates;

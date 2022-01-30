@@ -59,14 +59,25 @@ const newCollection =({navigation}) => {
                   return radioButtons[i].value
               }
           }
-      }
-      const SaveCollection= async()=>{
-        var type=await  GetRadioButtonValue();
+      } 
+const SaveCollection= async()=>{
+if(photo==null)
+{
+  alert("Please select photo")
+}else if(audio==null)
+{
+  alert("Please select audio")
+}else if(Description.length==0)
+{
+  alert("Please Enter Text")
+}
+
+  else{      var type=await  GetRadioButtonValue();
       var  formData=new FormData();
         formData.append("CollectionText",Description);
         formData.append("CollectionType",type);
         formData.append("DoctorId",User.UserRole=="PA"?User.ReferenceUserId:User.UserId);
-        formData.append("Photo",{name:photo.assets[0].fileName,type:photo.assets[0].type,uri:photo.assets[0].uri});
+        formData.append("Photo",{name:photo.fileName,type:photo.type,uri:photo.uri});
         formData.append("Audio",{name:audio.name,type:audio.type,uri:audio.uri});
         axios({
             url:`${global.BaseUrl}AddNewCollection`,
@@ -83,14 +94,14 @@ const newCollection =({navigation}) => {
         }).catch((error) =>{
             alert("Something Went Wrong")
         });
-
-     }
+      }
+   }
        const handleChoosePhoto = () => {
         launchImageLibrary({ noData: true }, (response) => {
            console.log(response);
 
           if (response.hasOwnProperty('assets')) {
-            setPhoto(response);
+            setPhoto(response.assets[0]);
             console.log(response)
           }
         });
@@ -156,7 +167,7 @@ const newCollection =({navigation}) => {
                     {photo!=null? (
                   
                         <Image
-                            source={{ uri:  photo.assets[0].uri }}
+                            source={{ uri: photo.uri }}
                             style={styles.imagstyle}
                             resizeMode='cover'/>
                    

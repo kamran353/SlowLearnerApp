@@ -6,7 +6,10 @@ import Splash from './screens/loginSignUp_screens/splash';
 import registerPa from './screens/doctor_screens/register-pa'
 import doctor_patients from './screens/doctor_screens/doctor_patients'
 import appointment_details from './screens/doctor_screens/appointment_details';
-import newTemplate from './screens/template_screens/one_blank_template';
+import one_blank_template from './screens/template_screens/one_blank_template';
+import two_blank_template from './screens/template_screens/two_blank_template';
+import add_new_template from  './screens/template_screens/add_new_template';
+import allTemplates from './screens/template_screens/all_templates';
 
 import mainTab from './tabNavigation/mainTab';
 import adminTab from './tabNavigation/adminTab';
@@ -14,6 +17,7 @@ import LevelTab from './tabNavigation/level_tab';
 import CollectionTab from './tabNavigation/collectionTab';
 import patientTab from './tabNavigation/patientTab'
 import templateTab from './tabNavigation/templateTab';
+
 
 import newPractice from './screens/practices_screens/new_practice';
 import practiceCollection from './screens/practices_screens/practice_collections';
@@ -30,12 +34,13 @@ import currentPractices from './screens/patient_Screens/appointment_practices';
 import patient_visit from './screens/patient_Screens/Patient_visit';
 import appointmentPracticeCollection from './screens/patient_Screens/appointment_practices_collection';
 
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
-global.BaseUrl='http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages='http://192.168.100.37/SlowLearnerApi/'
+global.BaseUrl='http://192.168.100.42/SlowLearnerApi/api/SlowLearner/'
+global.BaseUrlForImages='http://192.168.100.42/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -58,6 +63,11 @@ const App = () => {
       <Stack.Screen name="NewPractice" component={newPractice} options={{headerShown:false}}/>
       <Stack.Screen name="PracticeCollection" component={practiceCollection} options={{headerShown:false}}/>
       <Stack.Screen name="DocPatients" component={doctor_patients} options={{headerShown:false}}/>
+      <Stack.Screen name="OneBlankTemplate" component={one_blank_template} options={{headerShown:false}}/>
+      <Stack.Screen name="TwoBlankTemplate" component={two_blank_template} options={{headerShown:false}}/>
+      <Stack.Screen name="AddNewTemplate" component={add_new_template} options={{headerShown:false}}/>
+      <Stack.Screen name="AllTemplates" component={allTemplates} options={{headerShown:false}}/>
+      
       
 
       <Stack.Screen name="RegisterPatient" component={registerPatient} options={{headerShown:false}}/>

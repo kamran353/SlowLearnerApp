@@ -35,6 +35,17 @@ const login =({navigation}) => {
       if(radioButtons[0].selected==false){
           SetUsergender('Female');
       }
+  //check ist name and password is not null
+  if (FirstName.length<1) 
+  {
+       alert('First Name is required.')
+  }
+  else if (UserPassword.length<4)
+  {
+    alert('Password length should be at least 4 letters.')
+  }
+  else
+  {
       const user = { 
         UserName: FirstName+" "+LastName,
         UserPhone:UserPhone,
@@ -42,8 +53,9 @@ const login =({navigation}) => {
         UserPassword:UserPassword,
         UserDOB:date,UserRole:'Doctor',IsApproved:false,ReferenceUserId:0 };
       axios.post(`${global.BaseUrl}RegisterUser`, user)
-          .then(response =>CheckUserId(response.data.UserId));
+          .then(response =>CheckUserId(response.data.UserId)).catch(error=>console.log(error));
     }
+  }
     function CheckUserId(UserId){
         if(UserId>0){
           alert("Account Created Successfully");

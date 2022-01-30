@@ -26,7 +26,7 @@ const training = ({navigation}) => {
     <View style={styles.container}>
      {collection.length>0?
      <FlatList
-      numColumns={2}
+      numColumns={2} 
       style={{flex:1,marginTop:5}}
       data={collection}
       renderItem={({item})=>(

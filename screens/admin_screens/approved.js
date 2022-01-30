@@ -10,19 +10,21 @@ const admin = ({navigation}) => {
       GetApprovedDoctors()
     },[]);
     function GetApprovedDoctors(){
-      axios.get(`${global.BaseUrl}GetApprovedDoctors`).then((response) => {
+      axios.get(`${global.BaseUrl}GetApprovedDoctors`)
+      .then((response) => {
           console.log(response.data);
           setDoctors(response.data)
         }).catch(err=>console.log(err));
     }
     function ApproveUnApproveDoctor(UserId,b){
-      axios.get(`${global.BaseUrl}ApproveUnApproveUser?UserId=${UserId}&&b=${b}`).then((response) => {
+      axios.get(`${global.BaseUrl}ApproveUnApproveUser?UserId=${UserId}&&b=${b}`)
+      .then((response) => {
          console.log(response.data);
        if(b==false){
          alert("Rejected Successfully")
          GetApprovedDoctors()
        }
-      });
+      }).catch(err=>console.log(err));
     }
   return (
     <View style={styles.container}>
@@ -48,6 +50,7 @@ const admin = ({navigation}) => {
                  <Text style={styles.otherTxt}>{item.UserGender}</Text>
             </View>
             
+             
             <View style={styles.buttonView}>
              
                 <TouchableOpacity onPress={()=>ApproveUnApproveDoctor(item.UserId,false)}> 
@@ -59,10 +62,11 @@ const admin = ({navigation}) => {
         </CardView>
        
       )}
-     /> :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+     />:<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
         <Text style={styles.nameTxt}>No Record</Text>
-        </View>}
- 
+        </View>
+      }
+      
     </View>
   );
 };
@@ -75,7 +79,7 @@ const styles = StyleSheet.create({
     paddingTop:'2%'
   },
   imageView:{
-    flex:3,
+     flex:3,
     justifyContent:'center',
     alignItems:'flex-start',
     

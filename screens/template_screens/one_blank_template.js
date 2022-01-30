@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
-const newTemplate =({navigation}) => {
+const newTemplate =({navigation,route}) => {
     const[Title,setTitle]=useState(null)
     const[User,SetUser]=useState(null)
     const[collectionIds,SetCollectionIds]=useState([])
@@ -36,7 +36,8 @@ const newTemplate =({navigation}) => {
       if(id==0){
         DoctorId=User.UserId
       }
-      axios.get(`${global.BaseUrl}GetMyCollection?Type=Word&&DoctorId=${DoctorId}`).then((response) => {
+      axios.get(`${global.BaseUrl}GetMyCollection?Type=Word&&DoctorId=${DoctorId}`)
+      .then((response) => {
         setMyCollection(response.data)
         }).catch(error=>console.log(error));
     }
@@ -47,7 +48,7 @@ const newTemplate =({navigation}) => {
         CollectionIndex=i;
        }
       }
-      var index=collectionIds.indexOf(collectionId);
+      var index=collectionIds.indexOf(collectionId);//1,2,3
       if(index>-1){
         collectionIds.splice(index,1)
         MyCollection[CollectionIndex].IsSelected=false;
@@ -62,7 +63,7 @@ const newTemplate =({navigation}) => {
     function SaveTemplate(){
 
       const template = { 
-        Sentence: Title,
+        Sentence: route.params.Template.TemplateText,
         CollectionIds:collectionIds.toString(),
         DoctorId:User.UserRole=="PA"?User.ReferenceUserId:User.UserId
       };
@@ -82,8 +83,7 @@ const newTemplate =({navigation}) => {
           cardElevation={5}
           cardMaxElevation={10}
           cornerRadius={20}>
-      <TextInput placeholder='Enter Sentence Here i.e This is a _' style={styles.txtInput} onChangeText={(val)=>setTitle(val)}/>
-        {MyCollection.length>0?
+         {MyCollection.length>0?
           <FlatList
             style={styles.txtInput}
             data={MyCollection}

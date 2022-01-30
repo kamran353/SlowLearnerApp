@@ -61,7 +61,7 @@ const login = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
           <Text style={styles.heading}>
-              Login Into Account
+                     Login
           </Text>
           <TextInput placeholder='Username' style={styles.txtInput} onChangeText={(val)=>setUsername(val)}/>
           <TextInput placeholder='Password'  style={styles.txtInput} secureTextEntry={true} onChangeText={(val)=>setPassword(val)}/>
