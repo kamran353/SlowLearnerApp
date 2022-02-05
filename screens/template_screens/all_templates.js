@@ -29,6 +29,7 @@ const allTemplates = ({navigation}) => {
   }
   function UseTemplate(item){
     console.log(item) 
+    
     if(item.TemplateType==1)
     {
         navigation.navigate('OneBlankTemplate',{Template:item});

@@ -76,7 +76,7 @@ const registerPA = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
           <Text style={styles.heading}>
-            Register Account For PA
+             Register New Jr.Doctor
           </Text>
           <View style={styles.InputView}>
             <Text style={styles.InputViewLabel}>First Name</Text>
