@@ -21,7 +21,7 @@ import templateTab from './tabNavigation/templateTab';
 
 import newPractice from './screens/practices_screens/new_practice';
 import practiceCollection from './screens/practices_screens/practice_collections';
-
+import updateCollection from './screens/collection_Screens/update_collection';
 import newCollection from './screens/collection_Screens/new_collection';
 
 
@@ -39,8 +39,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
-global.BaseUrl='http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages='http://192.168.100.37/SlowLearnerApi/'
+global.BaseUrl='http://192.168.185.95/SlowLearnerApi/api/SlowLearner/'
+global.BaseUrlForImages='http://192.168.185.95/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -67,6 +67,7 @@ const App = () => {
       <Stack.Screen name="TwoBlankTemplate" component={two_blank_template} options={{headerShown:false}}/>
       <Stack.Screen name="AddNewTemplate" component={add_new_template} options={{headerShown:false}}/>
       <Stack.Screen name="AllTemplates" component={allTemplates} options={{headerShown:false}}/>
+      <Stack.Screen name="UpdateCollection" component={updateCollection} options={{headerShown:false}}/>
       
       
 

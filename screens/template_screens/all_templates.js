@@ -97,12 +97,14 @@ const styles = StyleSheet.create({
   infoView: {
     flex: 5,
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    paddingLeft:12
   },
   audioView: {
     flex: 5,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'flex-end',
+    paddingRight:12
   }
   ,
   imagstyle: {

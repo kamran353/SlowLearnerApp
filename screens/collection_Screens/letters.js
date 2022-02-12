@@ -67,6 +67,12 @@ const letters = ({navigation}) => {
                   Play
                 </Text>
               </TouchableOpacity>
+
+              <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate("UpdateCollection",{collection:item})}>
+                <Text style={styles.txtLogin}>
+                  Edit
+                </Text>
+              </TouchableOpacity>
             </View>
         </CardView>
          )}
