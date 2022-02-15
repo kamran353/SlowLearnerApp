@@ -68,6 +68,11 @@ const sentences = ({navigation}) => {
                   Play
                 </Text>
               </TouchableOpacity>
+              <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate("UpdateCollection",{collection:item})}>
+                <Text style={styles.txtLogin}>
+                  Edit
+                </Text>
+              </TouchableOpacity>
             </View>
         </CardView>
          )}
@@ -108,7 +113,8 @@ const styles = StyleSheet.create({
   audioView: {
     flex: 5,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection:'row'
   }
   ,
   imagstyle: {
@@ -128,7 +134,7 @@ const styles = StyleSheet.create({
   },
   nameTxt: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
 
   },
@@ -167,17 +173,15 @@ const styles = StyleSheet.create({
     //backgroundColor:'black'
   }, btnLogin: {
     height: 40,
-    width: 100,
+    width: 60,
     borderRadius: 20,
     borderColor: 'gray',
-    borderWidth: 1,
     marginTop: '5%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFB133'
   },
   txtLogin: {
-    color: 'white',
+    color: '#FFB133',
     fontSize: 15,
     fontWeight: "bold"
   }

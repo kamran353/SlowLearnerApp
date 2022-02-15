@@ -36,16 +36,15 @@ const login =({navigation}) => {
           SetUsergender('Female');
       }
   //check ist name and password is not null
-  if (FirstName.length<1) 
-  {
-       alert('First Name is required.')
+  if(FirstName.length<1){
+    alert("Please Enter First Name")
   }
-  else if (UserPassword.length<4)
-  {
-    alert('Password length should be at least 4 letters.')
+  else if(UserPassword.length<4){
+    alert("Password Must be at least 4 Characters")
+  }else if(UserPhone.length<1){
+  alert("Please Enter Phone Number")
   }
-  else
-  {
+  else{
       const user = { 
         UserName: FirstName+" "+LastName,
         UserPhone:UserPhone,

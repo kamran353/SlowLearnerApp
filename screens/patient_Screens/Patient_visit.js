@@ -38,7 +38,9 @@ const patient_visit = ({navigation,route}) => {
                 <TouchableOpacity onPress={()=>navigation.navigate('CurrentPractices',{AppId:item.AppId})}> 
                     <Text style={styles.rejectTxt}>Details</Text>
                 </TouchableOpacity>
-       
+                 {
+                   
+                 }
             </View>
         </CardView>
          )}

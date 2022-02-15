@@ -34,7 +34,7 @@ const mainTab = () => {
         component={assistent}
         options={{
             headerShown:false,
-          tabBarLabel: 'Assistents',
+          tabBarLabel: 'Jr.Doctors',
           tabBarIcon: ({ color, size ,focused}) => (
             <MaterialCommunityIcons
               name="face"

@@ -39,8 +39,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
-global.BaseUrl='http://192.168.185.95/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages='http://192.168.185.95/SlowLearnerApi/'
+global.BaseUrl='http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
+global.BaseUrlForImages='http://192.168.100.37/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (

@@ -26,7 +26,6 @@ const radioButtonsData = [
 const newTemplate = ({navigation}) => {
   const [User, SetUser] = useState(null)
   const [TemplateText, SetTemplateText] = useState('');
-  const [TemplateType, SetTemplateType] = useState('1');
   const [radioButtons, setRadioButtons] = useState(radioButtonsData);
 
   useEffect(() => {

@@ -49,19 +49,31 @@ const registerPA = ({navigation}) => {
     if (radioButtons[0].selected == false) {
       SetUsergender('Female');
     }
-    const user = {
-      UserName: FirstName + " " + LastName,
-      UserPhone: UserPhone,
-      UserGender: UserGender,
-      UserPassword: UserPassword,
-      UserDOB: date, UserRole: "PA", IsApproved: true, ReferenceUserId: User.UserId
-    };
-    axios.post(`${global.BaseUrl}RegisterUser`, user)
-      .then(response => {
-        if (response.status == 200) {
-          alert("Account Created Successfully")
-        }
-      }).catch(error => console.log(error));
+    if(FirstName.length<1){
+      alert("Please Enter First Name")
+    }
+    else if(UserPassword.length<4){
+      alert("Password Must be at least 4 Characters")
+    }
+    else if(UserPhone.length<1){
+      alert("Please Enter Phone Number")
+     }
+    else{
+      const user = {
+        UserName: FirstName + " " + LastName,
+        UserPhone: UserPhone,
+        UserGender: UserGender,
+        UserPassword: UserPassword,
+        UserDOB: date, UserRole: "PA", IsApproved: true, ReferenceUserId: User.UserId
+      };
+      axios.post(`${global.BaseUrl}RegisterUser`, user)
+        .then(response => {
+          if (response.status == 200) {
+            alert("Account Created Successfully")
+          }
+        }).catch(error => console.log(error));
+    }
+  
   }
   const onPressRadioButton = radioButtonsArray => {
     console.log(radioButtonsArray);

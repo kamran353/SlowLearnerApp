@@ -6,6 +6,7 @@ import axios from 'axios';
 import Modal from 'react-native-modal'
 import DatePicker from 'react-native-datepicker';
 import RadioGroup from 'react-native-radio-buttons-group';
+import DateTimePicker from '@react-native-community/datetimepicker';
 const radioButtonsData = [
   {
     id: '1',
@@ -35,9 +36,10 @@ const patients = ({navigation}) => {
   const[CurrentDoctorId,SetDoctorId]=useState(0)
   const[PatientId,SetPatientId]=useState(0)
   const [radioButtons, setRadioButtons] = useState(radioButtonsData);
-  const [date, setDate] = useState('01-01-2021');
+  const [date, setDate] = useState(new Date());
+  const [isDatePickerShow,setDatePickerShow]=useState(false);
   useEffect(() => {
-    
+  getCurrentDate(); 
    AsyncStorage.getItem('User')
    .then((value) => {
      const user = JSON.parse(value).result;
@@ -55,6 +57,12 @@ const patients = ({navigation}) => {
      SetMyPatients(response.data)
    }).catch(error=>console.log(error));
  }
+ const onChange = (event, selectedDate) => {
+  const currentDate = selectedDate || date;
+  setDate(currentDate);
+  setDatePickerShow(false);
+ };
+
  function ShowModal(userId){
     SetPatientId(userId)
     SetShown(true)
@@ -92,6 +100,7 @@ const patients = ({navigation}) => {
   }
  return (
    <View style={styles.container}>
+
     {MyPatients.length>0?
     <FlatList
      style={{flex:1}}
@@ -140,34 +149,22 @@ const patients = ({navigation}) => {
           />
         </TouchableOpacity>
         <Modal isVisible={IsShown}>
-         <View style={{ flex: 1,backgroundColor:'white',width:'100%',justifyContent:'center',alignItems:'center' }}>
+         <View style={{ height:'50%',backgroundColor:'white',width:'100%',justifyContent:'center',alignItems:'center' }}>
          <View style={styles.txtDatePicker}>
-              <View style={{flex:2,justifyContent:'center',paddingLeft:5}}>
-               <Text>Date</Text>
+              <View style={{flex:5,justifyContent:'center',alignItems:'center',paddingLeft:5}}>
+               <Text>{date.toString()}</Text>
               </View>
-              <View style={{flex:8}}>
-              <DatePicker
-                  style={styles.datePickerStyle}
-                  date={date} // Initial date from state
-                  mode="date" // The enum of date, datetime and time
-                  placeholder="select date"
-                  format="DD-MM-YYYY"
-                  maxDate="01-01-2030"
-                  minDate="01-01-2021"
-                  confirmBtnText="Confirm"
-                  cancelBtnText="Cancel"
-                  customStyles={{
-                    
-                    dateInput: {
-                      marginLeft: 36,
-                    },
-                  }}
-                  onDateChange={(date) => {
-                    setDate(date);
-                  }}
-              />
-            
-              </View>
+              <View style={{flex:5,justifyContent:'center',alignItems:'center'}}>
+                <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}} onPress={()=>setDatePickerShow(true)}>
+                <Text style={{color:'#FFB133'}}>Choose Date</Text>
+              </TouchableOpacity>
+              {isDatePickerShow===true?
+                  <DateTimePicker
+                    value={date}
+                    onChange={onChange}
+                 />:null
+                }
+             </View>
               
           </View>
           <View style={styles.txtInput}>
@@ -181,7 +178,11 @@ const patients = ({navigation}) => {
                 <Text style={{color:'white'}}>
                     Set Appointment
                 </Text>
-
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btnLogin} onPress={()=>SetShown(false)}>
+                <Text style={{color:'white'}}>
+                    Cancel
+                </Text>
           </TouchableOpacity>
         </View>
       </Modal>
