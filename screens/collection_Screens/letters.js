@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SoundPlayer from 'react-native-sound';
 const letters = ({navigation}) => {
    const [MyLetters,SetLetters]=useState([]);
+   const [IsDeleted,SetDeleted]=useState(false);
    useEffect(() => {
     AsyncStorage.getItem('User')
     .then((value) => {
@@ -22,11 +23,19 @@ const letters = ({navigation}) => {
       console.log(error);
     });
      
-  },[]);
+  },[IsDeleted]);
   function getMyLetters(doctorId){
     axios.get(`${global.BaseUrl}GetMyCollection?Type=Letter&&DoctorId=${doctorId}`).then((response) => {
       SetLetters(response.data)
-      });
+      }).catch(error=>console.log(error));;
+  }
+  function deleteFromDatabase(id){
+    axios.get(`${global.BaseUrl}DeleteCollection?Id=${id}`).then((response) => {
+       if(response.status==200){
+          alert("Deleted Successfully")
+          SetDeleted(!IsDeleted);
+       }
+      }).catch(error=>console.log(error));
   }
   function playAudio(audioname) {
     console.log(`${global.BaseUrlForImages}${audioname}`)
@@ -73,7 +82,7 @@ const letters = ({navigation}) => {
                   Edit
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={{marginLeft:10}}>
+              <TouchableOpacity style={{marginLeft:10}}  onPress={() => deleteFromDatabase(item.CollectionId)}>
                 <Text style={styles.txtLogin}>
                   Delete
                 </Text>
