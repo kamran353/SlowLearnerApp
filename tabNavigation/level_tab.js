@@ -9,9 +9,7 @@ const Tab = createBottomTabNavigator();
 const LevelTab = () => {
   return (
 
-    <Tab.Navigator
-      initialRouteName="Home"
-    >
+    <Tab.Navigator  initialRouteName="Lone">
       <Tab.Screen
         name="Lone"
         component={levelone}

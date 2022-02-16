@@ -2,13 +2,28 @@ import React, { useState ,useEffect} from 'react';
 import { View, Image, StyleSheet,FlatList,Text ,TouchableOpacity} from 'react-native';
 import CardView from 'react-native-cardview'
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const patient_visit = ({navigation,route}) => {
    const [Appointments,SetAppoinments]=useState([]);
    useEffect(() => {
-      getPatientappointments() 
+    AsyncStorage.getItem('User')
+    .then((value) => {
+      const user = JSON.parse(value).result;
+      console.log(value)
+      if(user.UserRole=="Patient"){
+          getPatientappointments(route.params.UserId) 
+      }
+      else{
+          getPatientappointments(route.params.PatientId) 
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   },[]);
-  function getPatientappointments(){
-    axios.get(`${global.BaseUrl}GetPatientAppointments?PatientId=${route.params.PatientId}`).then((response) => {
+  function getPatientappointments(id){
+    axios.get(`${global.BaseUrl}GetPatientAppointments?PatientId=${id}`).then((response) => {
         SetAppoinments(response.data)
       }).catch(err=>console.log(err));
   }

@@ -10,6 +10,7 @@ import one_blank_template from './screens/template_screens/one_blank_template';
 import two_blank_template from './screens/template_screens/two_blank_template';
 import add_new_template from './screens/template_screens/add_new_template';
 import allTemplates from './screens/template_screens/all_templates';
+import allDoctors from './screens/doctor_screens/all_doctors';
 
 import doctorTab from './tabNavigation/doctorTab';
 import adminTab from './tabNavigation/adminTab';
@@ -38,9 +39,9 @@ import appointmentPracticeCollection from './screens/patient_Screens/appointment
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+global.BaseUrlForImages = 'http://192.168.185.95/SlowLearnerApi/'
+global.BaseUrl = global.BaseUrlForImages+'api/SlowLearner/'
 
-global.BaseUrl = 'http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages = 'http://192.168.100.37/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -68,6 +69,7 @@ const App = () => {
         <Stack.Screen name="AddNewTemplate" component={add_new_template} options={{ headerShown: false }} />
         <Stack.Screen name="AllTemplates" component={allTemplates} options={{ headerShown: false }} />
         <Stack.Screen name="UpdateCollection" component={updateCollection} options={{ headerShown: false }} />
+        <Stack.Screen name="AllDoctors" component={allDoctors} options={{ headerShown: false }} />
 
 
 

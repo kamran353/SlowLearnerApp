@@ -42,6 +42,7 @@ const appointment_details = ({ navigation, route }) => {
   const [isDatePickerShow, setDatePickerShow] = useState(false);
   const [radioButtons, setRadioButtons] = useState(radioButtonsData);
   const [LastAppointment, SetLastAppointment] = useState(null)
+  const [LastAppPracticeIds, SetLastAppPracticeIds] = useState([])
   useEffect(() => {
     /// getCurrentDate()
     AsyncStorage.getItem('User')
@@ -58,10 +59,11 @@ const appointment_details = ({ navigation, route }) => {
   }, [PracticeIds, AddOrRemove]);
   function getMyLevelPracticesAndLastAppointmentOfPatient(doctorId) {
     axios.get(`${global.BaseUrl}GetMyLevelPracticesAndLastAppointmentOfPatient?PracticeLevel=${route.params.LevelNo}&&DoctorId=${doctorId}&PatientId=${route.params.PatientId}`).then((response) => {
+      console.log(response.data)
       setLevelPractices(response.data.Practices)
       SetLastAppointment(response.data.LastAppointment)
-      console.log(response.data.LastAppointment)
       setVisitNo(response.data.VisitNo)
+      SetLastAppPracticeIds(response.data.PreviousPracticeIds)
     }).catch(error => console.log(error + " not found " + route.params.AppId))
   }
   const getCurrentDate = () => {
@@ -82,22 +84,26 @@ const appointment_details = ({ navigation, route }) => {
     SetAddOrRemove(!AddOrRemove)
     console.log(PracticeIds)
   }
-  function SaveAppointment() {
-    if (PracticeIds.length < 1) {
+  function SaveAppointment(isRepeat) {
+    if (PracticeIds.length < 1 && isRepeat==false) {
       alert("Please Select At least one Exercise")
     }
     else {
       const app = {
         Remarks: Remarks,
-        PracticeIds: PracticeIds.toString(),
+        PracticeIds:isRepeat==false?PracticeIds.toString():LastAppPracticeIds.toString(),
         AppId: route.params.AppId
       };
       axios.post(`${global.BaseUrl}SetAppointmentPractices`, app)
         .then(response => {
           if (response.status == 200) {
-            alert("Save Successfully")
+            if(isRepeat){
+              alert("Repeated Successfully")
+            }
+            else{ alert("Saved Successfully")}
             SetPracticeIds([])
             SetAddOrRemove(true)
+            //navigation.navigate("DoctorTab");
           }
         }).catch(error => console.log(error));
     }
@@ -130,6 +136,7 @@ const appointment_details = ({ navigation, route }) => {
       .then(response => {
         if (response.status == 200) {
           alert("Appointment set Successfully")
+          
           //SetShown(false)
         }
       })
@@ -159,6 +166,10 @@ const appointment_details = ({ navigation, route }) => {
           : null
         }
         <View style={styles.buttonHistoryView}>
+       {/* {LastAppointment != null ? <TouchableOpacity style={styles.btnHistory} onPress={() => SaveAppointment(true)}>
+            <Text style={styles.btnHistoryTxt}>Repeat</Text>
+          </TouchableOpacity>:null
+        } */}
           <Text style={styles.DetailTxt}>VisitNo:{VisitNo == 0 ? 1 : VisitNo}</Text>
           <TouchableOpacity style={styles.btnHistory} onPress={() => navigation.navigate("PatientVisit", { PatientId: route.params.PatientId })}>
             <Text style={styles.btnHistoryTxt}>History</Text>
@@ -205,7 +216,7 @@ const appointment_details = ({ navigation, route }) => {
       <View style={{ flex: 3, justifyContent: 'flex-start', paddingTop: 5, alignItems: 'center', width: '100%' }}>
         <TextInput placeholder='Enter Remarks' style={styles.txtInput} onChangeText={(val) => setRemarks(val)} />
 
-        <TouchableOpacity style={styles.btnLogin} onPress={() => SaveAppointment()}>
+        <TouchableOpacity style={styles.btnLogin} onPress={() => SaveAppointment(false)}>
           <Text style={styles.txtLogin}>
             Save Changes
           </Text>

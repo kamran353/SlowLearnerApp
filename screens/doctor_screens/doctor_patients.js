@@ -18,6 +18,7 @@ const patients = ({ navigation }) => {
       });
   }, [IsDeleted]);
   function getMyPatients(doctorId) {
+    //GetDocPatientsWithRefferd   call this function for getting reffered patient also
     axios.get(`${global.BaseUrl}GetDocPatients?DoctorId=${doctorId}`).then((response) => {
       console.log(response.data);
       SetMyPatients(response.data)
@@ -54,14 +55,25 @@ const patients = ({ navigation }) => {
               </View>
 
               <View style={styles.buttonView}>
+
                 <TouchableOpacity onPress={() => navigation.navigate("PatientVisit", { PatientId: item.UserId })}>
-                  <Text style={styles.acceptTxt}>History</Text>
+                  <Text style={styles.acceptTxt}>
+                    History
+                    </Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity style={{ marginLeft: 20 }} onPress={() => deleteFromDatabase(item.UserId)}>
                   <Text style={styles.acceptTxt}>
                     Delete
                   </Text>
                 </TouchableOpacity>
+
+                {/* <TouchableOpacity style={{ marginLeft: 20 }} onPress={() => navigation.navigate("AllDoctors", { PatientId: item.UserId })}>
+                  <Text style={styles.acceptTxt}>
+                    Refer
+                  </Text>
+                </TouchableOpacity> */}
+
               </View>
             </CardView>
 
