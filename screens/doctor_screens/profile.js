@@ -17,7 +17,7 @@ const testing = ({ navigation }) => {
       actionText: "Collections"
     },
     {
-      actionName: "AllTemplates",
+      actionName: "WordsTemplates", //WordsTemplates  AllTemplates
       actionText: "Templates"
     },
     {

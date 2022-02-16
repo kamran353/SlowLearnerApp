@@ -3,9 +3,8 @@ import { View, Image, StyleSheet, FlatList, Text, TouchableOpacity } from 'react
 import CardView from 'react-native-cardview'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SoundPlayer from 'react-native-sound';
-const sentences = ({ navigation }) => {
-  const [MySentences, SetSentences] = useState([]);
+const wordsTemplates = ({ navigation }) => {
+  const [MyTemplates, setTemplates] = useState([]);
   const [IsDeleted, SetDeleted] = useState(false);
   useEffect(() => {
     AsyncStorage.getItem('User')
@@ -13,10 +12,10 @@ const sentences = ({ navigation }) => {
         const user = JSON.parse(value).result;
         console.log(value)
         if (user.UserRole == "PA") {
-          getMySentences(user.ReferenceUserId)
+          getMyTemplates(user.ReferenceUserId)
         }
         else {
-          getMySentences(user.UserId)
+          getMyTemplates(user.UserId)
         }
       })
       .catch((error) => {
@@ -24,66 +23,44 @@ const sentences = ({ navigation }) => {
       });
 
   }, [IsDeleted]);
-  function getMySentences(doctorId) {
-    axios.get(`${global.BaseUrl}GetMyCollection?Type=Sentence&&DoctorId=${doctorId}`).then((response) => {
-      SetSentences(response.data)
-    }).catch(error => console.log(error));
+  function getMyTemplates(doctorId) {
+    axios.get(`${global.BaseUrl}GetDoctorWordsTemplates?DoctorId=${doctorId}`).then((response) => {
+      setTemplates(response.data)
+    }).catch(error => console.log(error));;
   }
   function deleteFromDatabase(id) {
-    //alert(id)
-    axios.get(`${global.BaseUrl}DeleteCollection?Id=${id}`).then((response) => {
+    axios.get(`${global.BaseUrl}DeleteWordTemplate?Id=${id}`).then((response) => {
       if (response.status == 200) {
         alert("Deleted Successfully")
         SetDeleted(!IsDeleted);
       }
     }).catch(error => console.log(error));
   }
-  function playAudio(url) {
-    console.log(`${global.BaseUrlForImages}${url}`)
-    var sound1 = new SoundPlayer(`${global.BaseUrlForImages}${url}`, '',
-      (error, SoundPlayer) => {
-        if (error) {
-          alert('error' + error.message);
-          return;
-        }
-        if (sound1) sound1.stop();
-        sound1.play(() => {
-          sound1.release();
-        });
-      });
+  function UseTemplate(item) {
+    navigation.navigate('GeneratedSentences', { Template: item }); 
   }
   return (
     <View style={styles.container}>
-      {MySentences.length > 0 ?
+      {MyTemplates.length > 0 ?
         <FlatList
           style={{ flex: 1, marginTop: 5 }}
-          data={MySentences}
+          data={MyTemplates}
           renderItem={({ item }) => (
             <CardView
               style={styles.listItem}
               cardElevation={5}
               cardMaxElevation={10}
               cornerRadius={8}>
-              <View style={styles.imageView}>
-                <Image source={{ uri: `${global.BaseUrlForImages}${item.CollectionImage}` }} style={styles.imagstyle} resizeMode='contain' />
-
-              </View>
               <View style={styles.infoView}>
-                <Text style={styles.nameTxt}>{item.CollectionText}</Text>
+                <Text style={styles.nameTxt}>{item.WordTemplateText}</Text>
               </View>
               <View style={styles.audioView}>
-                <TouchableOpacity onPress={() => playAudio(item.CollectionAudio)}>
+                <TouchableOpacity onPress={() => UseTemplate(item)}>
                   <Text style={styles.txtLogin}>
-                    Play
+                    Use
                   </Text>
                 </TouchableOpacity>
-
-                <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.navigate("UpdateCollection", { collection: item })}>
-                  <Text style={styles.txtLogin}>
-                    Edit
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => deleteFromDatabase(item.CollectionId)}>
+                <TouchableOpacity style={{ marginLeft: 20 }} onPress={() => deleteFromDatabase(item.WordTemplateId)}>
                   <Text style={styles.txtLogin}>
                     Delete
                   </Text>
@@ -94,8 +71,10 @@ const sentences = ({ navigation }) => {
         /> : <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
           <Text style={styles.nameTxt}>No Record</Text>
         </View>}
+      {//plusbutton code
+      }
       <TouchableOpacity
-        onPress={() => navigation.navigate('NewCollection')}
+        onPress={() => navigation.navigate('NewWordsTemplate')}
         activeOpacity={1}
         style={styles.touchableOpacityStyle}>
         <Image
@@ -123,7 +102,8 @@ const styles = StyleSheet.create({
   infoView: {
     flex: 5,
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    paddingLeft: 12
   },
   audioView: {
     flex: 5,
@@ -150,7 +130,7 @@ const styles = StyleSheet.create({
   },
   nameTxt: {
     color: 'black',
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: 'bold',
 
   },
@@ -185,22 +165,24 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 60,
     height: 60,
-    borderRadius: 1000
-    //backgroundColor:'black'
+    borderRadius: 1000,
   }, btnLogin: {
     height: 40,
-    width: 60,
+    width: 100,
     borderRadius: 20,
     borderColor: 'gray',
+    borderWidth: 1,
     marginTop: '5%',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#FFB133'
   },
   txtLogin: {
     color: '#FFB133',
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: "bold"
   }
 });
 
-export default sentences;
+
+export default wordsTemplates;

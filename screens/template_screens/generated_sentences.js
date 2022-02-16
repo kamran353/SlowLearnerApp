@@ -3,8 +3,7 @@ import { View, Image, StyleSheet, FlatList, Text, TouchableOpacity } from 'react
 import CardView from 'react-native-cardview'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SoundPlayer from 'react-native-sound';
-const sentences = ({ navigation }) => {
+const generated_sentences = ({ navigation,route }) => {
   const [MySentences, SetSentences] = useState([]);
   const [IsDeleted, SetDeleted] = useState(false);
   useEffect(() => {
@@ -25,7 +24,7 @@ const sentences = ({ navigation }) => {
 
   }, [IsDeleted]);
   function getMySentences(doctorId) {
-    axios.get(`${global.BaseUrl}GetMyCollection?Type=Sentence&&DoctorId=${doctorId}`).then((response) => {
+    axios.get(`${global.BaseUrl}GenerateSentences?TemplateId=${route.params.Template.WordTemplateId}&&DoctorId=${doctorId}`).then((response) => {
       SetSentences(response.data)
     }).catch(error => console.log(error));
   }
@@ -37,20 +36,6 @@ const sentences = ({ navigation }) => {
         SetDeleted(!IsDeleted);
       }
     }).catch(error => console.log(error));
-  }
-  function playAudio(url) {
-    console.log(`${global.BaseUrlForImages}${url}`)
-    var sound1 = new SoundPlayer(`${global.BaseUrlForImages}${url}`, '',
-      (error, SoundPlayer) => {
-        if (error) {
-          alert('error' + error.message);
-          return;
-        }
-        if (sound1) sound1.stop();
-        sound1.play(() => {
-          sound1.release();
-        });
-      });
   }
   return (
     <View style={styles.container}>
@@ -72,13 +57,7 @@ const sentences = ({ navigation }) => {
                 <Text style={styles.nameTxt}>{item.CollectionText}</Text>
               </View>
               <View style={styles.audioView}>
-                <TouchableOpacity onPress={() => playAudio(item.CollectionAudio)}>
-                  <Text style={styles.txtLogin}>
-                    Play
-                  </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.navigate("UpdateCollection", { collection: item })}>
+               <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.navigate("UpdateCollection", { collection: item })}>
                   <Text style={styles.txtLogin}>
                     Edit
                   </Text>
@@ -92,17 +71,8 @@ const sentences = ({ navigation }) => {
             </CardView>
           )}
         /> : <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-          <Text style={styles.nameTxt}>No Record</Text>
+          <Text style={styles.nameTxt}>Loading......</Text>
         </View>}
-      <TouchableOpacity
-        onPress={() => navigation.navigate('NewCollection')}
-        activeOpacity={1}
-        style={styles.touchableOpacityStyle}>
-        <Image
-          source={require('../../images/plus-icon.jpg')}
-          style={styles.floatingButtonStyle}
-        />
-      </TouchableOpacity>
     </View>
   );
 };
@@ -203,4 +173,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default sentences;
+export default generated_sentences;

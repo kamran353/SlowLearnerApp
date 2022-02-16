@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, StyleSheet, Text, FlatList, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, Image, StyleSheet, Text, FlatList, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview'
 import axios from 'axios';
 import Modal from 'react-native-modal'

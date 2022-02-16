@@ -13,7 +13,7 @@ const words = ({ navigation }) => {
         const user = JSON.parse(value).result;
         console.log(value)
         if (user.UserRole == "PA") {
-          getMyLetters(user.ReferenceUserId)
+          getMyWords(user.ReferenceUserId)
         }
         else {
           getMyWords(user.UserId)

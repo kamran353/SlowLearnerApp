@@ -7,6 +7,7 @@ import RadioGroup from 'react-native-radio-buttons-group';
 import { launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DocumentPicker from 'react-native-document-picker';
+import { Picker } from '@react-native-community/picker'
 const radioButtonsData = [
   {
     id: '1',
@@ -32,22 +33,40 @@ const radioButtonsData = [
 ];
 
 const newCollection = ({ navigation }) => {
+  const [WordsCategory, setWordsCategory] = useState([]);
+  const [categoryId, setCategoryId] = useState(0);
   const [radioButtons, setRadioButtons] = useState(radioButtonsData);
   const [Description, setDescription] = useState('');
   const [photo, setPhoto] = useState(null);
   const [audio, setAudio] = useState(null);
   const [audioName, setAudioName] = useState('No Audio Selected')
   const [User, SetUser] = useState(null)
+  
   useEffect(() => {
     AsyncStorage.getItem('User')
       .then((value) => {
         const user = JSON.parse(value).result;
         SetUser(user)
+        if(user.UserRole=="PA"){
+          GetWordsCategory(user.UserReferenceId);
+        }
+        else{
+          GetWordsCategory(user.UserId);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+  
+  function GetWordsCategory(doctorId) {
+   
+    axios.get(`${global.BaseUrl}GetWordsCategory?DoctorId=${doctorId}`)
+    .then((response) => {
+      setWordsCategory(response.data)
+      setCategoryId(response.data[0].CategoryId)
+    }).catch(error => console.log(error));
+  }
   const onPressRadioButton = async (radioButtonsArray) => {
     console.log(radioButtonsArray);
     setRadioButtons(radioButtonsArray);
@@ -73,6 +92,7 @@ const newCollection = ({ navigation }) => {
       var type = await GetRadioButtonValue();
       var formData = new FormData();
       formData.append("CollectionText", Description);
+      formData.append("CategoryId",type=="Word"?categoryId:0);
       formData.append("CollectionType", type);
       formData.append("DoctorId", User.UserRole == "PA" ? User.ReferenceUserId : User.UserId);
       formData.append("Photo", { name: photo.fileName, type: photo.type, uri: photo.uri });
@@ -149,6 +169,19 @@ const newCollection = ({ navigation }) => {
             />
           </View>
           <TextInput placeholder='Description' style={styles.txtInput} onChangeText={(val) => setDescription(val)} />
+         {radioButtons[1].selected==true?
+          <Picker
+            selectedValue={categoryId}
+            style={styles.txtInput}
+            onValueChange={(itemValue, itemIndex) =>setCategoryId(itemValue)}>
+      
+            {WordsCategory.map((category,i) =>
+                { 
+                  return <Picker.Item label={category.Title} value={category.CategoryId} key={i}/>
+                }
+            )}
+          </Picker>:null
+          }
           <View style={{ ...styles.txtInput, flexDirection: 'row' }}>
             <View style={{ flex: 6, justifyContent: 'center' }}>
               <Text>{audioName}</Text>

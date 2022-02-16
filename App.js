@@ -11,6 +11,9 @@ import two_blank_template from './screens/template_screens/two_blank_template';
 import add_new_template from './screens/template_screens/add_new_template';
 import allTemplates from './screens/template_screens/all_templates';
 import allDoctors from './screens/doctor_screens/all_doctors';
+import wordsTemplates from './screens/template_screens/words_templates';
+import generated_sentences from './screens/template_screens/generated_sentences';
+import newWordsTemplate from './screens/template_screens/add_newwordstemplate';
 
 import doctorTab from './tabNavigation/doctorTab';
 import adminTab from './tabNavigation/adminTab';
@@ -39,7 +42,7 @@ import appointmentPracticeCollection from './screens/patient_Screens/appointment
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-global.BaseUrlForImages = 'http://192.168.185.95/SlowLearnerApi/'
+global.BaseUrlForImages = 'http://192.168.100.37/SlowLearnerApi/'
 global.BaseUrl = global.BaseUrlForImages+'api/SlowLearner/'
 
 const Stack = createStackNavigator();
@@ -70,8 +73,9 @@ const App = () => {
         <Stack.Screen name="AllTemplates" component={allTemplates} options={{ headerShown: false }} />
         <Stack.Screen name="UpdateCollection" component={updateCollection} options={{ headerShown: false }} />
         <Stack.Screen name="AllDoctors" component={allDoctors} options={{ headerShown: false }} />
-
-
+        <Stack.Screen name="WordsTemplates" component={wordsTemplates} options={{ headerShown: false }} />
+        <Stack.Screen name="GeneratedSentences" component={generated_sentences} options={{ headerShown: false }} />
+        <Stack.Screen name="NewWordsTemplate" component={newWordsTemplate} options={{ headerShown: false }} />
 
         <Stack.Screen name="RegisterPatient" component={registerPatient} options={{ headerShown: false }} />
         <Stack.Screen name="PATab" component={paTab} options={{ headerShown: false }} />

@@ -6,7 +6,7 @@ import RadioGroup from 'react-native-radio-buttons-group';
 import { launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DocumentPicker from 'react-native-document-picker';
-
+import { Picker } from '@react-native-community/picker'
 
 const updateCollection = ({ navigation, route }) => {
     const radioButtonsData = [
@@ -32,6 +32,8 @@ const updateCollection = ({ navigation, route }) => {
             selected: route.params.collection.CollectionType == "Sentence" ? true : false,
         },
     ];
+    const [WordsCategory, setWordsCategory] = useState([]);
+    const [categoryId, setCategoryId] = useState(0);
     const [radioButtons, setRadioButtons] = useState(radioButtonsData);
     const [Description, setDescription] = useState(route.params.collection.CollectionText);
     const [photo, setPhoto] = useState(null);
@@ -43,13 +45,26 @@ const updateCollection = ({ navigation, route }) => {
             .then((value) => {
                 const user = JSON.parse(value).result;
                 SetUser(user)
-                // setSelectedRadioButton();
-                console.log(route.params.collection)
+                if (user.UserRole == "PA") {
+                    GetWordsCategory(user.UserReferenceId);
+                }
+                else {
+                    GetWordsCategory(user.UserId);
+                }
             })
             .catch((error) => {
                 console.log(error);
             });
     }, []);
+
+    function GetWordsCategory(doctorId) {
+
+        axios.get(`${global.BaseUrl}GetWordsCategory?DoctorId=${doctorId}`)
+            .then((response) => {
+                setWordsCategory(response.data)
+                setCategoryId(response.data[0].CategoryId)
+            }).catch(error => console.log(error));
+    }
 
     const onPressRadioButton = async (radioButtonsArray) => {
         console.log(radioButtonsArray);
@@ -79,6 +94,7 @@ const updateCollection = ({ navigation, route }) => {
             formData.append("CollectionId", route.params.collection.CollectionId);
             formData.append("CollectionText", Description);
             formData.append("CollectionType", type);
+            formData.append("CategoryId",type=="Word"?categoryId:0);
             formData.append("DoctorId", User.UserRole == "PA" ? User.ReferenceUserId : User.UserId);
             axios({
                 url: `${global.BaseUrl}UpdateCollection`,
@@ -152,6 +168,19 @@ const updateCollection = ({ navigation, route }) => {
                         />
                     </View>
                     <TextInput placeholder='Description' value={route.params.collection.CollectionText} style={styles.txtInput} onChangeText={(val) => { setDescription(val); route.params.collection.CollectionText = val }} />
+
+                    {radioButtons[1].selected == true ?
+                        <Picker
+                            selectedValue={categoryId}
+                            style={styles.txtInput}
+                            onValueChange={(itemValue, itemIndex) => setCategoryId(itemValue)}>
+                           {WordsCategory.map((category, i) => {
+                                return <Picker.Item label={category.Title} value={category.CategoryId} key={i} />
+                            }
+                            )}
+                        </Picker> : null
+                    }
+
                     <View style={{ ...styles.txtInput, flexDirection: 'row' }}>
                         <View style={{ flex: 6, justifyContent: 'center' }}>
                             <Text>{audioName}</Text>

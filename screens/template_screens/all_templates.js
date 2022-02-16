@@ -24,7 +24,7 @@ const allTemplates = ({ navigation }) => {
 
   }, [IsDeleted]);
   function getMyTemplates(doctorId) {
-    axios.get(`${global.BaseUrl}GetDoctorTemplates?Type=Letter&&DoctorId=${doctorId}`).then((response) => {
+    axios.get(`${global.BaseUrl}GetDoctorTemplates?DoctorId=${doctorId}`).then((response) => {
       setTemplates(response.data)
     }).catch(error => console.log(error));;
   }
