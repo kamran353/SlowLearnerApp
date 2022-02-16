@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, StyleSheet,Text } from 'react-native';
+import { View, Image, StyleSheet,Text,TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
-import SoundPlayer from 'react-native-sound-player';
+import SoundPlayer from 'react-native-sound';
 const patient_words = ({ navigation,route }) => {
     const [index,setIndex]=useState(0);
     const[wrong,setWrong]=useState('')
@@ -86,7 +85,7 @@ const patient_words = ({ navigation,route }) => {
         var sound1 = new SoundPlayer(`${global.BaseUrlForImages}${url}`, '',
           (error, SoundPlayer) => {
             if (error) {
-              alert('error' + error.message);
+              alert('Audio not Found');
               return;
             }
             if (sound1) sound1.stop();
@@ -101,26 +100,22 @@ const patient_words = ({ navigation,route }) => {
            <CardView
             style={styles.listItem}
             cornerRadius={10}>
-           <View style={styles.imageView}>
+           <View style={{flex:3,justifyContent:'center',alignItems:'center'}}>
                  <Image  source={{uri:`${global.BaseUrlForImages}${route.params.collection[index].CollectionImage}`}} style={styles.imagstyle} resizeMode='contain'/> 
-                 <TouchableOpacity style={{...styles.optionButton,width:50}} onPress={()=>playAudio(route.params.CollectionAudio)}>
+                 <TouchableOpacity style={{...styles.optionButton,width:50,marginTop:10}} onPress={()=>playAudio(route.params.collection[index].CollectionAudio)}>
                  <Image
                         source={require('../../images/speaker.png')}
-                        style={{width:'100%',height:'100%',}}
+                        style={{width:'100%',height:'100%'}}
                     />
                  </TouchableOpacity>
            </View>
-           <View style={styles.optionButtonView}>
+           <View style={{flex:5,justifyContent:'space-around',alignItems:'center',width:'100%'}}>
                  <TouchableOpacity style={correct=="A"?{...styles.optionGreen}:wrong=="A"?{...styles.optionRed}:{...styles.optionButton}}  onPress={()=>CheckAnswer(route.params.collection[index].OptionA,"A")}>
                      <Text style={styles.nameTxt}>{route.params.collection[index].OptionA}</Text>
                  </TouchableOpacity>
                  <TouchableOpacity style={correct=="B"?{...styles.optionGreen}:wrong=="B"?{...styles.optionRed}:{...styles.optionButton}} onPress={()=>CheckAnswer(route.params.collection[index].OptionB,"B")}>
                      <Text style={styles.nameTxt}>{route.params.collection[index].OptionB}</Text>
                  </TouchableOpacity>
-               
-           </View> 
-           
-           <View style={styles.optionButtonView}>
                  <TouchableOpacity style={correct=="C"?{...styles.optionGreen}:wrong=="C"?{...styles.optionRed}:{...styles.optionButton}} onPress={()=>CheckAnswer(route.params.collection[index].OptionC,"C")}>
                      <Text style={styles.nameTxt}>{route.params.collection[index].OptionC}</Text>
                  </TouchableOpacity>
@@ -128,21 +123,19 @@ const patient_words = ({ navigation,route }) => {
                      <Text style={styles.nameTxt}>{route.params.collection[index].OptionD}</Text>
                  </TouchableOpacity>
                
-           </View>
-
-           <View style={styles.previousNextView}>
-                 <TouchableOpacity style={styles.optionButton} onPress={()=>setPosition(index-1)}>
+           </View> 
+            <View style={{...styles.previousNextView,flex:2}}>
+                 <TouchableOpacity style={{...styles.prevNextButton,width:'20%'}} onPress={()=>setPosition(index-1)}>
                      <Text style={styles.nameTxt}>{'<<'}</Text>
                  </TouchableOpacity>
                  <Text>{index+1}/{route.params.collection.length}</Text>
-                 <TouchableOpacity style={styles.optionButton} onPress={()=>setPosition(index+1)}>
+                 <TouchableOpacity style={{...styles.prevNextButton,width:'20%'}} onPress={()=>setPosition(index+1)}>
                      <Text style={styles.nameTxt}>{'>>'}</Text>
                  </TouchableOpacity>
                
            </View>
-           </CardView>
-                
-            
+
+           </CardView>    
         </View>
     );
 };
@@ -162,7 +155,7 @@ const styles = StyleSheet.create({
         
     },
     listItem: {
-        flex: 9,
+        flex: 1,
         marginTop: '1%',
         height: 100
 
@@ -171,42 +164,38 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 15,
         fontWeight: 'bold',
-
+        letterSpacing:1
     },
     otherTxt: {
         color: 'gray',
         fontSize: 15,
-
-    },
-    imageView: {
-        flex: 4,
-        justifyContent: 'center',
-        alignItems: 'center',
-      
-    },optionButtonView:{
-        flex: 1,
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        flexDirection:'row',
-        marginBottom:20
-    },optionButton:{
+    }
+    ,optionButton:{
         backgroundColor:'#FFB133',
-        width:100,
+        width:'90%',
+        height:40,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:10,
+    },
+    prevNextButton:{
+        backgroundColor:'#FFB133',
+        width:'20%',
         height:40,
         justifyContent:'center',
         alignItems:'center',
         borderRadius:10
-    },previousNextView:
+    },
+    previousNextView:
     {
-        flex: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection:'row',
-        marginHorizontal:20
+        marginHorizontal:40
     }
     ,optionRed:{
         backgroundColor:'red',
-        width:100,
+        width:'90%',
         height:40,
         justifyContent:'center',
         alignItems:'center',
@@ -214,7 +203,7 @@ const styles = StyleSheet.create({
     }
     ,optionGreen:{
         backgroundColor:'green',
-        width:100,
+        width:'90%',
         height:40,
         justifyContent:'center',
         alignItems:'center',

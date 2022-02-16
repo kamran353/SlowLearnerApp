@@ -52,7 +52,9 @@ const appointMents = ({navigation}) => {
                 <TouchableOpacity  onPress={()=>navigation.navigate("AppointmentDetails",{AppId:item.AppId,LevelNo:item.LevelNo,PatientId:item.UserId})}> 
                     <Text style={styles.viewBtnTxt}>View</Text>
                 </TouchableOpacity>
-       
+                <TouchableOpacity style={{marginLeft:10}}> 
+                    <Text style={styles.viewBtnTxt}>Cancel</Text>
+                </TouchableOpacity>
             </View>
         </CardView>
        
@@ -121,7 +123,8 @@ const styles = StyleSheet.create({
   },
   viewBtnTxt:{
     color:'#FFB133',
-    fontSize:15
+    fontSize:17,
+    fontWeight:'bold'
  }
  
 });

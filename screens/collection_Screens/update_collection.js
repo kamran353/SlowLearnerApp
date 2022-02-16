@@ -143,7 +143,7 @@ const updateCollection = ({ navigation, route }) => {
                     cardMaxElevation={10}
                     cornerRadius={20}>
                     <Text style={styles.heading}>
-                        New Collection
+                        Update Collection
                     </Text>
                     <View style={styles.txtInput}>
                         <RadioGroup

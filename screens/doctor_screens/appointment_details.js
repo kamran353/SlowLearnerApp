@@ -60,6 +60,7 @@ const appointment_details = ({ navigation, route }) => {
     axios.get(`${global.BaseUrl}GetMyLevelPracticesAndLastAppointmentOfPatient?PracticeLevel=${route.params.LevelNo}&&DoctorId=${doctorId}&PatientId=${route.params.PatientId}`).then((response) => {
       setLevelPractices(response.data.Practices)
       SetLastAppointment(response.data.LastAppointment)
+      console.log(response.data.LastAppointment)
       setVisitNo(response.data.VisitNo)
     }).catch(error => console.log(error + " not found " + route.params.AppId))
   }

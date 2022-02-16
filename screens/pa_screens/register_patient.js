@@ -23,7 +23,7 @@ const radioButtonsData = [
   },
 ];
 
-const registerPatient = ({ navigation, route }) => {
+const registerPatient = ({ navigation }) => {
   const [User, SetUser] = useState(null)
   const [date, setDate] = useState('09-10-2020');
   const [radioButtons, setRadioButtons] = useState(radioButtonsData);
@@ -86,7 +86,7 @@ const registerPatient = ({ navigation, route }) => {
           cardMaxElevation={10}
           cornerRadius={20}>
           <Text style={styles.heading}>
-            Register Account For {route.params.Type}
+            Register Account For Patient
           </Text>
           <View style={styles.InputView}>
             <Text style={styles.InputViewLabel}>First Name</Text>

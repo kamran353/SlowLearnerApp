@@ -55,9 +55,14 @@ const allTemplates = ({navigation}) => {
             <Text style={styles.nameTxt}>{item.TemplateText}</Text>
             </View>
             <View style={styles.audioView}>
-              <TouchableOpacity style={styles.btnLogin} onPress={() => UseTemplate(item)}>
+              <TouchableOpacity  onPress={() => UseTemplate(item)}>
                 <Text style={styles.txtLogin}>
                     Use
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{marginLeft:20}}>
+                <Text style={styles.txtLogin}>
+                  Delete
                 </Text>
               </TouchableOpacity>
             </View>
@@ -104,7 +109,8 @@ const styles = StyleSheet.create({
     flex: 5,
     justifyContent: 'center',
     alignItems: 'flex-end',
-    paddingRight:12
+    flexDirection:'row',
+    paddingBottom:10
   }
   ,
   imagstyle: {
@@ -172,8 +178,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFB133'
   },
   txtLogin: {
-    color: 'white',
-    fontSize: 15,
+    color: '#FFB133',
+    fontSize: 17,
     fontWeight: "bold"
   }
 });

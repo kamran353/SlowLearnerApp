@@ -43,7 +43,13 @@ const assistent = ({navigation}) => {
                  <Text style={styles.otherTxt}>{item.UserPhone}</Text>
                  <Text style={styles.otherTxt}>{item.UserGender}</Text>
             </View>
-           
+            <View style={styles.buttonView}>
+                <TouchableOpacity>
+                <Text style={styles.acceptTxt}>
+                  Delete
+                </Text>
+              </TouchableOpacity>
+            </View>
         </CardView>
        
       )}
@@ -124,8 +130,20 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius:1000
     //backgroundColor:'black'
-  }
- 
+  },
+  buttonView:{
+    flex:3,
+    justifyContent:'flex-end',
+    alignItems:'flex-end',
+    paddingRight:'2%',
+    flexDirection:'row',
+    paddingBottom:'2%'
+  },
+  acceptTxt:{
+    color:'#FFB133',
+    fontSize:17,
+    fontWeight:'bold'
+ }
 });
 
 export default assistent;

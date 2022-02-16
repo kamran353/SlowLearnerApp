@@ -49,7 +49,11 @@ const patients = ({navigation}) => {
                 <TouchableOpacity onPress={()=>navigation.navigate("PatientVisit",{PatientId:item.UserId})}> 
                     <Text style={styles.acceptTxt}>History</Text>
                 </TouchableOpacity>
-               
+                <TouchableOpacity style={{marginLeft:20}}>
+                <Text style={styles.acceptTxt}>
+                  Delete
+                </Text>
+              </TouchableOpacity>
             </View>
        </CardView>
       
@@ -118,7 +122,8 @@ const styles = StyleSheet.create({
   },
   acceptTxt:{
     color:'#FFB133',
-    fontSize:15
+    fontSize:17,
+    fontWeight:'bold'
  }
 });
 

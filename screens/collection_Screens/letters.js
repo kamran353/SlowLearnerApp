@@ -62,15 +62,20 @@ const letters = ({navigation}) => {
             <Text style={styles.nameTxt}>{item.CollectionText}</Text>
             </View>
             <View style={styles.audioView}>
-              <TouchableOpacity style={styles.btnLogin} onPress={() => playAudio(item.CollectionAudio)}>
+              <TouchableOpacity  onPress={() => playAudio(item.CollectionAudio)}>
                 <Text style={styles.txtLogin}>
                   Play
                 </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate("UpdateCollection",{collection:item})}>
+              <TouchableOpacity style={{marginLeft:10}} onPress={() => navigation.navigate("UpdateCollection",{collection:item})}>
                 <Text style={styles.txtLogin}>
                   Edit
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{marginLeft:10}}>
+                <Text style={styles.txtLogin}>
+                  Delete
                 </Text>
               </TouchableOpacity>
             </View>
@@ -113,8 +118,9 @@ const styles = StyleSheet.create({
   audioView: {
     flex: 5,
     justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection:'row'
+    alignItems: 'flex-end',
+    flexDirection:'row',
+    paddingBottom:10
   }
   ,
   imagstyle: {

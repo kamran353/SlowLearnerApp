@@ -39,7 +39,6 @@ const patients = ({navigation}) => {
   const [date, setDate] = useState(new Date());
   const [isDatePickerShow,setDatePickerShow]=useState(false);
   useEffect(() => {
-  getCurrentDate(); 
    AsyncStorage.getItem('User')
    .then((value) => {
      const user = JSON.parse(value).result;

@@ -52,7 +52,9 @@ const levelone = ({navigation}) => {
                 <TouchableOpacity onPress={()=>navigation.navigate('PracticeCollection',{PracticeId:item.PracticeId})}> 
                     <Text style={styles.rejectTxt}>View</Text>
                 </TouchableOpacity>
-       
+                <TouchableOpacity style={{marginLeft:10}}> 
+                    <Text style={styles.rejectTxt}>Delete</Text>
+                </TouchableOpacity>
             </View>
           </CardView>
          )}
@@ -129,7 +131,8 @@ const styles = StyleSheet.create({
   },
   rejectTxt:{
     color:'#FFB133',
-    fontSize:15
+    fontSize:17,
+    fontWeight:'bold'
  },
  touchableOpacityStyle: {
    position: 'absolute',

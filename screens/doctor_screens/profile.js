@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet, FlatList, Text, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview'
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const testing = ({ navigation }) => {
   const [actions, setActions] = useState([
