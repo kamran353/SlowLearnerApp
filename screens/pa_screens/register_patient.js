@@ -31,8 +31,6 @@ const registerPatient = ({ navigation }) => {
   const [LastName, SetLastName] = useState('');
   const [UserPhone, SetUserphone] = useState('');
   const [UserPassword, SetUserpassword] = useState('');
-  const [UserGender, SetUsergender] = useState('Male');
-
   useEffect(() => {
     AsyncStorage.getItem('User')
       .then((value) => {
@@ -45,8 +43,9 @@ const registerPatient = ({ navigation }) => {
   }, []);
 
   function RegisterAccount() {
+    var Gender="Male"
     if (radioButtons[0].selected == false) {
-      SetUsergender('Female');
+      Gender='Female';
     }
     if(FirstName.length<1){
       alert("Please Enter First Name")
@@ -60,7 +59,7 @@ const registerPatient = ({ navigation }) => {
       const user = {
         UserName: FirstName + " " + LastName, 
         UserPhone: UserPhone,
-        UserGender: UserGender,
+        UserGender: Gender,
         UserPassword: UserPassword,
         UserDOB: date, UserRole: "Patient", IsApproved: true, ReferenceUserId: User.UserId
       };

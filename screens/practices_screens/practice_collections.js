@@ -4,14 +4,22 @@ import CardView from 'react-native-cardview'
 import axios from 'axios';
 const practiceCollection = ({navigation,route}) => {
    const [PracticeCollection,SetPracticeCollection]=useState([]);
+   const [IsDeleted,SetDeleted]=useState(false);
    useEffect(() => {
     GetPracticeCollection()
-  },[]);
+  },[IsDeleted]);
   function GetPracticeCollection(){
     axios.get(`${global.BaseUrl}GetPracticeCollection?PracticeId=${route.params.PracticeId}`).then((response) => {
       SetPracticeCollection(response.data)
-      
-    }).catch(error=>console.log(error));
+       }).catch(error=>console.log(error));
+  }
+  function deleteFromDatabase(id){
+    axios.get(`${global.BaseUrl}DeletePracticeCollection?PracticeId=${route.params.PracticeId}&&CollectionId=${id}`).then((response) => {
+       if(response.status==200){
+          alert("Deleted Successfully")
+          SetDeleted(!IsDeleted);
+       }
+      }).catch(error=>console.log(error));
   }
   return (
     <View style={styles.container}>
@@ -33,7 +41,7 @@ const practiceCollection = ({navigation,route}) => {
             <Text style={styles.nameTxt}>{item.CollectionText}</Text>
             </View>
             <View style={styles.buttonView}>
-             <TouchableOpacity> 
+             <TouchableOpacity onPress={() => deleteFromDatabase(item.CollectionId)}> 
                   <Text style={styles.rejectTxt}>Remove</Text>
               </TouchableOpacity>
           </View>
@@ -103,8 +111,8 @@ const styles = StyleSheet.create({
   },
   rejectTxt:{
     color:'#FFB133',
-    fontSize:15
+    fontSize:17,
+    fontWeight:'bold'
  }
 });
-
 export default practiceCollection;

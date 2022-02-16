@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 const appointMents = ({navigation}) => {
    const [appointments,SetAppointments]=useState([]);
+   const [IsDeleted,SetDeleted]=useState(false);
    useEffect(() => {
     AsyncStorage.getItem('User')
     .then((value) => {
@@ -15,7 +16,7 @@ const appointMents = ({navigation}) => {
     .catch((error) => {
       console.log(error);
     });
-  },[]);
+  },[IsDeleted]);
   function getMyPatients(doctorId){
     axios.get(`${global.BaseUrl}GetTodayPatientAppointments?DoctorId=${doctorId}`).then((response) => {
       console.log(response.data);
@@ -24,6 +25,14 @@ const appointMents = ({navigation}) => {
       }
       
     }).catch(error=>console.log(error));
+  }
+  function deleteFromDatabase(id){
+    axios.get(`${global.BaseUrl}DeleteAppointment?Id=${id}`).then((response) => {
+       if(response.status==200){
+          alert("Deleted Successfully")
+          SetDeleted(!IsDeleted);
+       }
+      }).catch(error=>console.log(error));
   }
   return (
     <View style={styles.container}>
@@ -52,7 +61,7 @@ const appointMents = ({navigation}) => {
                 <TouchableOpacity  onPress={()=>navigation.navigate("AppointmentDetails",{AppId:item.AppId,LevelNo:item.LevelNo,PatientId:item.UserId})}> 
                     <Text style={styles.viewBtnTxt}>View</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{marginLeft:10}}> 
+                <TouchableOpacity style={{marginLeft:10}}  onPress={() => deleteFromDatabase(item.AppId)}> 
                     <Text style={styles.viewBtnTxt}>Cancel</Text>
                 </TouchableOpacity>
             </View>

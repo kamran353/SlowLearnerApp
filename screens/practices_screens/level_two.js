@@ -5,6 +5,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const leveltwo = ({ navigation }) => {
   const [levelTwoPractices, setLevelTwoPractices] = useState([]);
+  const [IsDeleted,SetDeleted]=useState(false);
   useEffect(() => {
     AsyncStorage.getItem('User')
       .then((value) => {
@@ -22,11 +23,19 @@ const leveltwo = ({ navigation }) => {
         console.log(error);
       });
 
-  }, []);
+  }, [IsDeleted]);
   function getMyLevelPractices(doctorId) {
     axios.get(`${global.BaseUrl}GetMyLevelPractices?PracticeLevel=2&&DoctorId=${doctorId}`).then((response) => {
       setLevelTwoPractices(response.data)
-    });
+    }).catch(error=>console.log(error));
+  }
+  function deleteFromDatabase(id){
+    axios.get(`${global.BaseUrl}DeletePractice?Id=${id}`).then((response) => {
+       if(response.status==200){
+          alert("Deleted Successfully")
+          SetDeleted(!IsDeleted);
+       }
+      }).catch(error=>console.log(error));
   }
   return (
     <View style={styles.container}>
@@ -54,7 +63,7 @@ const leveltwo = ({ navigation }) => {
               <TouchableOpacity onPress={() => navigation.navigate('PracticeCollection', { PracticeId: item.PracticeId })}>
                 <Text style={styles.rejectTxt}>View</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={{marginLeft:10}}> 
+              <TouchableOpacity style={{marginLeft:10}}  onPress={() => deleteFromDatabase(item.PracticeId)}> 
                     <Text style={styles.rejectTxt}>Delete</Text>
                 </TouchableOpacity>
             </View>
