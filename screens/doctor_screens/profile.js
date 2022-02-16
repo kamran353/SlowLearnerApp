@@ -17,12 +17,16 @@ const testing = ({ navigation }) => {
       actionText: "Collections"
     },
     {
-      actionName: "WordsTemplates", //WordsTemplates  AllTemplates
+      actionName: "AllTemplates", //WordsTemplates  AllTemplates
       actionText: "Templates"
     },
     {
       actionName: "DocPatients",
       actionText: "Patients"
+    },
+    {
+      actionName: "DocAttendants",
+      actionText: "Attendants"
     },
     {
       actionName: "Login",

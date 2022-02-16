@@ -17,8 +17,12 @@ const PaSetting = ({ navigation }) => {
       actionText: "Collections"
     },
     {
-      actionName: "AllTemplates",
+      actionName: "AllTemplates", //WordsTemplates  AllTemplates
       actionText: "Templates"
+    },
+    {
+      actionName: "DocAttendants",
+      actionText: "Attendants"
     },
     {
       actionName: "Login",

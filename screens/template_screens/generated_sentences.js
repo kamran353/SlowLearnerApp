@@ -5,7 +5,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const generated_sentences = ({ navigation,route }) => {
   const [MySentences, SetSentences] = useState([]);
-  const [IsDeleted, SetDeleted] = useState(false);
+  const [IsLoaded, SetLoaded] = useState(false);
+
   useEffect(() => {
     AsyncStorage.getItem('User')
       .then((value) => {
@@ -22,21 +23,14 @@ const generated_sentences = ({ navigation,route }) => {
         console.log(error);
       });
 
-  }, [IsDeleted]);
+  },[]);
   function getMySentences(doctorId) {
     axios.get(`${global.BaseUrl}GenerateSentences?TemplateId=${route.params.Template.WordTemplateId}&&DoctorId=${doctorId}`).then((response) => {
       SetSentences(response.data)
+      SetLoaded(true);
     }).catch(error => console.log(error));
   }
-  function deleteFromDatabase(id) {
-    //alert(id)
-    axios.get(`${global.BaseUrl}DeleteCollection?Id=${id}`).then((response) => {
-      if (response.status == 200) {
-        alert("Deleted Successfully")
-        SetDeleted(!IsDeleted);
-      }
-    }).catch(error => console.log(error));
-  }
+ 
   return (
     <View style={styles.container}>
       {MySentences.length > 0 ?
@@ -62,16 +56,11 @@ const generated_sentences = ({ navigation,route }) => {
                     Edit
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => deleteFromDatabase(item.CollectionId)}>
-                  <Text style={styles.txtLogin}>
-                    Delete
-                  </Text>
-                </TouchableOpacity>
               </View>
             </CardView>
           )}
         /> : <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-          <Text style={styles.nameTxt}>Loading......</Text>
+          <Text style={styles.nameTxt}>{IsLoaded==false?"Loading....":"No Sentence Generated For this Template"}</Text>
         </View>}
     </View>
   );

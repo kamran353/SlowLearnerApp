@@ -39,6 +39,11 @@ import patient_visit from './screens/patient_Screens/Patient_visit';
 import appointmentPracticeCollection from './screens/patient_Screens/appointment_practices_collection';
 
 
+import attendantPatients from './screens/attendant_screens/attendant_patients';
+import registerAttendant from './screens/attendant_screens/register_attendant';
+import attendants from './screens/attendant_screens/doctor_attendants';
+import assignPatients from './screens/attendant_screens/assign_patients';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -85,6 +90,12 @@ const App = () => {
         <Stack.Screen name="PatientVisit" component={patient_visit} options={{ headerShown: false }} />
         <Stack.Screen name="CollectionDetails" component={collection_details} options={{ headerShown: false }} />
         <Stack.Screen name="AppPracticeCollection" component={appointmentPracticeCollection} options={{ headerShown: false }} />
+
+        <Stack.Screen name="RegisterAttendant" component={registerAttendant} options={{ headerShown: false }} />
+        <Stack.Screen name="DocAttendants" component={attendants} options={{ headerShown: false }} />
+        <Stack.Screen name="AttendantPatients" component={attendantPatients} options={{ headerShown: false }} />
+        <Stack.Screen name="AssignPatients" component={assignPatients} options={{ headerShown: false }} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

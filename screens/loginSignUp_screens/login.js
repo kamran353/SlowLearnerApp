@@ -40,6 +40,8 @@ const login = ({ navigation }) => {
     }
     else if (result.UserRole == 'PA') {
       navigation.navigate('PATab')
+    }else if(result.UserRole == 'Attendant') {
+      navigation.navigate('AttendantPatients')
     }
   }
   return (
