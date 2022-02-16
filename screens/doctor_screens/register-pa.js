@@ -23,7 +23,7 @@ const radioButtonsData = [
   },
 ];
 
-const registerPA = ({navigation}) => {
+const registerPA = ({ navigation }) => {
   const [User, SetUser] = useState(null)
 
   const [date, setDate] = useState('09-10-2020');
@@ -45,20 +45,20 @@ const registerPA = ({navigation}) => {
   }, []);
 
   function RegisterAccount() {
-    var Gender="Male"
+    var Gender = "Male"
     if (radioButtons[0].selected == false) {
-      Gender='Female';
+      Gender = 'Female';
     }
-    if(FirstName.length<1){
+    if (FirstName.length < 1) {
       alert("Please Enter First Name")
     }
-    else if(UserPassword.length<4){
+    else if (UserPassword.length < 4) {
       alert("Password Must be at least 4 Characters")
     }
-    else if(UserPhone.length<1){
+    else if (UserPhone.length < 1) {
       alert("Please Enter Phone Number")
-     }
-    else{
+    }
+    else {
       const user = {
         UserName: FirstName + " " + LastName,
         UserPhone: UserPhone,
@@ -73,7 +73,7 @@ const registerPA = ({navigation}) => {
           }
         }).catch(error => console.log(error));
     }
-  
+
   }
   const onPressRadioButton = radioButtonsArray => {
     console.log(radioButtonsArray);
@@ -88,7 +88,7 @@ const registerPA = ({navigation}) => {
           cardMaxElevation={10}
           cornerRadius={20}>
           <Text style={styles.heading}>
-             Register New Jr.Doctor
+            Register New Jr.Doctor
           </Text>
           <View style={styles.InputView}>
             <Text style={styles.InputViewLabel}>First Name</Text>

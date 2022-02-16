@@ -10,7 +10,7 @@ const patient_visit = ({navigation,route}) => {
   function getPatientappointments(){
     axios.get(`${global.BaseUrl}GetPatientAppointments?PatientId=${route.params.PatientId}`).then((response) => {
         SetAppoinments(response.data)
-      });
+      }).catch(err=>console.log(err));
   }
   return (
     <View style={styles.container}>

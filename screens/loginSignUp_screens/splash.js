@@ -1,4 +1,4 @@
-import React, {  useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 const splash = ({ navigation }) => {
   useEffect(() => {
@@ -8,7 +8,7 @@ const splash = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={{flex:1}}>
+    <View style={{ flex: 1 }}>
       <View style={styles.ImageView}>
         <Image source={require('../../images/loginimage.jpg')} style={styles.imagstyle} resizeMode='contain' />
       </View>

@@ -11,13 +11,18 @@ const appointMents = ({navigation}) => {
     .then((value) => {
       const user = JSON.parse(value).result;
       console.log(value)
-      getMyPatients(user.UserId)
+      if(user.UserRole=="PA"){
+        getTodayAppointments(user.ReferenceUserId)
+      }
+     else {
+      getTodayAppointments(user.UserId)
+     }
     })
     .catch((error) => {
       console.log(error);
     });
   },[IsDeleted]);
-  function getMyPatients(doctorId){
+  function getTodayAppointments(doctorId){
     axios.get(`${global.BaseUrl}GetTodayPatientAppointments?DoctorId=${doctorId}`).then((response) => {
       console.log(response.data);
       if(response.data.length>0){

@@ -8,60 +8,58 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const Tab = createBottomTabNavigator();
 const mainTab = () => {
   return (
-  
-    <Tab.Navigator
-      initialRouteName="Home"
-     >
-     
-         <Tab.Screen
+
+    <Tab.Navigator initialRouteName="appointments">
+
+      <Tab.Screen
         name="appointments"
         component={appointments}
         options={{
-            headerShown:false,
+          headerShown: false,
           tabBarLabel: 'Appointments',
-          tabBarIcon: ({ color, size,focused }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name="face-agent"
-              color={focused?'blue':'#FFB133'}
+              color={focused ? 'blue' : '#FFB133'}
               size={size}
             />
           ),
-          unmountOnBlur:true
-        }}  />
+          unmountOnBlur: true
+        }} />
 
-         <Tab.Screen
+      <Tab.Screen
         name="Assistents"
         component={assistent}
         options={{
-            headerShown:false,
+          headerShown: false,
           tabBarLabel: 'Jr.Doctors',
-          tabBarIcon: ({ color, size ,focused}) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name="face"
-              color={focused?'blue':'#FFB133'}
+              color={focused ? 'blue' : '#FFB133'}
               size={size}
             />
           ),
-          unmountOnBlur:true
-        }}  />
-        
+          unmountOnBlur: true
+        }} />
+
       <Tab.Screen
         name="Profile"
         component={profile}
         options={{
-            headerShown:false,
+          headerShown: false,
           tabBarLabel: 'Setting',
-          tabBarIcon: ({ color, size,focused }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name="account-settings"
-              color={focused?'blue':'#FFB133'}
+              color={focused ? 'blue' : '#FFB133'}
               size={size}
             />
           ),
-          unmountOnBlur:true
+          unmountOnBlur: true
         }} />
     </Tab.Navigator>
- 
+
   );
 };
 

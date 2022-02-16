@@ -43,21 +43,21 @@ const registerPatient = ({ navigation }) => {
   }, []);
 
   function RegisterAccount() {
-    var Gender="Male"
+    var Gender = "Male"
     if (radioButtons[0].selected == false) {
-      Gender='Female';
+      Gender = 'Female';
     }
-    if(FirstName.length<1){
+    if (FirstName.length < 1) {
       alert("Please Enter First Name")
     }
-    else if(UserPassword.length<4){
+    else if (UserPassword.length < 4) {
       alert("Password Must be at least 4 Characters")
-    }else if(UserPhone.length<1){
-    alert("Please Enter Phone Number")
+    } else if (UserPhone.length < 1) {
+      alert("Please Enter Phone Number")
     }
-    else{
+    else {
       const user = {
-        UserName: FirstName + " " + LastName, 
+        UserName: FirstName + " " + LastName,
         UserPhone: UserPhone,
         UserGender: Gender,
         UserPassword: UserPassword,
@@ -70,7 +70,7 @@ const registerPatient = ({ navigation }) => {
           }
         }).catch(error => console.log(error));
     }
-   
+
   }
   const onPressRadioButton = radioButtonsArray => {
     console.log(radioButtonsArray);

@@ -120,10 +120,7 @@ const newPractice = ({ navigation, route }) => {
             setTitle("")
           }
         }).catch(error => console.log(error));
-
     }
-
-
   }
 
   return (

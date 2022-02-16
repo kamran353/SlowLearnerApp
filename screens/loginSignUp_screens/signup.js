@@ -53,7 +53,8 @@ const login = ({ navigation }) => {
         UserDOB: date, UserRole: 'Doctor', IsApproved: false, ReferenceUserId: 0
       };
       axios.post(`${global.BaseUrl}RegisterUser`, user)
-        .then(response => CheckUserId(response.data.UserId)).catch(error => console.log(error));
+        .then(response => CheckUserId(response.data.UserId))
+        .catch(error => console.log(error));
     }
   }
   function CheckUserId(UserId) {

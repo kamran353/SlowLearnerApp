@@ -8,10 +8,10 @@ import doctor_patients from './screens/doctor_screens/doctor_patients'
 import appointment_details from './screens/doctor_screens/appointment_details';
 import one_blank_template from './screens/template_screens/one_blank_template';
 import two_blank_template from './screens/template_screens/two_blank_template';
-import add_new_template from  './screens/template_screens/add_new_template';
+import add_new_template from './screens/template_screens/add_new_template';
 import allTemplates from './screens/template_screens/all_templates';
 
-import mainTab from './tabNavigation/mainTab';
+import doctorTab from './tabNavigation/doctorTab';
 import adminTab from './tabNavigation/adminTab';
 import LevelTab from './tabNavigation/level_tab';
 import CollectionTab from './tabNavigation/collectionTab';
@@ -39,47 +39,47 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
-global.BaseUrl='http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
-global.BaseUrlForImages='http://192.168.100.37/SlowLearnerApi/'
+global.BaseUrl = 'http://192.168.100.37/SlowLearnerApi/api/SlowLearner/'
+global.BaseUrlForImages = 'http://192.168.100.37/SlowLearnerApi/'
 const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}/>
-      <Stack.Screen name="Login" component={login} options={{headerShown:false}}/>
-      <Stack.Screen name="SignUp" component={signup} options={{headerShown:false}}/>  
+      <Stack.Navigator>
+        <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
+        <Stack.Screen name="Login" component={login} options={{ headerShown: false }} />
+        <Stack.Screen name="SignUp" component={signup} options={{ headerShown: false }} />
 
-      <Stack.Screen name="Admin" component={adminTab} options={{headerShown:false}}/>
-      <Stack.Screen name="Levels" component={LevelTab} options={{headerShown:false}}/>
-      <Stack.Screen name="MainTab" component={mainTab} options={{headerShown:false}}/>
-      <Stack.Screen name="Collections" component={CollectionTab} options={{headerShown:false}}/>
-      <Stack.Screen name="PatientTab" component={patientTab} options={{headerShown:false}}/>
-      <Stack.Screen name="TemplateTab" component={templateTab} options={{headerShown:false}}/>
+        <Stack.Screen name="Admin" component={adminTab} options={{ headerShown: false }} />
+        <Stack.Screen name="Levels" component={LevelTab} options={{ headerShown: false }} />
+        <Stack.Screen name="DoctorTab" component={doctorTab} options={{ headerShown: false }} />
+        <Stack.Screen name="Collections" component={CollectionTab} options={{ headerShown: false }} />
+        <Stack.Screen name="PatientTab" component={patientTab} options={{ headerShown: false }} />
+        <Stack.Screen name="TemplateTab" component={templateTab} options={{ headerShown: false }} />
 
-      <Stack.Screen name="RegisterPa" component={registerPa} options={{headerShown:false}}/>
-      <Stack.Screen name="AppointmentDetails" component={appointment_details} options={{headerShown:false}}/>
-      <Stack.Screen name="NewCollection" component={newCollection} options={{headerShown:false}}/>
-      <Stack.Screen name="NewPractice" component={newPractice} options={{headerShown:false}}/>
-      <Stack.Screen name="PracticeCollection" component={practiceCollection} options={{headerShown:false}}/>
-      <Stack.Screen name="DocPatients" component={doctor_patients} options={{headerShown:false}}/>
-      <Stack.Screen name="OneBlankTemplate" component={one_blank_template} options={{headerShown:false}}/>
-      <Stack.Screen name="TwoBlankTemplate" component={two_blank_template} options={{headerShown:false}}/>
-      <Stack.Screen name="AddNewTemplate" component={add_new_template} options={{headerShown:false}}/>
-      <Stack.Screen name="AllTemplates" component={allTemplates} options={{headerShown:false}}/>
-      <Stack.Screen name="UpdateCollection" component={updateCollection} options={{headerShown:false}}/>
-      
-      
+        <Stack.Screen name="RegisterPa" component={registerPa} options={{ headerShown: false }} />
+        <Stack.Screen name="AppointmentDetails" component={appointment_details} options={{ headerShown: false }} />
+        <Stack.Screen name="NewCollection" component={newCollection} options={{ headerShown: false }} />
+        <Stack.Screen name="NewPractice" component={newPractice} options={{ headerShown: false }} />
+        <Stack.Screen name="PracticeCollection" component={practiceCollection} options={{ headerShown: false }} />
+        <Stack.Screen name="DocPatients" component={doctor_patients} options={{ headerShown: false }} />
+        <Stack.Screen name="OneBlankTemplate" component={one_blank_template} options={{ headerShown: false }} />
+        <Stack.Screen name="TwoBlankTemplate" component={two_blank_template} options={{ headerShown: false }} />
+        <Stack.Screen name="AddNewTemplate" component={add_new_template} options={{ headerShown: false }} />
+        <Stack.Screen name="AllTemplates" component={allTemplates} options={{ headerShown: false }} />
+        <Stack.Screen name="UpdateCollection" component={updateCollection} options={{ headerShown: false }} />
 
-      <Stack.Screen name="RegisterPatient" component={registerPatient} options={{headerShown:false}}/>
-      <Stack.Screen name="PATab" component={paTab} options={{headerShown:false}}/>
-      
-      <Stack.Screen name="PatientWords" component={patient_words} options={{headerShown:false}}/>
-      <Stack.Screen name="CurrentPractices" component={currentPractices} options={{headerShown:false}}/>
-      <Stack.Screen name="PatientVisit" component={patient_visit} options={{headerShown:false}}/>
-      <Stack.Screen name="CollectionDetails" component={collection_details} options={{headerShown:false}}/>
-      <Stack.Screen name="AppPracticeCollection" component={appointmentPracticeCollection} options={{headerShown:false}}/>
-    </Stack.Navigator>
+
+
+        <Stack.Screen name="RegisterPatient" component={registerPatient} options={{ headerShown: false }} />
+        <Stack.Screen name="PATab" component={paTab} options={{ headerShown: false }} />
+
+        <Stack.Screen name="PatientWords" component={patient_words} options={{ headerShown: false }} />
+        <Stack.Screen name="CurrentPractices" component={currentPractices} options={{ headerShown: false }} />
+        <Stack.Screen name="PatientVisit" component={patient_visit} options={{ headerShown: false }} />
+        <Stack.Screen name="CollectionDetails" component={collection_details} options={{ headerShown: false }} />
+        <Stack.Screen name="AppPracticeCollection" component={appointmentPracticeCollection} options={{ headerShown: false }} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

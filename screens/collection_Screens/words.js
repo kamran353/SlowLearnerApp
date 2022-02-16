@@ -6,37 +6,37 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SoundPlayer from 'react-native-sound';
 const words = ({ navigation }) => {
   const [MyWords, SetWords] = useState([]);
-  const [IsDeleted,SetDeleted]=useState(false);
+  const [IsDeleted, SetDeleted] = useState(false);
   useEffect(() => {
     AsyncStorage.getItem('User')
       .then((value) => {
         const user = JSON.parse(value).result;
         console.log(value)
-        if(user.UserRole=="PA"){
+        if (user.UserRole == "PA") {
           getMyLetters(user.ReferenceUserId)
         }
-       else {
-        getMyLetters(user.UserId)
-       }
+        else {
+          getMyWords(user.UserId)
+        }
       })
       .catch((error) => {
         console.log(error);
       });
 
   }, [IsDeleted]);
-  function getMyLetters(doctorId) {
+  function getMyWords(doctorId) {
     axios.get(`${global.BaseUrl}GetMyCollection?Type=Word&&DoctorId=${doctorId}`).then((response) => {
       SetWords(response.data)
-    });
+    }).catch(error => console.log(error));
   }
-  function deleteFromDatabase(id){
+  function deleteFromDatabase(id) {
     alert(id)
     axios.get(`${global.BaseUrl}DeleteCollection?Id=${id}`).then((response) => {
-       if(response.status==200){
-          alert("Deleted Successfully")
-          SetDeleted(!IsDeleted);
-       }
-      }).catch(error=>console.log(error));
+      if (response.status == 200) {
+        alert("Deleted Successfully")
+        SetDeleted(!IsDeleted);
+      }
+    }).catch(error => console.log(error));
   }
   function playAudio(url) {
     console.log(`${global.BaseUrlForImages}${url}`)
@@ -55,47 +55,47 @@ const words = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-   {MyWords.length>0?
-      <FlatList
-        style={{ flex: 1, marginTop: 5 }}
-        data={MyWords}
-        renderItem={({ item }) => (
-          <CardView
-            style={styles.listItem}
-            cardElevation={5}
-            cardMaxElevation={10}
-            cornerRadius={8}>
-            <View style={styles.imageView}>
-              <Image source={{ uri: `${global.BaseUrlForImages}${item.CollectionImage}` }} style={styles.imagstyle} resizeMode='contain' />
+      {MyWords.length > 0 ?
+        <FlatList
+          style={{ flex: 1, marginTop: 5 }}
+          data={MyWords}
+          renderItem={({ item }) => (
+            <CardView
+              style={styles.listItem}
+              cardElevation={5}
+              cardMaxElevation={10}
+              cornerRadius={8}>
+              <View style={styles.imageView}>
+                <Image source={{ uri: `${global.BaseUrlForImages}${item.CollectionImage}` }} style={styles.imagstyle} resizeMode='contain' />
 
-            </View>
-            <View style={styles.infoView}>
-              <Text style={styles.nameTxt}>{item.CollectionText}</Text>
-            </View>
-            <View style={styles.audioView}>
-            <TouchableOpacity  onPress={() => playAudio(item.CollectionAudio)}>
-                <Text style={styles.txtLogin}>
-                  Play
-                </Text>
-              </TouchableOpacity>
+              </View>
+              <View style={styles.infoView}>
+                <Text style={styles.nameTxt}>{item.CollectionText}</Text>
+              </View>
+              <View style={styles.audioView}>
+                <TouchableOpacity onPress={() => playAudio(item.CollectionAudio)}>
+                  <Text style={styles.txtLogin}>
+                    Play
+                  </Text>
+                </TouchableOpacity>
 
-              <TouchableOpacity style={{marginLeft:10}} onPress={() => navigation.navigate("UpdateCollection",{collection:item})}>
-                <Text style={styles.txtLogin}>
-                  Edit
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{marginLeft:10}} onPress={() => deleteFromDatabase(item.CollectionId)}>
-                <Text style={styles.txtLogin}>
-                  Delete
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </CardView>
-        )}
-      />
-       :<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
-        <Text style={styles.nameTxt}>No Record</Text>
-       </View>}
+                <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.navigate("UpdateCollection", { collection: item })}>
+                  <Text style={styles.txtLogin}>
+                    Edit
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => deleteFromDatabase(item.CollectionId)}>
+                  <Text style={styles.txtLogin}>
+                    Delete
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </CardView>
+          )}
+        />
+        : <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+          <Text style={styles.nameTxt}>No Record</Text>
+        </View>}
       <TouchableOpacity
         onPress={() => navigation.navigate('NewCollection')}
         activeOpacity={1}
@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
     flex: 5,
     justifyContent: 'center',
     alignItems: 'flex-end',
-    flexDirection:'row',
-    paddingBottom:10
+    flexDirection: 'row',
+    paddingBottom: 10
   }
   ,
   imagstyle: {

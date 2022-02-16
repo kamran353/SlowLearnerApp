@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -16,21 +15,21 @@ const updateCollection = ({ navigation, route }) => {
             label: 'Letter',
             value: 'Letter',
             color: 'black',
-            selected:route.params.collection.CollectionType=="Letter"?true:false,
+            selected: route.params.collection.CollectionType == "Letter" ? true : false,
         },
         {
             id: '2',
             label: 'Word',
             value: 'Word',
             color: 'black',
-            selected: route.params.collection.CollectionType=="Word"?true:false,
+            selected: route.params.collection.CollectionType == "Word" ? true : false,
         },
         {
             id: '3',
             label: 'Sentence',
             value: 'Sentence',
             color: 'black',
-            selected:route.params.collection.CollectionType=="Sentence"?true:false,
+            selected: route.params.collection.CollectionType == "Sentence" ? true : false,
         },
     ];
     const [radioButtons, setRadioButtons] = useState(radioButtonsData);
@@ -44,14 +43,14 @@ const updateCollection = ({ navigation, route }) => {
             .then((value) => {
                 const user = JSON.parse(value).result;
                 SetUser(user)
-               // setSelectedRadioButton();
-               console.log(route.params.collection)
+                // setSelectedRadioButton();
+                console.log(route.params.collection)
             })
             .catch((error) => {
                 console.log(error);
             });
     }, []);
-   
+
     const onPressRadioButton = async (radioButtonsArray) => {
         console.log(radioButtonsArray);
         setRadioButtons(radioButtonsArray);
@@ -65,23 +64,23 @@ const updateCollection = ({ navigation, route }) => {
         }
     }
     const SaveCollection = async () => {
-            var type = await GetRadioButtonValue();
-            var formData = new FormData();
-            if (photo != null) {
-                formData.append("Image", { name: photo.fileName, type: photo.type, uri: photo.uri });
-            }
-             if (audio != null) {
-                formData.append("Audio", { name: audio.name, type: audio.type, uri: audio.uri });
-            } 
-             if (Description.length == 0) {
-                alert("Please Enter Text")
-            }
-            else{
+        var type = await GetRadioButtonValue();
+        var formData = new FormData();
+        if (photo != null) {
+            formData.append("Image", { name: photo.fileName, type: photo.type, uri: photo.uri });
+        }
+        if (audio != null) {
+            formData.append("Audio", { name: audio.name, type: audio.type, uri: audio.uri });
+        }
+        if (Description.length == 0) {
+            alert("Please Enter Text")
+        }
+        else {
             formData.append("CollectionId", route.params.collection.CollectionId);
             formData.append("CollectionText", Description);
             formData.append("CollectionType", type);
             formData.append("DoctorId", User.UserRole == "PA" ? User.ReferenceUserId : User.UserId);
-             axios({
+            axios({
                 url: `${global.BaseUrl}UpdateCollection`,
                 method: 'POST',
                 headers: {
@@ -96,7 +95,7 @@ const updateCollection = ({ navigation, route }) => {
             }).catch((error) => {
                 alert("Something Went Wrong")
             });
-            }
+        }
     }
     const handleChoosePhoto = () => {
         launchImageLibrary({ noData: true }, (response) => {
@@ -152,7 +151,7 @@ const updateCollection = ({ navigation, route }) => {
                             layout="row"
                         />
                     </View>
-                    <TextInput placeholder='Description' value={route.params.collection.CollectionText} style={styles.txtInput} onChangeText={(val) =>{setDescription(val);route.params.collection.CollectionText=val}} />
+                    <TextInput placeholder='Description' value={route.params.collection.CollectionText} style={styles.txtInput} onChangeText={(val) => { setDescription(val); route.params.collection.CollectionText = val }} />
                     <View style={{ ...styles.txtInput, flexDirection: 'row' }}>
                         <View style={{ flex: 6, justifyContent: 'center' }}>
                             <Text>{audioName}</Text>
@@ -173,10 +172,10 @@ const updateCollection = ({ navigation, route }) => {
                                 style={styles.imagstyle}
                                 resizeMode='cover' />
 
-                        ) : 
-                         <Image
-                         source={{ uri:`${global.BaseUrlForImages}${route.params.collection.CollectionImage}`}} style={styles.imagstyle}
-                          resizeMode='cover' />
+                        ) :
+                            <Image
+                                source={{ uri: `${global.BaseUrlForImages}${route.params.collection.CollectionImage}` }} style={styles.imagstyle}
+                                resizeMode='cover' />
                         }
 
                         <TouchableOpacity style={styles.btnLogin} onPress={handleChoosePhoto}>

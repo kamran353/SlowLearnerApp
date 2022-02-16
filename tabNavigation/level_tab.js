@@ -8,59 +8,59 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const Tab = createBottomTabNavigator();
 const LevelTab = () => {
   return (
-  
+
     <Tab.Navigator
       initialRouteName="Home"
-     >
+    >
       <Tab.Screen
         name="Lone"
         component={levelone}
         options={{
-            headerShown:false,
+          headerShown: false,
           tabBarLabel: 'Level 1',
-          tabBarIcon: ({ color, size,focused }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name="file-word"
-              color={focused?'blue':'#FFB133'}
+              color={focused ? 'blue' : '#FFB133'}
               size={size}
             />
           ),
-          unmountOnBlur:true
-        }}  />
-         <Tab.Screen
+          unmountOnBlur: true
+        }} />
+      <Tab.Screen
         name="Ltwo"
         component={leveltwo}
         options={{
-            headerShown:false,
+          headerShown: false,
           tabBarLabel: 'Level 2',
-          tabBarIcon: ({ color, size,focused }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name="file-word"
-              color={focused?'blue':'#FFB133'}
+              color={focused ? 'blue' : '#FFB133'}
               size={size}
             />
           ),
-          unmountOnBlur:true
-        }}  />
+          unmountOnBlur: true
+        }} />
 
-     <Tab.Screen
+      <Tab.Screen
         name="Lthree"
         component={levelthree}
         options={{
-            headerShown:false,
+          headerShown: false,
           tabBarLabel: 'Level 3',
-          tabBarIcon: ({ color, size,focused }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name="file-word"
-              color={focused?'blue':'#FFB133'}
+              color={focused ? 'blue' : '#FFB133'}
               size={size}
             />
           ),
-          unmountOnBlur:true
-        }}  />
-    
+          unmountOnBlur: true
+        }} />
+
     </Tab.Navigator>
- 
+
   );
 };
 

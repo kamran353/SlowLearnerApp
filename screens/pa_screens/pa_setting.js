@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, StyleSheet, FlatList, Text, TouchableOpacity} from 'react-native';
+import { View, Image, StyleSheet, FlatList, Text, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const PaSetting = ({navigation}) => {
+const PaSetting = ({ navigation }) => {
   const [actions, setActions] = useState([
     {
       actionName: "RegisterPatient",
@@ -25,52 +25,52 @@ const PaSetting = ({navigation}) => {
       actionText: "Logout"
     }
   ]);
-    const[User,setUser]=useState({UserName:'',UserPhone:'',UserGender:""});
-    useEffect(()=>{
-        AsyncStorage.getItem('User')
-        .then((value) => {
-          const user = JSON.parse(value).result;
-          setUser(user);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },[])
-    return (
-      <View style={styles.container}>
-        <View style={styles.topView}>
-          <Image source={require('../../images/doctor.jpg')} style={styles.imageStyle} resizeMode='contain' />
-          <Text style={styles.nameTxt}>{User.UserName}</Text>
-          <Text style={styles.otherTxt}>{User.UserPhone}</Text>
-          <Text style={styles.otherTxt}>{User.UserGender}</Text>
-        </View>
-        <View style={styles.bottomView}>
-          {actions.length > 0 ?
-            <FlatList
-              numColumns={2}
-              style={{ flex: 1, marginTop: 5 }}
-              data={actions}
-              renderItem={({ item, index }) => (
-                <CardView
-                  style={styles.listItem}
-                  cardElevation={5}
-                  cardMaxElevation={10}
-                  cornerRadius={8}>
-                  <View style={styles.imageView}>
-                    <TouchableOpacity style={styles.touchableOpacityStyle} onPress={() => navigation.navigate(item.actionName)}>
-                      <Text style={styles.actionText}>{item.actionText}</Text>
-                    </TouchableOpacity>
-                  </View>
-                </CardView>
-              )}
-            />
-            : <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-              <Text style={styles.nameTxt}>No Record</Text>
-            </View>}
-        </View>
-  
+  const [User, setUser] = useState({ UserName: '', UserPhone: '', UserGender: "" });
+  useEffect(() => {
+    AsyncStorage.getItem('User')
+      .then((value) => {
+        const user = JSON.parse(value).result;
+        setUser(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [])
+  return (
+    <View style={styles.container}>
+      <View style={styles.topView}>
+        <Image source={require('../../images/doctor.jpg')} style={styles.imageStyle} resizeMode='contain' />
+        <Text style={styles.nameTxt}>{User.UserName}</Text>
+        <Text style={styles.otherTxt}>{User.UserPhone}</Text>
+        <Text style={styles.otherTxt}>{User.UserGender}</Text>
       </View>
-    );
+      <View style={styles.bottomView}>
+        {actions.length > 0 ?
+          <FlatList
+            numColumns={2}
+            style={{ flex: 1, marginTop: 5 }}
+            data={actions}
+            renderItem={({ item, index }) => (
+              <CardView
+                style={styles.listItem}
+                cardElevation={5}
+                cardMaxElevation={10}
+                cornerRadius={8}>
+                <View style={styles.imageView}>
+                  <TouchableOpacity style={styles.touchableOpacityStyle} onPress={() => navigation.navigate(item.actionName)}>
+                    <Text style={styles.actionText}>{item.actionText}</Text>
+                  </TouchableOpacity>
+                </View>
+              </CardView>
+            )}
+          />
+          : <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+            <Text style={styles.nameTxt}>No Record</Text>
+          </View>}
+      </View>
+
+    </View>
+  );
 };
 
 

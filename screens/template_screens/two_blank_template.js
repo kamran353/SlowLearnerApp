@@ -5,8 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
-const newTemplate = ({ navigation, route }) => {
-  const [Title, setTitle] = useState(null)
+const twoBlankTemplate = ({ navigation, route }) => {
   const [User, SetUser] = useState(null)
   const [FirstCollectionIds, SetFirstCollectionIds] = useState([])
   const [SecondCollectionIds, SetSecondCollectionIds] = useState([])
@@ -105,7 +104,7 @@ const newTemplate = ({ navigation, route }) => {
         cardElevation={5}
         cardMaxElevation={10}
         cornerRadius={20}>
-       
+
         <View style={{ flex: 9, width: '90%' }}>
 
           <Text style={styles.txtLabel}>For 1st Blank</Text>
@@ -267,4 +266,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default newTemplate;
+export default twoBlankTemplate;

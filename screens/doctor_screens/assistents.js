@@ -11,13 +11,13 @@ const assistent = ({ navigation }) => {
       .then((value) => {
         const user = JSON.parse(value).result;
         console.log(value)
-        getMyAssistents(user.UserId)
+        getMyJuniorDoctors(user.UserId)
       })
       .catch((error) => {
         console.log(error);
       });
   }, [IsDeleted]);
-  function getMyAssistents(doctorId) {
+  function getMyJuniorDoctors(doctorId) {
     axios.get(`${global.BaseUrl}GetMyAssistents?DoctorId=${doctorId}`).then((response) => {
       console.log(response.data);
       SetMyAssistent(response.data)

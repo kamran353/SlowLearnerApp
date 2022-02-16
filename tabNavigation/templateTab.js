@@ -7,7 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const Tab = createBottomTabNavigator();
 const templateTab = () => {
   return (
-  
+
     <Tab.Navigator
       initialRouteName="Approved">
 
@@ -15,37 +15,37 @@ const templateTab = () => {
         name="OneBlank"
         component={oneBlank}
         options={{
-            headerShown:false,
+          headerShown: false,
           tabBarLabel: 'One Blank',
-          tabBarIcon: ({ color, size,focused }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name="face-profile"
-              color={focused?'blue':'#FFB133'}
+              color={focused ? 'blue' : '#FFB133'}
               size={size}
             />
           ),
-          unmountOnBlur:true
-        }}  
-        />
+          unmountOnBlur: true
+        }}
+      />
 
-       <Tab.Screen
+      <Tab.Screen
         name="TwoBlank"
         component={twoBlank}
         options={{
-            headerShown:false,
+          headerShown: false,
           tabBarLabel: 'Two Blank',
-          tabBarIcon: ({ color, size,focused }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name="lan-pending"
-              color={focused?'blue':'#FFB133'}
+              color={focused ? 'blue' : '#FFB133'}
               size={size}
             />
           ),
-          unmountOnBlur:true
-        }}  />
-    
+          unmountOnBlur: true
+        }} />
+
     </Tab.Navigator>
- 
+
   );
 };
 

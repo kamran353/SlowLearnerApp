@@ -8,44 +8,44 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const Tab = createBottomTabNavigator();
 const adminTab = () => {
   return (
-  
+
     <Tab.Navigator
       initialRouteName="Home"
-     >
+    >
       <Tab.Screen
         name="Training"
         component={training}
         options={{
-            headerShown:false,
+          headerShown: false,
           tabBarLabel: 'Training',
-          tabBarIcon: ({ color, size,focused }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name="face-profile"
-              color={focused?'blue':'#FFB133'}
+              color={focused ? 'blue' : '#FFB133'}
               size={size}
             />
           ),
-          unmountOnBlur:true
-        }}  
-        />
-         <Tab.Screen
+          unmountOnBlur: true
+        }}
+      />
+      <Tab.Screen
         name="Test"
         component={testing}
         options={{
-            headerShown:false,
+          headerShown: false,
           tabBarLabel: 'Test',
-          tabBarIcon: ({ color, size,focused }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name="lan-pending"
-              color={focused?'blue':'#FFB133'}
+              color={focused ? 'blue' : '#FFB133'}
               size={size}
             />
           ),
-          unmountOnBlur:true
-        }}  />
-    
+          unmountOnBlur: true
+        }} />
+
     </Tab.Navigator>
- 
+
   );
 };
 

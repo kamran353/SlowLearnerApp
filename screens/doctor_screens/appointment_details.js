@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, StyleSheet, Text, FlatList, TextInput,TouchableOpacity,ScrollView ,KeyboardAvoidingView} from 'react-native';
+import { View, Image, StyleSheet, Text, FlatList, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
 import CardView from 'react-native-cardview'
 import axios from 'axios';
 import Modal from 'react-native-modal'
@@ -39,11 +39,11 @@ const appointment_details = ({ navigation, route }) => {
   const [AddOrRemove, SetAddOrRemove] = useState(true)
   const [IsShown, SetShown] = useState(false)
   const [date, setDate] = useState(new Date());
-  const [isDatePickerShow,setDatePickerShow]=useState(false);
+  const [isDatePickerShow, setDatePickerShow] = useState(false);
   const [radioButtons, setRadioButtons] = useState(radioButtonsData);
   const [LastAppointment, SetLastAppointment] = useState(null)
   useEffect(() => {
-   /// getCurrentDate()
+    /// getCurrentDate()
     AsyncStorage.getItem('User')
       .then((value) => {
         const user = JSON.parse(value).result;
@@ -64,13 +64,13 @@ const appointment_details = ({ navigation, route }) => {
       setVisitNo(response.data.VisitNo)
     }).catch(error => console.log(error + " not found " + route.params.AppId))
   }
-  const getCurrentDate=()=>{
+  const getCurrentDate = () => {
 
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
     var year = new Date().getFullYear();
     setDate(date + '-' + month + '-' + year);//format: dd-mm-yyyy;
-}
+  }
   function AddOrRemovePractice(practiceId) {
     var index = PracticeIds.indexOf(practiceId);
     if (index > -1) {
@@ -83,10 +83,10 @@ const appointment_details = ({ navigation, route }) => {
     console.log(PracticeIds)
   }
   function SaveAppointment() {
-    if(PracticeIds.length<1){
+    if (PracticeIds.length < 1) {
       alert("Please Select At least one Exercise")
     }
-    else{
+    else {
       const app = {
         Remarks: Remarks,
         PracticeIds: PracticeIds.toString(),
@@ -101,7 +101,7 @@ const appointment_details = ({ navigation, route }) => {
           }
         }).catch(error => console.log(error));
     }
-   
+
   }
   const GetRadioButtonValue = async () => {
     for (var i = 0; i < radioButtons.length; i++) {
@@ -118,7 +118,7 @@ const appointment_details = ({ navigation, route }) => {
 
   const SetAppointment = async () => {
     var Level = await GetRadioButtonValue();
-   console.log("date is "+date)
+    console.log("date is " + date)
     const Appointment = {
       AppDate: date,
       DoctorId: User.UserId,
@@ -140,15 +140,15 @@ const appointment_details = ({ navigation, route }) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
     setDatePickerShow(false);
-   };
+  };
   return (
     <View style={styles.container}>
-  
+
       <CardView
-       cardElevation={10}
-       cardMaxElevation={20}
-       cornerRadius={10}
-       style={styles.LastAppointment}>
+        cardElevation={10}
+        cardMaxElevation={20}
+        cornerRadius={10}
+        style={styles.LastAppointment}>
         {LastAppointment != null ?
           <View style={styles.DetailView}>
             <Text style={styles.DetailTxt}>Date: {LastAppointment.AppDate.toString().split('T')[0]}</Text>
@@ -202,7 +202,7 @@ const appointment_details = ({ navigation, route }) => {
         }
       </View>
 
-      <View style={{flex:3,justifyContent:'flex-start',paddingTop:5,alignItems:'center',width:'100%'}}>
+      <View style={{ flex: 3, justifyContent: 'flex-start', paddingTop: 5, alignItems: 'center', width: '100%' }}>
         <TextInput placeholder='Enter Remarks' style={styles.txtInput} onChangeText={(val) => setRemarks(val)} />
 
         <TouchableOpacity style={styles.btnLogin} onPress={() => SaveAppointment()}>
@@ -211,48 +211,48 @@ const appointment_details = ({ navigation, route }) => {
           </Text>
         </TouchableOpacity>
 
-        
-          <TouchableOpacity style={styles.btnLogin} onPress={() => SetShown(true)}>
-            <Text style={styles.txtLogin}>Next Visit</Text>
-          </TouchableOpacity>
-      
+
+        <TouchableOpacity style={styles.btnLogin} onPress={() => SetShown(true)}>
+          <Text style={styles.txtLogin}>Next Visit</Text>
+        </TouchableOpacity>
+
 
       </View>
 
       <Modal isVisible={IsShown}>
-         <View style={{ height:'50%',backgroundColor:'white',width:'100%',justifyContent:'center',alignItems:'center',borderRadius:10 }}>
-         <View style={styles.txtDatePicker}>
-         <View style={{flex:5,justifyContent:'center',alignItems:'center',paddingLeft:5}}>
-               <Text>{date.toString()}</Text>
-              </View>
-              <View style={{flex:5,justifyContent:'center',alignItems:'center'}}>
-                <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}} onPress={()=>setDatePickerShow(true)}>
-                <Text style={{color:'#FFB133'}}>Choose Date</Text>
+        <View style={{ height: '50%', backgroundColor: 'white', width: '100%', justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
+          <View style={styles.txtDatePicker}>
+            <View style={{ flex: 5, justifyContent: 'center', alignItems: 'center', paddingLeft: 5 }}>
+              <Text>{date.toString()}</Text>
+            </View>
+            <View style={{ flex: 5, justifyContent: 'center', alignItems: 'center' }}>
+              <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => setDatePickerShow(true)}>
+                <Text style={{ color: '#FFB133' }}>Choose Date</Text>
               </TouchableOpacity>
-              {isDatePickerShow===true?
-                  <DateTimePicker
-                    value={date}
-                    onChange={onChange}
-                 />:null
-                }
-             </View>
+              {isDatePickerShow === true ?
+                <DateTimePicker
+                  value={date}
+                  onChange={onChange}
+                /> : null
+              }
+            </View>
           </View>
-          <View style={{...styles.txtInput,marginTop:20,justifyContent:'center',width:'95%'}}>
-          <RadioGroup
-            radioButtons={radioButtons}
-            onPress={onPressRadioButton}
-            layout="row"
-          />
+          <View style={{ ...styles.txtInput, marginTop: 20, justifyContent: 'center', width: '95%' }}>
+            <RadioGroup
+              radioButtons={radioButtons}
+              onPress={onPressRadioButton}
+              layout="row"
+            />
           </View>
-          <TouchableOpacity style={styles.btnLogin} onPress={()=>SetAppointment()}>
-                <Text style={{color:'white'}}>
-                    Set Appointment
-                </Text>
+          <TouchableOpacity style={styles.btnLogin} onPress={() => SetAppointment()}>
+            <Text style={{ color: 'white' }}>
+              Set Appointment
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnLogin} onPress={()=>SetShown(false)}>
-                <Text style={{color:'white'}}>
-                    Cancel
-                </Text>
+          <TouchableOpacity style={styles.btnLogin} onPress={() => SetShown(false)}>
+            <Text style={{ color: 'white' }}>
+              Cancel
+            </Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -278,9 +278,9 @@ const styles = StyleSheet.create({
   LastAppointment: {
     flex: 2,
     width: '100%',
-    padding:10,
-    alignSelf:'center',
-    backgroundColor:'#FFB133',
+    padding: 10,
+    alignSelf: 'center',
+    backgroundColor: '#FFB133',
   },
   acceptTxt: {
     color: '#FFB133',
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
   },
   txtInput: {
     paddingHorizontal: 8,
-    height:50,
+    height: 50,
     width: '86%',
     marginHorizontal: '12%',
     borderRadius: 8,
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: 'gray',
     borderWidth: 1,
-    marginTop:12,
+    marginTop: 12,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFB133'
@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFB133'
   },
   DetailTxt: {
-    color:'white',
+    color: 'white',
     fontSize: 15,
     fontWeight: 'bold',
   },
@@ -377,10 +377,10 @@ const styles = StyleSheet.create({
   btnHistory: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'white',
-    width:100,
-    height:40,
-    borderRadius:10
+    backgroundColor: 'white',
+    width: 100,
+    height: 40,
+    borderRadius: 10
   },
   datePickerStyle: {
     width: '100%',
