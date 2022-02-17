@@ -513,6 +513,7 @@ namespace SlowLearnerApi.Controllers
 				collection.CollectionText = keys["CollectionText"];
 				collection.CollectionType = keys["CollectionType"];//word ,letter,sentence
 				collection.CategoryId = int.Parse(keys["CategoryId"]);
+				collection.CategoryType = int.Parse(keys["CategoryType"]);
 				collection.DoctorId = int.Parse(keys["DoctorId"]);//Who is adding collection
 				db.Collections.Add(collection);
 				db.SaveChanges();
@@ -577,6 +578,7 @@ namespace SlowLearnerApi.Controllers
 					collection.DoctorId = int.Parse(keys["DoctorId"]);
 				}
 				collection.CategoryId = int.Parse(keys["CategoryId"]);
+				collection.CategoryType = int.Parse(keys["CategoryType"]);
 				db.Entry(collection).State = EntityState.Modified;	
 				db.SaveChanges();
 				return Request.CreateResponse(HttpStatusCode.OK, "Added");

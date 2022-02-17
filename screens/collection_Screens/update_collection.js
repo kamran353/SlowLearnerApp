@@ -95,6 +95,7 @@ const updateCollection = ({ navigation, route }) => {
             formData.append("CollectionText", Description);
             formData.append("CollectionType", type);
             formData.append("CategoryId",type=="Word"?categoryId:0);
+            formData.append("CategoryType",type=="Word"?categoryId:0);
             formData.append("DoctorId", User.UserRole == "PA" ? User.ReferenceUserId : User.UserId);
             axios({
                 url: `${global.BaseUrl}UpdateCollection`,
