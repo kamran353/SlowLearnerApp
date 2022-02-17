@@ -61,10 +61,10 @@ const newCollection = ({ navigation }) => {
   
   function GetWordsCategory(doctorId) {
    
-    axios.get(`${global.BaseUrl}GetWordsCategory?DoctorId=${doctorId}`)
+    axios.get(`${global.BaseUrl}GetMyCategory?DoctorId=${doctorId}`)
     .then((response) => {
       setWordsCategory(response.data)
-      setCategoryId(response.data[0].CategoryId)
+      setCategoryId(response.data[0].Cid)
     }).catch(error => console.log(error));
   }
   const onPressRadioButton = async (radioButtonsArray) => {
@@ -169,7 +169,7 @@ const newCollection = ({ navigation }) => {
             />
           </View>
           <TextInput placeholder='Description' style={styles.txtInput} onChangeText={(val) => setDescription(val)} />
-         {radioButtons[1].selected==true?
+        
           <Picker
             selectedValue={categoryId}
             style={styles.txtInput}
@@ -177,11 +177,10 @@ const newCollection = ({ navigation }) => {
       
             {WordsCategory.map((category,i) =>
                 { 
-                  return <Picker.Item label={category.Title} value={category.CategoryId} key={i}/>
+                  return <Picker.Item label={category.Cname} value={category.Cid} key={i}/>
                 }
             )}
-          </Picker>:null
-          }
+          </Picker>
           <View style={{ ...styles.txtInput, flexDirection: 'row' }}>
             <View style={{ flex: 6, justifyContent: 'center' }}>
               <Text>{audioName}</Text>

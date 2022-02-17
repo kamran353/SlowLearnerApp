@@ -47,7 +47,7 @@ import assignPatients from './screens/attendant_screens/assign_patients';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-global.BaseUrlForImages = 'http://192.168.100.37/SlowLearnerApi/'
+global.BaseUrlForImages = 'http://192.168.100.29/SlowLearnerApi/'
 global.BaseUrl = global.BaseUrlForImages+'api/SlowLearner/'
 
 const Stack = createStackNavigator();

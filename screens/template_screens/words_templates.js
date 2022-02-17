@@ -24,12 +24,12 @@ const wordsTemplates = ({ navigation }) => {
 
   }, [IsDeleted]);
   function getMyTemplates(doctorId) {
-    axios.get(`${global.BaseUrl}GetDoctorWordsTemplates?DoctorId=${doctorId}`).then((response) => {
+    axios.get(`${global.BaseUrl}GetMyCategory?DoctorId=${doctorId}`).then((response) => {
       setTemplates(response.data)
     }).catch(error => console.log(error));;
   }
   function deleteFromDatabase(id) {
-    axios.get(`${global.BaseUrl}DeleteWordTemplate?Id=${id}`).then((response) => {
+    axios.get(`${global.BaseUrl}GetMyCategory?Id=${id}`).then((response) => {
       if (response.status == 200) {
         alert("Deleted Successfully")
         SetDeleted(!IsDeleted);
@@ -52,17 +52,12 @@ const wordsTemplates = ({ navigation }) => {
               cardMaxElevation={10}
               cornerRadius={8}>
               <View style={styles.infoView}>
-                <Text style={styles.nameTxt}>{item.WordTemplateText}</Text>
+                <Text style={styles.nameTxt}>{item.Cname}</Text>
               </View>
               <View style={styles.audioView}>
                 <TouchableOpacity onPress={() => UseTemplate(item)}>
                   <Text style={styles.txtLogin}>
                     Use
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{ marginLeft: 20 }} onPress={() => deleteFromDatabase(item.WordTemplateId)}>
-                  <Text style={styles.txtLogin}>
-                    Delete
                   </Text>
                 </TouchableOpacity>
               </View>

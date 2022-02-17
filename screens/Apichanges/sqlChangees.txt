@@ -1,0 +1,30 @@
+---Run This Query To make Category Table
+
+create table Category (Cid int primary key identity,Cname varchar(500),DoctorId int)
+
+---Run these Queries to insert data in CAategory table
+insert into Category values ('Fruits',0)
+
+insert into Category values ('things',0)
+
+insert into Category values ('Birds',0)
+
+
+---adding New column in Collections TABLE
+
+alter table Collections add CategoryType int
+
+---setting Category of each word to Fruits
+
+update Collections set CategoryType=1 where CollectionType='Word'
+
+
+
+
+
+
+---Sb sy phly ye Queries run kren apny pass then ap next Model ko update kren api me datbase sy and 
+--- and Api publis kren 
+---es controller k file me jo b code hy all select kren and SlowLearnerController sy phly sara code remove kren ue ye os me paste kren
+
+

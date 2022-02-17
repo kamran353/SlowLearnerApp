@@ -25,7 +25,7 @@ const generated_sentences = ({ navigation,route }) => {
 
   },[]);
   function getMySentences(doctorId) {
-    axios.get(`${global.BaseUrl}GenerateSentences?TemplateId=${route.params.Template.WordTemplateId}&&DoctorId=${doctorId}`).then((response) => {
+    axios.get(`${global.BaseUrl}GetMySentences?CategoryId=${route.params.Template.Cid}&&DoctorId=${doctorId}`).then((response) => {
       SetSentences(response.data)
       SetLoaded(true);
     }).catch(error => console.log(error));

@@ -59,10 +59,10 @@ const updateCollection = ({ navigation, route }) => {
 
     function GetWordsCategory(doctorId) {
 
-        axios.get(`${global.BaseUrl}GetWordsCategory?DoctorId=${doctorId}`)
+        axios.get(`${global.BaseUrl}GetMyCategory?DoctorId=${doctorId}`)
             .then((response) => {
                 setWordsCategory(response.data)
-                setCategoryId(response.data[0].CategoryId)
+                setCategoryId(response.data[0].Cid)
             }).catch(error => console.log(error));
     }
 
@@ -168,19 +168,15 @@ const updateCollection = ({ navigation, route }) => {
                         />
                     </View>
                     <TextInput placeholder='Description' value={route.params.collection.CollectionText} style={styles.txtInput} onChangeText={(val) => { setDescription(val); route.params.collection.CollectionText = val }} />
-
-                    {radioButtons[1].selected == true ?
-                        <Picker
+                     <Picker
                             selectedValue={categoryId}
                             style={styles.txtInput}
                             onValueChange={(itemValue, itemIndex) => setCategoryId(itemValue)}>
                            {WordsCategory.map((category, i) => {
-                                return <Picker.Item label={category.Title} value={category.CategoryId} key={i} />
+                                return <Picker.Item label={category.Cname} value={category.Cid} key={i} />
                             }
-                            )}
-                        </Picker> : null
-                    }
-
+                         )}
+                     </Picker>
                     <View style={{ ...styles.txtInput, flexDirection: 'row' }}>
                         <View style={{ flex: 6, justifyContent: 'center' }}>
                             <Text>{audioName}</Text>

@@ -61,20 +61,17 @@ const newTemplate = ({ navigation }) => {
 
   function SaveTemplate() {
     if (TemplateText.length < 1) {
-      alert("Please Enter Template Title")
+      alert("Please Enter Title")
     }
     else {
       const template = {
-        WordTemplateText: TemplateText,
+        Cname: TemplateText,
         DoctorId: User.UserRole == "PA" ? User.ReferenceUserId : User.UserId,
-        FirstBlankCategoryId: categoryId,
-        SecondBlankCategoryId: secondCategoryId,
-        TemplateType: radioButtons[0].selected == true ? '1' : '2'
       };
-      axios.post(`${global.BaseUrl}SaveWordsTemplate`, template)
+      axios.post(`${global.BaseUrl}SaveCategory`, template)
         .then(response => {
           if (response.status == 200) {
-            alert("Template Created Successfully")
+            alert("Category Created Successfully")
           }
         }).catch(error => console.log(error));
     }
@@ -92,54 +89,13 @@ const newTemplate = ({ navigation }) => {
           cardMaxElevation={10}
           cornerRadius={20}>
           <Text style={styles.heading}>
-            Add New Template
+            Add New Category
           </Text>
           <View style={styles.InputView}>
-            <Text style={styles.InputViewLabel}>Template Text</Text>
-            <TextInput placeholder='Template Text' style={styles.txtInput} onChangeText={(val) => SetTemplateText(val)} />
+            <Text style={styles.InputViewLabel}>Category Title</Text>
+            <TextInput placeholder='Category Title' style={styles.txtInput} onChangeText={(val) => SetTemplateText(val)} />
           </View>
-          <View style={styles.InputView}>
-            <Text style={styles.InputViewLabel}>First Word Type</Text>
-            <View style={styles.txtInput}>
-              <Picker
-                selectedValue={categoryId}
-                style={styles.txtInput}
-                onValueChange={(itemValue, itemIndex) => setCategoryId(itemValue)}>
-
-                {WordsCategory.map((category, i) => {
-                  return <Picker.Item label={category.Title} value={category.CategoryId} key={i} />
-                }
-                )}
-              </Picker>
-            </View>
-          </View>
-
-          <View style={styles.InputView}>
-            <Text style={styles.InputViewLabel}>Second Word Type</Text>
-            <View style={styles.txtInput}>
-              <Picker
-                selectedValue={categoryId}
-                style={styles.txtInput}
-                onValueChange={(itemValue, itemIndex) => setCategoryId(itemValue)}>
-
-                {WordsCategory.map((category, i) => {
-                  return <Picker.Item label={category.Title} value={category.CategoryId} key={i} />
-                }
-                )}
-              </Picker>
-            </View>
-          </View>
-
-          <View style={styles.InputView}>
-            <Text style={styles.InputViewLabel}>Template Type</Text>
-            <View style={styles.txtInput}>
-              <RadioGroup
-                radioButtons={radioButtons}
-                onPress={onPressRadioButton}
-                layout="row"
-              />
-            </View>
-          </View>
+          
 
           <TouchableOpacity style={styles.btnLogin} onPress={() => SaveTemplate()}>
             <Text style={styles.txtLogin}>
