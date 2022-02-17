@@ -35,7 +35,7 @@ const oneBlankTemplate = ({ navigation, route }) => {
     if (id == 0) {
       DoctorId = User.UserId
     }
-    axios.get(`${global.BaseUrl}GetMyCollection?Type=Word&&DoctorId=${DoctorId}`)
+    axios.get(`${global.BaseUrl}GetMyCategory?DoctorId=${DoctorId}`)
       .then((response) => {
         setMyCollection(response.data)
       }).catch(error => console.log(error));
@@ -43,17 +43,16 @@ const oneBlankTemplate = ({ navigation, route }) => {
   function AddOrRemoveCollection(collectionId) {
     var CollectionIndex;
     for (var i = 0; i < MyCollection.length; i++) {
-      if (MyCollection[i].CollectionId == collectionId) {
+      if (MyCollection[i].Cid == collectionId) {
         CollectionIndex = i;
       }
     }
     var index = collectionIds.indexOf(collectionId);//1,2,3
     if (index > -1) {
       collectionIds.splice(index, 1)
-      MyCollection[CollectionIndex].IsSelected = false;
     } else {
       collectionIds.push(collectionId)
-      MyCollection[CollectionIndex].IsSelected = true;
+      
     }
     SetCollectionIds(collectionIds)
     setMyCollection(MyCollection)
@@ -72,6 +71,7 @@ const oneBlankTemplate = ({ navigation, route }) => {
           alert("Save Successfully")
           SetCollectionIds([])
           setMyCollection([])
+          navigation.navigate("GeneratedSentences",{MyCollections:response.data});
         }
       }).catch(error => console.log(error));
   }
@@ -93,17 +93,16 @@ const oneBlankTemplate = ({ navigation, route }) => {
                 cardMaxElevation={10}
                 cornerRadius={8}>
                 <View style={styles.imageView}>
-                  <Image source={{ uri: `${global.BaseUrlForImages}${item.CollectionImage}` }} style={styles.imageStyle} resizeMode='contain' />
-
+                  <Image source={require('../../images/practice.jpg')} style={styles.imageStyle} resizeMode='contain' />
                 </View>
                 <View style={styles.infoView}>
-                  <Text style={styles.nameTxt}>{item.CollectionText}</Text>
+                  <Text style={styles.nameTxt}>{item.Cname}</Text>
                 </View>
                 <View style={styles.buttonView}>
                   <CheckBox
                     disabled={false}
-                    value={collectionIds.indexOf(item.CollectionId) > -1 ? true : false}
-                    onValueChange={(newValue) => AddOrRemoveCollection(item.CollectionId)}
+                    value={collectionIds.indexOf(item.Cid) > -1 ? true : false}
+                    onValueChange={(newValue) => AddOrRemoveCollection(item.Cid)}
                   />
                 </View>
               </CardView>

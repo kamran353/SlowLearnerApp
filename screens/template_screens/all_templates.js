@@ -38,13 +38,13 @@ const allTemplates = ({ navigation }) => {
   }
   function UseTemplate(item) {
     console.log(item)
-
-    if (item.TemplateType == 1) {
-      navigation.navigate('OneBlankTemplate', { Template: item });
-    }
-    else if (item.TemplateType == 2) {
-      navigation.navigate('TwoBlankTemplate', { Template: item });
-    }
+    navigation.navigate('OneBlankTemplate', { Template: item });
+    // if (item.TemplateType == 1) {
+    //   navigation.navigate('OneBlankTemplate', { Template: item });
+    // }
+    // else if (item.TemplateType == 2) {
+    //   navigation.navigate('TwoBlankTemplate', { Template: item });
+    // }
   }
   return (
     <View style={styles.container}>

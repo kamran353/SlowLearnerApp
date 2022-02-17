@@ -72,7 +72,7 @@ const newTemplate = ({ navigation }) => {
             <Text style={styles.InputViewLabel}>Template Text</Text>
             <TextInput placeholder='Template Text' style={styles.txtInput} onChangeText={(val) => SetTemplateText(val)} />
           </View>
-          <View style={styles.InputView}>
+          {/* <View style={styles.InputView}>
             <Text style={styles.InputViewLabel}>Template Type</Text>
             <View style={styles.txtInput}>
               <RadioGroup
@@ -81,7 +81,7 @@ const newTemplate = ({ navigation }) => {
                 layout="row"
               />
             </View>
-          </View>
+          </View> */}
 
           <TouchableOpacity style={styles.btnLogin} onPress={() => SaveTemplate()}>
             <Text style={styles.txtLogin}>

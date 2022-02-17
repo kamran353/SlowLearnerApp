@@ -12,12 +12,13 @@ const generated_sentences = ({ navigation,route }) => {
       .then((value) => {
         const user = JSON.parse(value).result;
         console.log(value)
-        if (user.UserRole == "PA") {
-          getMySentences(user.ReferenceUserId)
-        }
-        else {
-          getMySentences(user.UserId)
-        }
+        SetSentences(route.params.MyCollections)
+        // if (user.UserRole == "PA") {
+        //   getMySentences(user.ReferenceUserId)
+        // }
+        // else {
+        //   getMySentences(user.UserId)
+        // }
       })
       .catch((error) => {
         console.log(error);

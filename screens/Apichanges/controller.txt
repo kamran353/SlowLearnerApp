@@ -941,16 +941,18 @@ namespace SlowLearnerApi.Controllers
 				List<Collection> Collections = new List<Collection>();
 
 				var CollectoinIds = oneBlankTemplate.CollectionIds.Split(',').ToList();
-				var collections = db.Collections.Where(c => CollectoinIds.Contains(c.CollectionId + "")).ToList();
+				var collections = db.Collections.AsNoTracking().Where(c => CollectoinIds.Contains(c.CategoryType + "")).ToList();
 				foreach (var item in collections)
 				{
 
 					Collection collection = new Collection();
 					collection.DoctorId = oneBlankTemplate.DoctorId;
+					collection.CategoryType = 0;
+					collection.CategoryId = 0;
 					collection.CollectionType = "Sentence";
 					collection.CollectionAudio = item.CollectionAudio;
 					collection.CollectionImage = item.CollectionImage;
-					collection.CollectionText = oneBlankTemplate.Sentence.Replace("_", item.CollectionText);
+					collection.CollectionText = oneBlankTemplate.Sentence+" "+item.CollectionText;
 					Collections.Add(collection);
 				}
 				if (Collections.Count > 0)
@@ -958,7 +960,7 @@ namespace SlowLearnerApi.Controllers
 					db.Collections.AddRange(Collections);
 					db.SaveChanges();
 				}
-				return Request.CreateResponse(HttpStatusCode.OK, "Added");
+				return Request.CreateResponse(HttpStatusCode.OK, Collections);
 			}
 			catch (Exception ex)
 			{
