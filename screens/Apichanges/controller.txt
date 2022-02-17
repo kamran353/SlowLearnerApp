@@ -1330,7 +1330,7 @@ namespace SlowLearnerApi.Controllers
 			try
 			{
 				var generatedSentences = new List<Collection>();
-				var collections = db.Collections.AsNoTracking().Where(t => t.CategoryId == CategoryId).ToList();
+				var collections = db.Collections.AsNoTracking().Where(t => t.CategoryType == CategoryId).ToList();
                 foreach (var item in collections)
                 {
 					var collection = new Collection();
