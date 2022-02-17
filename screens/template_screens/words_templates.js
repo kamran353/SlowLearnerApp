@@ -54,13 +54,13 @@ const wordsTemplates = ({ navigation }) => {
               <View style={styles.infoView}>
                 <Text style={styles.nameTxt}>{item.Cname}</Text>
               </View>
-              <View style={styles.audioView}>
+              {/* <View style={styles.audioView}>
                 <TouchableOpacity onPress={() => UseTemplate(item)}>
                   <Text style={styles.txtLogin}>
                     Use
                   </Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </CardView>
           )}
         /> : <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>

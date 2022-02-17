@@ -21,6 +21,10 @@ const testing = ({ navigation }) => {
       actionText: "Templates"
     },
     {
+      actionName: "WordsTemplates",
+      actionText: "Categories"
+    },
+    {
       actionName: "DocPatients",
       actionText: "Patients"
     },
